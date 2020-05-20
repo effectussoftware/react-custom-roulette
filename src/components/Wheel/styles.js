@@ -19,7 +19,7 @@ export const RouletteContainer = styled.div`
   }
 `
 
-export const RouletteImage = styled(NonDraggableImage)`
+export const RouletteImage = styled.canvas`
   position: absolute;
   width: 99%;
   left: 1px;

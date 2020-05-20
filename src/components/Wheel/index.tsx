@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, createRef } from 'react'
 
-import { getRotationDegrees } from '../../utils'
+import { getRotationDegrees, drawWheel } from '../../utils'
 import { rouletteWithTexts, rouletteSelector } from '../common/images'
 import {
   RouletteContainer,
@@ -26,6 +26,13 @@ export const Wheel = ({ mustStartSpinning, prizeNumber }: Props) => {
 
   const [hasStartedSpinning, setHasStartedSpinning] = useState(false)
   const [hasStoppedSpinning, setHasStoppedSpinning] = useState(false)
+
+  const canvasRef = createRef<HTMLCanvasElement>()
+
+  useEffect(() => {
+    console.log('canvas', canvasRef)
+    drawWheel(canvasRef)
+  }, [])
 
   useEffect(() => {
     if (mustStartSpinning) {
@@ -56,8 +63,9 @@ export const Wheel = ({ mustStartSpinning, prizeNumber }: Props) => {
   return (
     <RouletteContainer>
       <RouletteImage
-        src={rouletteWithTexts}
-        alt="roulette-static"
+        ref={canvasRef}
+        width="1000"
+        height="1000"
         className={getRouletteClass()}
         startSpinningTime={START_SPINNING_TIME}
         continueSpinningTime={CONTINUE_SPINNING_TIME}
