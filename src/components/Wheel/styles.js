@@ -27,7 +27,7 @@ export const RouletteImage = styled(NonDraggableImage)`
   top: 2px;
 
   &.started-spinning {
-    animation: spin ${(props) => props.startSpinningTime / 1000}s
+    animation: spin ${({ startSpinningTime }) => startSpinningTime / 1000}s
         cubic-bezier(0.77, -0.34, 0.96, 0.9) 0s 1 normal forwards running,
       continueSpin 0.75s linear
         ${({ startSpinningTime }) => startSpinningTime / 1000}s 4 normal

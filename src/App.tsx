@@ -7,7 +7,7 @@ const App = () => {
   const [mustSpin, setMustSpin] = useState(false)
   return (
     <AppContainer>
-      <Wheel mustStartSpinning={mustSpin} />
+      <Wheel mustStartSpinning={mustSpin} prizeNumber={3} />
       <button onClick={() => setMustSpin(true)}>ASD</button>
     </AppContainer>
   )
