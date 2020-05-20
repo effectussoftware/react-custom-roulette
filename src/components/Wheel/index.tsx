@@ -11,17 +11,16 @@ import {
 interface Props {
   mustStartSpinning: boolean
   prizeNumber: number
+  data: { option: string; color: string }[]
 }
 
-const PRIZES = [1, 2, 3]
 const STARTED_SPINNING = 'started-spinning'
 
-const NUMBER_OF_PRIZES = 8
 const START_SPINNING_TIME = 2600
 const CONTINUE_SPINNING_TIME = 3000
 const STOP_SPINNING_TIME = 10000
 
-export const Wheel = ({ mustStartSpinning, prizeNumber }: Props) => {
+export const Wheel = ({ mustStartSpinning, prizeNumber, data }: Props) => {
   const [rotationDegrees, setRotationDegrees] = useState(NaN)
 
   const [hasStartedSpinning, setHasStartedSpinning] = useState(false)
@@ -31,7 +30,7 @@ export const Wheel = ({ mustStartSpinning, prizeNumber }: Props) => {
 
   useEffect(() => {
     console.log('canvas', canvasRef)
-    drawWheel(canvasRef)
+    drawWheel(canvasRef, data)
   }, [])
 
   useEffect(() => {
@@ -39,7 +38,7 @@ export const Wheel = ({ mustStartSpinning, prizeNumber }: Props) => {
       startSpinning()
       const finalRotationDegreesCalculated = getRotationDegrees(
         prizeNumber,
-        NUMBER_OF_PRIZES,
+        data.length,
       )
       setRotationDegrees(finalRotationDegreesCalculated)
     }

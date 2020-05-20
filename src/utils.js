@@ -1,49 +1,78 @@
 export const getRotationDegrees = (prizeNumber, numberOfPrizes) => {
   const degreesPerPrize = 360 / numberOfPrizes
-  const randomDifference = (-1 + Math.random() * 2) * degreesPerPrize * 0.4
-  const prizeRotation = degreesPerPrize * (prizeNumber + 1) + randomDifference
+  console.log('degreesPerPrize', degreesPerPrize)
 
-  return prizeNumber > 3 ? -360 + prizeRotation : prizeRotation
+  const initialRotation = 43 + degreesPerPrize / 2
+  console.log('initialRotation', initialRotation)
+
+  const randomDifference = (-1 + Math.random() * 2) * degreesPerPrize * 0.35
+
+  const prizeRotation =
+    degreesPerPrize * (numberOfPrizes - prizeNumber) -
+    initialRotation +
+    randomDifference
+  console.log('prizeRotation', prizeRotation)
+
+  return numberOfPrizes - prizeNumber > numberOfPrizes / 2
+    ? -360 + prizeRotation
+    : prizeRotation
 }
 
-export const drawWheel = (canvasRef) => {
+export const drawWheel = (canvasRef, data, values) => {
+  const QUANTITY = data.length
+
   var canvas = canvasRef.current
   var ctx = canvas.getContext('2d')
-  var lastend = 0
-  var data = new Array(12).fill(1) // If you add more data values make sure you add more colors
+  ctx.clearRect(0, 0, 500, 500)
+  ctx.strokeStyle = 'black'
+  ctx.lineWidth = 2
+  var arc = Math.PI / (QUANTITY / 2)
+  var startAngle = 0
+  var outsideRadius = canvas.width / 2
+  var textRadius = canvas.width / 3.5
+  var insideRadius = 0
   var myTotal = 0 // Automatically calculated so don't touch
-  var myColor = [
-    'red',
-    'green',
-    'blue',
-    'red',
-    'green',
-    'blue',
-    'red',
-    'green',
-    'blue',
-    'red',
-    'green',
-    'blue',
-  ] // Colors of each slice
+  ctx.font = 'bold 50px Helvetica, Arial'
   for (var e = 0; e < data.length; e++) {
     myTotal += data[e]
   }
   for (var i = 0; i < data.length; i++) {
-    ctx.fillStyle = myColor[i]
+    var angle = startAngle + i * arc
+    ctx.fillStyle = data[i].color
+
     ctx.beginPath()
-    ctx.moveTo(canvas.width / 2, canvas.height / 2)
-    // Arc Parameters: x, y, radius, startingAngle (radians), endingAngle (radians), antiClockwise (boolean)
     ctx.arc(
       canvas.width / 2,
       canvas.height / 2,
-      canvas.height / 2,
-      lastend,
-      lastend + Math.PI * 2 * (data[i] / myTotal),
+      outsideRadius,
+      angle,
+      angle + arc,
       false,
     )
-    ctx.lineTo(canvas.width / 2, canvas.height / 2)
+    ctx.arc(
+      canvas.width / 2,
+      canvas.height / 2,
+      insideRadius,
+      angle + arc,
+      angle,
+      true,
+    )
+    ctx.stroke()
     ctx.fill()
-    lastend += Math.PI * 2 * (data[i] / myTotal)
+
+    ctx.save()
+    ctx.shadowOffsetX = -1
+    ctx.shadowOffsetY = -1
+    ctx.shadowBlur = 0
+    ctx.shadowColor = 'rgb(220,220,220)'
+    ctx.fillStyle = 'black'
+    ctx.translate(
+      canvas.width / 2 + Math.cos(angle + arc / 2) * textRadius,
+      canvas.height / 2 + Math.sin(angle + arc / 2) * textRadius,
+    )
+    ctx.rotate(angle + arc / 2)
+    var text = data[i].option
+    ctx.fillText(text, -ctx.measureText(text).width / 2, 15)
+    ctx.restore()
   }
 }
