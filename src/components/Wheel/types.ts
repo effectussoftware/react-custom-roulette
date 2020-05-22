@@ -1,6 +1,6 @@
 export interface WheelData {
   option: string;
-  style: StyleType;
+  style?: StyleType;
 }
 
 interface StyleType {

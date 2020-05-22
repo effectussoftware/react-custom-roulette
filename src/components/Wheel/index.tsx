@@ -1,71 +1,99 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from 'react'
 
-import { getRotationDegrees } from "../../utils";
-import { rouletteSelector } from "../common/images";
+import { getRotationDegrees } from '../../utils'
+import { rouletteSelector } from '../common/images'
 import {
   RouletteContainer,
   RouletteSelectorImage,
   RotationContainer,
-} from "./styles";
-
-import { WheelData } from "./types";
-import WheelCanvas from "../WheelCanvas";
+} from './styles'
+import { DEFAULT_BACKGROUND_COLORS, DEFAULT_TEXT_COLORS } from '../../strings'
+import { WheelData } from './types'
+import WheelCanvas from '../WheelCanvas'
 
 interface Props {
-  mustStartSpinning: boolean;
-  prizeNumber: number;
-  data: WheelData[];
-  onStopSpinning?: () => any;
+  mustStartSpinning: boolean
+  prizeNumber: number
+  data: WheelData[]
+  onStopSpinning?: () => any
+  fillBackgroundColors?: string[]
+  fillTextColors?: string[]
 }
 
-const STARTED_SPINNING = "started-spinning";
+const STARTED_SPINNING = 'started-spinning'
 
-const START_SPINNING_TIME = 2600;
-const CONTINUE_SPINNING_TIME = 3000;
-const STOP_SPINNING_TIME = 10000;
+const START_SPINNING_TIME = 2600
+const CONTINUE_SPINNING_TIME = 3000
+const STOP_SPINNING_TIME = 10000
 
 export const Wheel = ({
   mustStartSpinning,
   prizeNumber,
   data,
   onStopSpinning = () => {},
+  fillBackgroundColors = DEFAULT_BACKGROUND_COLORS,
+  fillTextColors = DEFAULT_TEXT_COLORS,
 }: Props) => {
-  const [rotationDegrees, setRotationDegrees] = useState(NaN);
+  const wheelData = useRef<WheelData[]>([...data])
+  const [rotationDegrees, setRotationDegrees] = useState(NaN)
+  const [hasStartedSpinning, setHasStartedSpinning] = useState(false)
+  const [hasStoppedSpinning, setHasStoppedSpinning] = useState(false)
+  const [isDataUpdated, setIsDataUpdated] = useState(false)
 
-  const [hasStartedSpinning, setHasStartedSpinning] = useState(false);
-  const [hasStoppedSpinning, setHasStoppedSpinning] = useState(false);
+  useEffect(() => {
+    const dataLength = data.length
+    wheelData.current = [...data]
+    for (let i = 0; i < dataLength; i++) {
+      wheelData.current[i] = {
+        ...data[i],
+        style: {
+          backgroundColor:
+            data[i].style?.backgroundColor ||
+            fillBackgroundColors[i % fillBackgroundColors.length],
+          textColor:
+            data[i].style?.textColor ||
+            fillTextColors[i % fillTextColors.length],
+        },
+      }
+    }
+    setIsDataUpdated(true)
+  }, [data, fillBackgroundColors, fillTextColors])
 
   useEffect(() => {
     if (mustStartSpinning) {
-      startSpinning();
+      startSpinning()
       const finalRotationDegreesCalculated = getRotationDegrees(
         prizeNumber,
-        data.length
-      );
-      setRotationDegrees(finalRotationDegreesCalculated);
+        data.length,
+      )
+      setRotationDegrees(finalRotationDegreesCalculated)
     }
-  }, [data.length, mustStartSpinning, prizeNumber]);
+  }, [data.length, mustStartSpinning, prizeNumber])
 
   useEffect(() => {
     if (hasStoppedSpinning) {
-      onStopSpinning();
+      onStopSpinning()
     }
-  }, [hasStoppedSpinning, onStopSpinning]);
+  }, [hasStoppedSpinning, onStopSpinning])
 
   const startSpinning = () => {
-    setHasStartedSpinning(true);
+    setHasStartedSpinning(true)
     setTimeout(
       () => setHasStoppedSpinning(true),
-      START_SPINNING_TIME + CONTINUE_SPINNING_TIME + STOP_SPINNING_TIME - 300
-    );
-  };
+      START_SPINNING_TIME + CONTINUE_SPINNING_TIME + STOP_SPINNING_TIME - 300,
+    )
+  }
 
   const getRouletteClass = () => {
     if (hasStartedSpinning) {
-      return STARTED_SPINNING;
+      return STARTED_SPINNING
     }
-    return "";
-  };
+    return ''
+  }
+
+  if (!isDataUpdated) {
+    return null
+  }
 
   return (
     <RouletteContainer>
@@ -76,9 +104,15 @@ export const Wheel = ({
         stopSpinningTime={STOP_SPINNING_TIME}
         finalRotationDegrees={rotationDegrees}
       >
-        <WheelCanvas width="1500" height="1500" data={data} />
+        <WheelCanvas
+          width="1500"
+          height="1500"
+          data={wheelData.current}
+          fillTextColors={fillTextColors}
+          fillBackgroundColors={fillBackgroundColors}
+        />
       </RotationContainer>
       <RouletteSelectorImage src={rouletteSelector} alt="roulette-static" />
     </RouletteContainer>
-  );
-};
+  )
+}
