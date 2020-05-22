@@ -1,49 +1,44 @@
-import React, { useState, createRef } from 'react'
+import React, { useState } from "react";
 
-import { Wheel } from './components/Wheel'
-import { AppContainer } from './styles'
+import { Wheel } from "./components/Wheel";
+import { AppContainer } from "./styles";
+import { WheelData } from "./components/Wheel/types";
 
-interface State {
-  mustSpin: boolean
-}
+const data: WheelData[] = [
+  {
+    option: "0safasfssfas",
+    style: { backgroundColor: "cyan", textColor: "white" },
+  },
+  { option: "1", style: { backgroundColor: "blue" } },
+  { option: "2", style: { backgroundColor: "red" } },
+  { option: "3", style: { backgroundColor: "yellow" } },
+  { option: "4", style: { backgroundColor: "grey" } },
+  { option: "5", style: { backgroundColor: "green" } },
+  { option: "6", style: { backgroundColor: "black" } },
+  { option: "7", style: { backgroundColor: "white" } },
+  { option: "8", style: { backgroundColor: "darkred" } },
+  { option: "9", style: { backgroundColor: "gold" } },
+  { option: "10", style: { backgroundColor: "silver" } },
+  { option: "11", style: { backgroundColor: "magenta" } },
+  { option: "12", style: { backgroundColor: "orange" } },
+  { option: "13", style: { backgroundColor: "darkgrey" } },
+  { option: "14", style: { backgroundColor: "lightgreen" } },
+  { option: "15", style: { backgroundColor: "darkblue" } },
+  { option: "16", style: { backgroundColor: "darkcyan" } },
+  { option: "17", style: { backgroundColor: "darkmagenta" } },
+  { option: "18", style: { backgroundColor: "lightyellow" } },
+  { option: "19", style: { backgroundColor: "lightgrey" } },
+];
 
-const data = [
-  { option: '0', color: 'cyan' },
-  { option: '1', color: 'blue' },
-  { option: '2', color: 'red' },
-  { option: '3', color: 'yellow' },
-  { option: '4', color: 'grey' },
-  { option: '5', color: 'green' },
-  { option: '6', color: 'black' },
-  { option: '7', color: 'white' },
-  { option: '8', color: 'darkred' },
-  { option: '9', color: 'gold' },
-  { option: '10', color: 'silver' },
-  { option: '11', color: 'magenta' },
-  { option: '12', color: 'orange' },
-  { option: '13', color: 'darkgrey' },
-  { option: '14', color: 'lightgreen' },
-  { option: '15', color: 'darkblue' },
-  { option: '16', color: 'darkcyan' },
-  { option: '17', color: 'darkmagenta' },
-  { option: '18', color: 'lightyellow' },
-  { option: '19', color: 'lightgrey' },
-]
-class App extends React.Component<{}, State> {
-  constructor(props: any) {
-    super(props)
-    this.state = { mustSpin: false }
-  }
+const App = () => {
+  const [mustSpin, setMustSpin] = useState(false);
 
-  render() {
-    const { mustSpin } = this.state
-    return (
-      <AppContainer>
-        <Wheel mustStartSpinning={mustSpin} prizeNumber={10} data={data} />
-        <button onClick={() => this.setState({ mustSpin: true })}>ASD</button>
-      </AppContainer>
-    )
-  }
-}
+  return (
+    <AppContainer>
+      <Wheel mustStartSpinning={mustSpin} prizeNumber={2} data={data} />
+      <button onClick={() => setMustSpin(true)}>ASD</button>
+    </AppContainer>
+  );
+};
 
-export default App
+export default App;

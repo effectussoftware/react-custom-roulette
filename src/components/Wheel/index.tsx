@@ -1,77 +1,84 @@
-import React, { useState, useEffect, createRef } from 'react'
+import React, { useState, useEffect } from "react";
 
-import { getRotationDegrees, drawWheel } from '../../utils'
-import { rouletteWithTexts, rouletteSelector } from '../common/images'
+import { getRotationDegrees } from "../../utils";
+import { rouletteSelector } from "../common/images";
 import {
   RouletteContainer,
-  RouletteImage,
   RouletteSelectorImage,
-} from './styles'
+  RotationContainer,
+} from "./styles";
+
+import { WheelData } from "./types";
+import WheelCanvas from "../WheelCanvas";
 
 interface Props {
-  mustStartSpinning: boolean
-  prizeNumber: number
-  data: { option: string; color: string }[]
+  mustStartSpinning: boolean;
+  prizeNumber: number;
+  data: WheelData[];
+  onStopSpinning?: () => any;
 }
 
-const STARTED_SPINNING = 'started-spinning'
+const STARTED_SPINNING = "started-spinning";
 
-const START_SPINNING_TIME = 2600
-const CONTINUE_SPINNING_TIME = 3000
-const STOP_SPINNING_TIME = 10000
+const START_SPINNING_TIME = 2600;
+const CONTINUE_SPINNING_TIME = 3000;
+const STOP_SPINNING_TIME = 10000;
 
-export const Wheel = ({ mustStartSpinning, prizeNumber, data }: Props) => {
-  const [rotationDegrees, setRotationDegrees] = useState(NaN)
+export const Wheel = ({
+  mustStartSpinning,
+  prizeNumber,
+  data,
+  onStopSpinning = () => {},
+}: Props) => {
+  const [rotationDegrees, setRotationDegrees] = useState(NaN);
 
-  const [hasStartedSpinning, setHasStartedSpinning] = useState(false)
-  const [hasStoppedSpinning, setHasStoppedSpinning] = useState(false)
-
-  const canvasRef = createRef<HTMLCanvasElement>()
-
-  useEffect(() => {
-    console.log('canvas', canvasRef)
-    drawWheel(canvasRef, data)
-  }, [])
+  const [hasStartedSpinning, setHasStartedSpinning] = useState(false);
+  const [hasStoppedSpinning, setHasStoppedSpinning] = useState(false);
 
   useEffect(() => {
     if (mustStartSpinning) {
-      startSpinning()
+      startSpinning();
       const finalRotationDegreesCalculated = getRotationDegrees(
         prizeNumber,
-        data.length,
-      )
-      setRotationDegrees(finalRotationDegreesCalculated)
+        data.length
+      );
+      setRotationDegrees(finalRotationDegreesCalculated);
     }
-  }, [mustStartSpinning])
+  }, [data.length, mustStartSpinning, prizeNumber]);
+
+  useEffect(() => {
+    if (hasStoppedSpinning) {
+      onStopSpinning();
+    }
+  }, [hasStoppedSpinning, onStopSpinning]);
 
   const startSpinning = () => {
-    setHasStartedSpinning(true)
+    setHasStartedSpinning(true);
     setTimeout(
       () => setHasStoppedSpinning(true),
-      START_SPINNING_TIME + CONTINUE_SPINNING_TIME + STOP_SPINNING_TIME - 300,
-    )
-  }
+      START_SPINNING_TIME + CONTINUE_SPINNING_TIME + STOP_SPINNING_TIME - 300
+    );
+  };
 
   const getRouletteClass = () => {
     if (hasStartedSpinning) {
-      return STARTED_SPINNING
+      return STARTED_SPINNING;
     }
-    return ''
-  }
+    return "";
+  };
 
   return (
     <RouletteContainer>
-      <RouletteImage
-        ref={canvasRef}
-        width="1000"
-        height="1000"
+      <RotationContainer
         className={getRouletteClass()}
         startSpinningTime={START_SPINNING_TIME}
         continueSpinningTime={CONTINUE_SPINNING_TIME}
         stopSpinningTime={STOP_SPINNING_TIME}
         finalRotationDegrees={rotationDegrees}
-      />
+      >
+        <WheelCanvas width="1500" height="1500" data={data} />
+      </RotationContainer>
       <RouletteSelectorImage src={rouletteSelector} alt="roulette-static" />
     </RouletteContainer>
-  )
-}
+  );
+};

@@ -1,7 +1,6 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
-import { STARTED_SPINNING } from './index'
-import { NonDraggableImage } from '../common/styledComponents'
+import { NonDraggableImage } from "../common/styledComponents";
 
 export const RouletteContainer = styled.div`
   position: relative;
@@ -17,14 +16,18 @@ export const RouletteContainer = styled.div`
   @media only screen and (max-width: 600px) {
     width: 78%;
   }
-`
+`;
 
-export const RouletteImage = styled.canvas`
+export const RotationContainer = styled.div`
   position: absolute;
-  width: 99%;
-  left: 1px;
-  right: 0;
-  top: 2px;
+  width: 100%;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &.started-spinning {
     animation: spin ${({ startSpinningTime }) => startSpinningTime / 1000}s
@@ -63,7 +66,7 @@ export const RouletteImage = styled.canvas`
       transform: rotate(${(props) => 1440 + props.finalRotationDegrees}deg);
     }
   }
-`
+`;
 
 export const RouletteSelectorImage = styled(NonDraggableImage)`
   position: absolute;
@@ -71,4 +74,4 @@ export const RouletteSelectorImage = styled(NonDraggableImage)`
   width: 17%;
   right: 0;
   top: 9px;
-`
+`;
