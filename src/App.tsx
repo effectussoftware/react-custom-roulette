@@ -17,7 +17,7 @@ const data: WheelData[] = [
   { option: '7' },
   // { option: '8' },
   // { option: '9' },
-  // { option: '10' },
+  // { option: '10', style: { textColor: '#f9dd50' } },
   // { option: '11' },
   // { option: '12' },
   // { option: '13' },
@@ -33,6 +33,9 @@ const backgroundColors = ['#ff8f43', '#70bbe0', '#0b3351', '#f9dd50']
 const textColors = ['#0b3351']
 const borderColor = 'white'
 const radiusColor = 'white'
+const borderWidth = 8
+const radiusWidth = 8
+const fontSize = 25
 
 const App = () => {
   const [mustSpin, setMustSpin] = useState(false)
@@ -45,8 +48,11 @@ const App = () => {
         data={data}
         fillBackgroundColors={backgroundColors}
         fillTextColors={textColors}
+        fontSize={fontSize}
         borderColor={borderColor}
+        borderWidth={borderWidth}
         radiusColor={radiusColor}
+        radiusWidth={radiusWidth}
       />
       <button onClick={() => setMustSpin(true)}>ASD</button>
     </AppContainer>

@@ -3,23 +3,33 @@ import React, { RefObject, createRef, useEffect } from 'react'
 import { WheelCanvasStyle } from './styles'
 import { WheelData } from '../Wheel/types'
 
-interface WheelCanvasProps {
+interface WheelCanvasProps extends DrawWheelProps {
   width: string
   height: string
   data: WheelData[]
-  fillBackgroundColors: string[]
-  fillTextColors: string[]
+}
+
+interface DrawWheelProps {
   borderColor: string
   radiusColor: string
+  borderWidth: number
+  radiusWidth: number
+  fontSize: number
 }
 
 const drawWheel = (
   canvasRef: RefObject<HTMLCanvasElement>,
   data: WheelData[],
-  borderColor: string,
-  radiusColor: string,
+  drawWheelProps: DrawWheelProps,
 ) => {
   const QUANTITY = data.length
+  const {
+    borderColor,
+    radiusColor,
+    borderWidth,
+    radiusWidth,
+    fontSize,
+  } = drawWheelProps
 
   var canvas = canvasRef.current
   if (canvas?.getContext('2d')) {
@@ -36,7 +46,7 @@ const drawWheel = (
     var centerX = canvas.width / 2
     var centerY = canvas.height / 2
 
-    ctx.font = 'bold 70px Helvetica, Arial'
+    ctx.font = `bold ${fontSize}px Helvetica, Arial`
 
     for (var i = 0; i < data.length; i++) {
       var angle = startAngle + i * arc
@@ -58,13 +68,13 @@ const drawWheel = (
       )
       ctx.rotate(angle + arc / 2)
       var text = data[i].option
-      ctx.fillText(text, -ctx.measureText(text).width / 2, 20)
+      ctx.fillText(text, -ctx.measureText(text).width / 2, fontSize / 2.7)
       ctx.restore()
     }
 
     // WHEEL RADIUS LINES
     ctx.strokeStyle = radiusColor
-    ctx.lineWidth = 20
+    ctx.lineWidth = radiusWidth
     for (var j = 0; j < data.length; j++) {
       var radiusAngle = startAngle + j * arc
       ctx.beginPath()
@@ -79,9 +89,15 @@ const drawWheel = (
 
     // WHEEL BORDER
     ctx.strokeStyle = borderColor
-    ctx.lineWidth = 20
+    ctx.lineWidth = borderWidth
     ctx.beginPath()
-    ctx.arc(centerX, centerY, outsideRadius - ctx.lineWidth / 2, 0, 2 * Math.PI)
+    ctx.arc(
+      centerX,
+      centerY,
+      outsideRadius - ctx.lineWidth / 2 + 2,
+      0,
+      2 * Math.PI,
+    )
     ctx.stroke()
   }
 }
@@ -92,12 +108,22 @@ const WheelCanvas = ({
   data,
   borderColor,
   radiusColor,
+  borderWidth,
+  radiusWidth,
+  fontSize,
 }: WheelCanvasProps) => {
   const canvasRef = createRef<HTMLCanvasElement>()
+  const drawWheelProps = {
+    borderColor,
+    radiusColor,
+    borderWidth,
+    radiusWidth,
+    fontSize,
+  }
 
   useEffect(() => {
-    drawWheel(canvasRef, data, borderColor, radiusColor)
-  }, [canvasRef, data, borderColor, radiusColor])
+    drawWheel(canvasRef, data, drawWheelProps)
+  }, [canvasRef, data, drawWheelProps])
 
   return <WheelCanvasStyle ref={canvasRef} width={width} height={height} />
 }

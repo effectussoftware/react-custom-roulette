@@ -12,6 +12,9 @@ import {
   DEFAULT_TEXT_COLORS,
   DEFAULT_BORDER_COLOR,
   DEFAULT_LINE_COLOR,
+  DEFAULT_BORDER_WIDTH,
+  DEFAULT_RADIUS_WIDTH,
+  DEFAULT_FONT_SIZE,
 } from '../../strings'
 import { WheelData } from './types'
 import WheelCanvas from '../WheelCanvas'
@@ -24,7 +27,10 @@ interface Props {
   fillBackgroundColors?: string[]
   fillTextColors?: string[]
   borderColor?: string
+  borderWidth?: number
   radiusColor?: string
+  radiusWidth?: number
+  fontSize?: number
 }
 
 const STARTED_SPINNING = 'started-spinning'
@@ -42,6 +48,9 @@ export const Wheel = ({
   fillTextColors = DEFAULT_TEXT_COLORS,
   borderColor = DEFAULT_BORDER_COLOR,
   radiusColor = DEFAULT_LINE_COLOR,
+  borderWidth = DEFAULT_BORDER_WIDTH,
+  radiusWidth = DEFAULT_RADIUS_WIDTH,
+  fontSize = DEFAULT_FONT_SIZE,
 }: Props) => {
   const wheelData = useRef<WheelData[]>([...data])
   const [rotationDegrees, setRotationDegrees] = useState(NaN)
@@ -114,13 +123,14 @@ export const Wheel = ({
         finalRotationDegrees={rotationDegrees}
       >
         <WheelCanvas
-          width="1500"
-          height="1500"
+          width="450"
+          height="450"
           data={wheelData.current}
-          fillTextColors={fillTextColors}
-          fillBackgroundColors={fillBackgroundColors}
           borderColor={borderColor}
           radiusColor={radiusColor}
+          borderWidth={borderWidth}
+          radiusWidth={radiusWidth}
+          fontSize={fontSize}
         />
       </RotationContainer>
       <RouletteSelectorImage src={rouletteSelector} alt="roulette-static" />
