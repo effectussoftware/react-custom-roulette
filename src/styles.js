@@ -8,4 +8,6 @@ export const AppContainer = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+  background-color: #2d2d2d;
+  overflow: hidden;
 `

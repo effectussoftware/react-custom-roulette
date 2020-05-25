@@ -1,22 +1,18 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
-import { NonDraggableImage } from "../common/styledComponents";
+import { NonDraggableImage } from '../common/styledComponents'
 
 export const RouletteContainer = styled.div`
   position: relative;
-  width: 88%;
+  width: 80vw;
   max-width: 445px;
-  height: 100%;
+  height: 80vw;
   max-height: 445px;
   object-fit: contain;
-  flex: 1;
-  overflow: hidden;
+  flex-shrink: 0;
   z-index: 5;
-
-  @media only screen and (max-width: 600px) {
-    width: 78%;
-  }
-`;
+  pointer-events: none;
+`
 
 export const RotationContainer = styled.div`
   position: absolute;
@@ -66,7 +62,7 @@ export const RotationContainer = styled.div`
       transform: rotate(${(props) => 1440 + props.finalRotationDegrees}deg);
     }
   }
-`;
+`
 
 export const RouletteSelectorImage = styled(NonDraggableImage)`
   position: absolute;
@@ -74,4 +70,4 @@ export const RouletteSelectorImage = styled(NonDraggableImage)`
   width: 17%;
   right: 0;
   top: 9px;
-`;
+`

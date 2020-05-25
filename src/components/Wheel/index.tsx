@@ -7,7 +7,12 @@ import {
   RouletteSelectorImage,
   RotationContainer,
 } from './styles'
-import { DEFAULT_BACKGROUND_COLORS, DEFAULT_TEXT_COLORS } from '../../strings'
+import {
+  DEFAULT_BACKGROUND_COLORS,
+  DEFAULT_TEXT_COLORS,
+  DEFAULT_BORDER_COLOR,
+  DEFAULT_LINE_COLOR,
+} from '../../strings'
 import { WheelData } from './types'
 import WheelCanvas from '../WheelCanvas'
 
@@ -18,6 +23,8 @@ interface Props {
   onStopSpinning?: () => any
   fillBackgroundColors?: string[]
   fillTextColors?: string[]
+  borderColor?: string
+  radiusColor?: string
 }
 
 const STARTED_SPINNING = 'started-spinning'
@@ -33,6 +40,8 @@ export const Wheel = ({
   onStopSpinning = () => {},
   fillBackgroundColors = DEFAULT_BACKGROUND_COLORS,
   fillTextColors = DEFAULT_TEXT_COLORS,
+  borderColor = DEFAULT_BORDER_COLOR,
+  radiusColor = DEFAULT_LINE_COLOR,
 }: Props) => {
   const wheelData = useRef<WheelData[]>([...data])
   const [rotationDegrees, setRotationDegrees] = useState(NaN)
@@ -110,6 +119,8 @@ export const Wheel = ({
           data={wheelData.current}
           fillTextColors={fillTextColors}
           fillBackgroundColors={fillBackgroundColors}
+          borderColor={borderColor}
+          radiusColor={radiusColor}
         />
       </RotationContainer>
       <RouletteSelectorImage src={rouletteSelector} alt="roulette-static" />
