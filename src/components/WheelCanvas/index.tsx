@@ -15,6 +15,7 @@ interface DrawWheelProps {
   borderWidth: number
   radiusWidth: number
   fontSize: number
+  perpendicularText: boolean
 }
 
 const drawWheel = (
@@ -29,6 +30,7 @@ const drawWheel = (
     borderWidth,
     radiusWidth,
     fontSize,
+    perpendicularText,
   } = drawWheelProps
 
   var canvas = canvasRef.current
@@ -61,13 +63,17 @@ const drawWheel = (
 
       ctx.save()
 
+      // TEXT FILL
       ctx.fillStyle = (style && style.textColor) as string
       ctx.translate(
         centerX + Math.cos(angle + arc / 2) * textRadius,
         centerY + Math.sin(angle + arc / 2) * textRadius,
       )
-      ctx.rotate(angle + arc / 2)
       var text = data[i].option
+      var textRotationAngle = perpendicularText
+        ? angle + arc / 2 + Math.PI / 2
+        : angle + arc / 2
+      ctx.rotate(textRotationAngle)
       ctx.fillText(text, -ctx.measureText(text).width / 2, fontSize / 2.7)
       ctx.restore()
     }
@@ -111,6 +117,7 @@ const WheelCanvas = ({
   borderWidth,
   radiusWidth,
   fontSize,
+  perpendicularText,
 }: WheelCanvasProps) => {
   const canvasRef = createRef<HTMLCanvasElement>()
   const drawWheelProps = {
@@ -119,6 +126,7 @@ const WheelCanvas = ({
     borderWidth,
     radiusWidth,
     fontSize,
+    perpendicularText,
   }
 
   useEffect(() => {

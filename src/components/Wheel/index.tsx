@@ -24,13 +24,14 @@ interface Props {
   prizeNumber: number
   data: WheelData[]
   onStopSpinning?: () => any
-  fillBackgroundColors?: string[]
-  fillTextColors?: string[]
+  backgroundColors?: string[]
+  textColors?: string[]
   borderColor?: string
   borderWidth?: number
   radiusColor?: string
   radiusWidth?: number
   fontSize?: number
+  perpendicularText?: boolean
 }
 
 const STARTED_SPINNING = 'started-spinning'
@@ -44,13 +45,14 @@ export const Wheel = ({
   prizeNumber,
   data,
   onStopSpinning = () => {},
-  fillBackgroundColors = DEFAULT_BACKGROUND_COLORS,
-  fillTextColors = DEFAULT_TEXT_COLORS,
+  backgroundColors = DEFAULT_BACKGROUND_COLORS,
+  textColors = DEFAULT_TEXT_COLORS,
   borderColor = DEFAULT_BORDER_COLOR,
   radiusColor = DEFAULT_LINE_COLOR,
   borderWidth = DEFAULT_BORDER_WIDTH,
   radiusWidth = DEFAULT_RADIUS_WIDTH,
   fontSize = DEFAULT_FONT_SIZE,
+  perpendicularText = false,
 }: Props) => {
   const wheelData = useRef<WheelData[]>([...data])
   const [rotationDegrees, setRotationDegrees] = useState(NaN)
@@ -67,15 +69,14 @@ export const Wheel = ({
         style: {
           backgroundColor:
             data[i].style?.backgroundColor ||
-            fillBackgroundColors[i % fillBackgroundColors.length],
+            backgroundColors[i % backgroundColors.length],
           textColor:
-            data[i].style?.textColor ||
-            fillTextColors[i % fillTextColors.length],
+            data[i].style?.textColor || textColors[i % textColors.length],
         },
       }
     }
     setIsDataUpdated(true)
-  }, [data, fillBackgroundColors, fillTextColors])
+  }, [data, backgroundColors, textColors])
 
   useEffect(() => {
     if (mustStartSpinning) {
@@ -131,6 +132,7 @@ export const Wheel = ({
           borderWidth={borderWidth}
           radiusWidth={radiusWidth}
           fontSize={fontSize}
+          perpendicularText={perpendicularText}
         />
       </RotationContainer>
       <RouletteSelectorImage src={rouletteSelector} alt="roulette-static" />

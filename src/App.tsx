@@ -5,9 +5,7 @@ import { AppContainer } from './styles'
 import { WheelData } from './components/Wheel/types'
 
 const data: WheelData[] = [
-  {
-    option: 'ASD',
-  },
+  { option: 'ASDFG' },
   { option: '1' },
   { option: '2', style: { textColor: '#f9dd50' } },
   { option: '3' },
@@ -46,13 +44,14 @@ const App = () => {
         mustStartSpinning={mustSpin}
         prizeNumber={0}
         data={data}
-        fillBackgroundColors={backgroundColors}
-        fillTextColors={textColors}
+        backgroundColors={backgroundColors}
+        textColors={textColors}
         fontSize={fontSize}
         borderColor={borderColor}
         borderWidth={borderWidth}
         radiusColor={radiusColor}
         radiusWidth={radiusWidth}
+        perpendicularText
       />
       <button onClick={() => setMustSpin(true)}>ASD</button>
     </AppContainer>
