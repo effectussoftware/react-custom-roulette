@@ -10,11 +10,15 @@ import {
 import {
   DEFAULT_BACKGROUND_COLORS,
   DEFAULT_TEXT_COLORS,
-  DEFAULT_BORDER_COLOR,
-  DEFAULT_LINE_COLOR,
-  DEFAULT_BORDER_WIDTH,
-  DEFAULT_RADIUS_WIDTH,
+  DEFAULT_OUTER_BORDER_COLOR,
+  DEFAULT_OUTER_BORDER_WIDTH,
+  DEFAULT_INNER_RADIUS,
+  DEFAULT_INNER_BORDER_COLOR,
+  DEFAULT_INNER_BORDER_WIDTH,
+  DEFAULT_RADIUS_LINE_COLOR,
+  DEFAULT_RADIUS_LINE_WIDTH,
   DEFAULT_FONT_SIZE,
+  DEFAULT_TEXT_DISTANCE,
 } from '../../strings'
 import { WheelData } from './types'
 import WheelCanvas from '../WheelCanvas'
@@ -26,12 +30,16 @@ interface Props {
   onStopSpinning?: () => any
   backgroundColors?: string[]
   textColors?: string[]
-  borderColor?: string
-  borderWidth?: number
-  radiusColor?: string
-  radiusWidth?: number
+  outerBorderColor?: string
+  outerBorderWidth?: number
+  innerRadius?: number
+  innerBorderColor?: string
+  innerBorderWidth?: number
+  radiusLineColor?: string
+  radiusLineWidth?: number
   fontSize?: number
   perpendicularText?: boolean
+  textDistance?: number
 }
 
 const STARTED_SPINNING = 'started-spinning'
@@ -47,12 +55,16 @@ export const Wheel = ({
   onStopSpinning = () => {},
   backgroundColors = DEFAULT_BACKGROUND_COLORS,
   textColors = DEFAULT_TEXT_COLORS,
-  borderColor = DEFAULT_BORDER_COLOR,
-  radiusColor = DEFAULT_LINE_COLOR,
-  borderWidth = DEFAULT_BORDER_WIDTH,
-  radiusWidth = DEFAULT_RADIUS_WIDTH,
+  outerBorderColor = DEFAULT_OUTER_BORDER_COLOR,
+  outerBorderWidth = DEFAULT_OUTER_BORDER_WIDTH,
+  innerRadius = DEFAULT_INNER_RADIUS,
+  innerBorderColor = DEFAULT_INNER_BORDER_COLOR,
+  innerBorderWidth = DEFAULT_INNER_BORDER_WIDTH,
+  radiusLineColor = DEFAULT_RADIUS_LINE_COLOR,
+  radiusLineWidth = DEFAULT_RADIUS_LINE_WIDTH,
   fontSize = DEFAULT_FONT_SIZE,
   perpendicularText = false,
+  textDistance = DEFAULT_TEXT_DISTANCE,
 }: Props) => {
   const wheelData = useRef<WheelData[]>([...data])
   const [rotationDegrees, setRotationDegrees] = useState(NaN)
@@ -124,15 +136,19 @@ export const Wheel = ({
         finalRotationDegrees={rotationDegrees}
       >
         <WheelCanvas
-          width="450"
-          height="450"
+          width="900"
+          height="900"
           data={wheelData.current}
-          borderColor={borderColor}
-          radiusColor={radiusColor}
-          borderWidth={borderWidth}
-          radiusWidth={radiusWidth}
+          outerBorderColor={outerBorderColor}
+          outerBorderWidth={outerBorderWidth}
+          innerRadius={innerRadius}
+          innerBorderColor={innerBorderColor}
+          innerBorderWidth={innerBorderWidth}
+          radiusLineColor={radiusLineColor}
+          radiusLineWidth={radiusLineWidth}
           fontSize={fontSize}
           perpendicularText={perpendicularText}
+          textDistance={textDistance}
         />
       </RotationContainer>
       <RouletteSelectorImage src={rouletteSelector} alt="roulette-static" />
