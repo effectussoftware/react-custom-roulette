@@ -50,6 +50,18 @@ const radiusLineWidth = 2
 const fontSize = 20
 const textDistance = 90
 
+// const backgroundColors = ['#ff8f43', '#70bbe0', '#0b3351', '#f9dd50']
+// const textColors = ['#0b3351']
+// const outerBorderColor = 'white'
+// const outerBorderWidth = 6
+// const innerBorderColor = 'white'
+// const innerBorderWidth = 0
+// const innerRadius = 0
+// const radiusLineColor = 'white'
+// const radiusLineWidth = 5
+// const fontSize = 20
+// const textDistance = 70
+
 const App = () => {
   const [mustSpin, setMustSpin] = useState(false)
 
