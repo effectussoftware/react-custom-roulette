@@ -1,8 +1,8 @@
 {
-  "name": "react-wheel-of-fortune",
-  "version": "1.0.0",
+  "name": "react-custom-wheel-of-fortune",
+  "version": "1.0.4",
   "description": "customizable wheel of fortune with spinning animation",
-  "main": "./src",
+  "main": "./dist/bundle.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/effectussoftware/wheel-of-fortune"
@@ -23,6 +23,7 @@
     "webpack": "^4.43.0"
   },
   "scripts": {
+    "start-server": "react-scripts start",
     "start": "webpack --watch",
     "build": "webpack",
     "test": "react-scripts test",
@@ -57,6 +58,7 @@
     "ts-loader": "^7.0.5",
     "typescript": "^3.7.5",
     "url-loader": "^4.1.0",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
   }
 }

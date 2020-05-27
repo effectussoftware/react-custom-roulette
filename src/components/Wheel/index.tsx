@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from "react";
 
-import { getRotationDegrees } from '../../utils'
-import { rouletteSelector } from '../common/images'
+import { getRotationDegrees } from "../../utils";
+import { rouletteSelector } from "../common/images";
 import {
   RouletteContainer,
   RouletteSelectorImage,
   RotationContainer,
-} from './styles'
+} from "./styles";
 import {
   DEFAULT_BACKGROUND_COLORS,
   DEFAULT_TEXT_COLORS,
@@ -19,34 +19,34 @@ import {
   DEFAULT_RADIUS_LINE_WIDTH,
   DEFAULT_FONT_SIZE,
   DEFAULT_TEXT_DISTANCE,
-} from '../../strings'
-import { WheelData } from './types'
-import WheelCanvas from '../WheelCanvas'
+} from "../../strings";
+import { WheelData } from "./types";
+import WheelCanvas from "../WheelCanvas";
 
 interface Props {
-  mustStartSpinning: boolean
-  prizeNumber: number
-  data: WheelData[]
-  onStopSpinning?: () => any
-  backgroundColors?: string[]
-  textColors?: string[]
-  outerBorderColor?: string
-  outerBorderWidth?: number
-  innerRadius?: number
-  innerBorderColor?: string
-  innerBorderWidth?: number
-  radiusLineColor?: string
-  radiusLineWidth?: number
-  fontSize?: number
-  perpendicularText?: boolean
-  textDistance?: number
+  mustStartSpinning: boolean;
+  prizeNumber: number;
+  data: WheelData[];
+  onStopSpinning?: () => any;
+  backgroundColors?: string[];
+  textColors?: string[];
+  outerBorderColor?: string;
+  outerBorderWidth?: number;
+  innerRadius?: number;
+  innerBorderColor?: string;
+  innerBorderWidth?: number;
+  radiusLineColor?: string;
+  radiusLineWidth?: number;
+  fontSize?: number;
+  perpendicularText?: boolean;
+  textDistance?: number;
 }
 
-const STARTED_SPINNING = 'started-spinning'
+const STARTED_SPINNING = "started-spinning";
 
-const START_SPINNING_TIME = 2600
-const CONTINUE_SPINNING_TIME = 750
-const STOP_SPINNING_TIME = 10500
+const START_SPINNING_TIME = 2600;
+const CONTINUE_SPINNING_TIME = 750;
+const STOP_SPINNING_TIME = 10500;
 
 export const Wheel = ({
   mustStartSpinning,
@@ -66,15 +66,15 @@ export const Wheel = ({
   perpendicularText = false,
   textDistance = DEFAULT_TEXT_DISTANCE,
 }: Props) => {
-  const wheelData = useRef<WheelData[]>([...data])
-  const [rotationDegrees, setRotationDegrees] = useState(NaN)
-  const [hasStartedSpinning, setHasStartedSpinning] = useState(false)
-  const [hasStoppedSpinning, setHasStoppedSpinning] = useState(false)
-  const [isDataUpdated, setIsDataUpdated] = useState(false)
+  const wheelData = useRef<WheelData[]>([...data]);
+  const [rotationDegrees, setRotationDegrees] = useState(NaN);
+  const [hasStartedSpinning, setHasStartedSpinning] = useState(false);
+  const [hasStoppedSpinning, setHasStoppedSpinning] = useState(false);
+  const [isDataUpdated, setIsDataUpdated] = useState(false);
 
   useEffect(() => {
-    const dataLength = data.length
-    wheelData.current = [...data]
+    const dataLength = data.length;
+    wheelData.current = [...data];
     for (let i = 0; i < dataLength; i++) {
       wheelData.current[i] = {
         ...data[i],
@@ -85,45 +85,45 @@ export const Wheel = ({
           textColor:
             data[i].style?.textColor || textColors[i % textColors.length],
         },
-      }
+      };
     }
-    setIsDataUpdated(true)
-  }, [data, backgroundColors, textColors])
+    setIsDataUpdated(true);
+  }, [data, backgroundColors, textColors]);
 
   useEffect(() => {
     if (mustStartSpinning) {
-      startSpinning()
+      startSpinning();
       const finalRotationDegreesCalculated = getRotationDegrees(
         prizeNumber,
-        data.length,
-      )
-      setRotationDegrees(finalRotationDegreesCalculated)
+        data.length
+      );
+      setRotationDegrees(finalRotationDegreesCalculated);
     }
-  }, [data.length, mustStartSpinning, prizeNumber])
+  }, [data.length, mustStartSpinning, prizeNumber]);
 
   useEffect(() => {
     if (hasStoppedSpinning) {
-      onStopSpinning()
+      onStopSpinning();
     }
-  }, [hasStoppedSpinning, onStopSpinning])
+  }, [hasStoppedSpinning, onStopSpinning]);
 
   const startSpinning = () => {
-    setHasStartedSpinning(true)
+    setHasStartedSpinning(true);
     setTimeout(
       () => setHasStoppedSpinning(true),
-      START_SPINNING_TIME + CONTINUE_SPINNING_TIME + STOP_SPINNING_TIME - 300,
-    )
-  }
+      START_SPINNING_TIME + CONTINUE_SPINNING_TIME + STOP_SPINNING_TIME - 300
+    );
+  };
 
   const getRouletteClass = () => {
     if (hasStartedSpinning) {
-      return STARTED_SPINNING
+      return STARTED_SPINNING;
     }
-    return ''
-  }
+    return "";
+  };
 
   if (!isDataUpdated) {
-    return null
+    return null;
   }
 
   return (
@@ -151,7 +151,7 @@ export const Wheel = ({
           textDistance={textDistance}
         />
       </RotationContainer>
-      <RouletteSelectorImage src={rouletteSelector} alt="roulette-static" />
+      <RouletteSelectorImage src={rouletteSelector.src} alt="roulette-static" />
     </RouletteContainer>
-  )
-}
+  );
+};

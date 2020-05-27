@@ -1,9 +1,9 @@
 export interface WheelData {
-  option: string
-  style?: StyleType
+  option: string;
+  style?: StyleType;
 }
 
-interface StyleType {
-  backgroundColor?: string
-  textColor?: string
+export interface StyleType {
+  backgroundColor?: string;
+  textColor?: string;
 }
