@@ -1,7 +1,13 @@
 {
-  "name": "wheel-of-fortune",
-  "version": "0.1.0",
-  "private": true,
+  "name": "react-wheel-of-fortune",
+  "version": "1.0.0",
+  "description": "customizable wheel of fortune with spinning animation",
+  "main": "./src",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/effectussoftware/wheel-of-fortune"
+  },
+  "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -14,11 +20,11 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.0",
-    "typescript": "~3.7.2"
+    "webpack": "^4.43.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "webpack --watch",
+    "build": "webpack",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -36,5 +42,21 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "peerDependencies": {
+    "react": "^16.13.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^3.5.3",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.7.5",
+    "url-loader": "^4.1.0",
+    "webpack-cli": "^3.3.11"
   }
 }
