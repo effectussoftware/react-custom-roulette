@@ -1,6 +1,6 @@
 {
-  "name": "react-custom-wheel-of-fortune",
-  "version": "1.0.4",
+  "name": "react-custom-roulette",
+  "version": "1.0.2",
   "description": "customizable wheel of fortune with spinning animation",
   "main": "./dist/bundle.js",
   "repository": {
@@ -16,8 +16,6 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.0",
     "webpack": "^4.43.0"
