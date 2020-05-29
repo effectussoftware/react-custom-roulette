@@ -1,0 +1,11 @@
+export var DEFAULT_BACKGROUND_COLORS = ['darkgrey', 'lightgrey'];
+export var DEFAULT_TEXT_COLORS = ['black'];
+export var DEFAULT_OUTER_BORDER_COLOR = 'black';
+export var DEFAULT_OUTER_BORDER_WIDTH = 5;
+export var DEFAULT_INNER_RADIUS = 0;
+export var DEFAULT_INNER_BORDER_COLOR = 'black';
+export var DEFAULT_INNER_BORDER_WIDTH = 0;
+export var DEFAULT_RADIUS_LINE_COLOR = 'black';
+export var DEFAULT_RADIUS_LINE_WIDTH = 5;
+export var DEFAULT_FONT_SIZE = 20;
+export var DEFAULT_TEXT_DISTANCE = 60;
