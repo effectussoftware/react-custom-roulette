@@ -1,44 +1,93 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">React Custom Roulette</h1>
 
-## Available Scripts
+<p align="center">Customizable React roulette wheel with spinning animation</p>
 
-In the project directory, you can run:
+<div align="center">
+    
+[![npm version](https://img.shields.io/npm/v/react-custom-roulette)](https://www.npmjs.com/package/react-custom-roulette)
+[![Types](https://img.shields.io/npm/types/react-custom-roulette)](https://www.typescriptlang.org/index.html)
 
-### `yarn start`
+</div>
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- Customizable design
+- Prize selection by props
+- Spinning animation
+- Compatible with TypeScript
 
-### `yarn test`
+## Install
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    $ npm install react-custom-roulette
 
-### `yarn build`
+or
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    $ yarn add react-custom-roulette
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Quickstart
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Wheel Component
 
-### `yarn eject`
+```jsx
+import React from 'react'
+import { Wheel } from 'react-custom-roulette'
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+const data = [
+  { option: '0', style: { backgroundColor: 'green', textColor: 'black' } },
+  { option: '1', style: { backgroundColor: 'white' } },
+  { option: '2' },
+]
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+export default () => (
+  <>
+    <Wheel
+      mustStartSpinning={mustSpin}
+      prizeNumber={3}
+      data={data}
+      backgroundColors={['#3e3e3e', '#df3428']}
+      textColors={['#ffffff']}
+    />
+  </>
+)
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### Props
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+| **Prop**                       | **Type**           | **Default**               | **Description** |
+| ------------------------------ | ------------------ | ------------------------- | --------------- |
+| mustStartSpinning _(required)_ | `boolean`          | -                         |                 |
+| prizeNumber _(required)_       | `number`           | -                         |                 |
+| data _(required)_              | `Array<WheelData>` | -                         |                 |
+| onStopSpinning                 | `function`         | () => null                |                 |
+| backgroundColors               | `Array<string>`    | ['darkgrey', 'lightgrey'] |                 |
+| textColors                     | `Array<string>`    | ['black']                 |                 |
+| outerBorderColor               | `string`           | 'black'                   |                 |
+| outerBorderWidth               | `number`           | 5                         |                 |
+| innerRadius                    | `number [0..100]`  | 0                         |                 |
+| innerBorderColor               | `string`           | 'black'                   |                 |
+| innerBorderWidth               | `number`           | 0                         |                 |
+| radiusLineColor                | `string`           | 'black'                   |                 |
+| radiusLineWidth                | `number`           | 5                         |                 |
+| fontSize                       | `number`           | 20                        |                 |
+| perpendicularText              | `boolean`          | false                     |                 |
+| textDistance                   | `number [0..100]`  | 60                        |                 |
 
-## Learn More
+## Types
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### WheelData
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```jsx
+interface WheelData {
+  option: string;
+  style?: StyleType; // Optional
+}
+```
+
+#### StyleType
+
+```jsx
+interface StyleType {
+  backgroundColor?: string; // Optional
+  textColor?: string; // Optional
+}
+```
