@@ -1,10 +1,6 @@
 {
   "name": "react-custom-roulette",
-<<<<<<< HEAD
-  "version": "1.0.19",
-=======
   "version": "1.0.20",
->>>>>>> develop
   "description": "Customizable React roulette wheel with spinning animation",
   "main": "./dist/bundle.js",
   "repository": {
