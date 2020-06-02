@@ -16,16 +16,16 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
-import React, { useState, useEffect, useRef } from "react";
-import { getRotationDegrees } from "../../utils";
-import { rouletteSelector } from "../common/images";
-import { RouletteContainer, RouletteSelectorImage, RotationContainer, } from "./styles";
-import { DEFAULT_BACKGROUND_COLORS, DEFAULT_TEXT_COLORS, DEFAULT_OUTER_BORDER_COLOR, DEFAULT_OUTER_BORDER_WIDTH, DEFAULT_INNER_RADIUS, DEFAULT_INNER_BORDER_COLOR, DEFAULT_INNER_BORDER_WIDTH, DEFAULT_RADIUS_LINE_COLOR, DEFAULT_RADIUS_LINE_WIDTH, DEFAULT_FONT_SIZE, DEFAULT_TEXT_DISTANCE, } from "../../strings";
-import WheelCanvas from "../WheelCanvas";
-var STARTED_SPINNING = "started-spinning";
+import React, { useState, useEffect, useRef } from 'react';
+import { getRotationDegrees } from '../../utils';
+import { rouletteSelector } from '../common/images';
+import { RouletteContainer, RouletteSelectorImage, RotationContainer, } from './styles';
+import { DEFAULT_BACKGROUND_COLORS, DEFAULT_TEXT_COLORS, DEFAULT_OUTER_BORDER_COLOR, DEFAULT_OUTER_BORDER_WIDTH, DEFAULT_INNER_RADIUS, DEFAULT_INNER_BORDER_COLOR, DEFAULT_INNER_BORDER_WIDTH, DEFAULT_RADIUS_LINE_COLOR, DEFAULT_RADIUS_LINE_WIDTH, DEFAULT_FONT_SIZE, DEFAULT_TEXT_DISTANCE, } from '../../strings';
+import WheelCanvas from '../WheelCanvas';
+var STARTED_SPINNING = 'started-spinning';
 var START_SPINNING_TIME = 2600;
 var CONTINUE_SPINNING_TIME = 750;
-var STOP_SPINNING_TIME = 10500;
+var STOP_SPINNING_TIME = 8000;
 export var Wheel = function (_a) {
     var mustStartSpinning = _a.mustStartSpinning, prizeNumber = _a.prizeNumber, data = _a.data, _b = _a.onStopSpinning, onStopSpinning = _b === void 0 ? function () { } : _b, _c = _a.backgroundColors, backgroundColors = _c === void 0 ? DEFAULT_BACKGROUND_COLORS : _c, _d = _a.textColors, textColors = _d === void 0 ? DEFAULT_TEXT_COLORS : _d, _e = _a.outerBorderColor, outerBorderColor = _e === void 0 ? DEFAULT_OUTER_BORDER_COLOR : _e, _f = _a.outerBorderWidth, outerBorderWidth = _f === void 0 ? DEFAULT_OUTER_BORDER_WIDTH : _f, _g = _a.innerRadius, innerRadius = _g === void 0 ? DEFAULT_INNER_RADIUS : _g, _h = _a.innerBorderColor, innerBorderColor = _h === void 0 ? DEFAULT_INNER_BORDER_COLOR : _h, _j = _a.innerBorderWidth, innerBorderWidth = _j === void 0 ? DEFAULT_INNER_BORDER_WIDTH : _j, _k = _a.radiusLineColor, radiusLineColor = _k === void 0 ? DEFAULT_RADIUS_LINE_COLOR : _k, _l = _a.radiusLineWidth, radiusLineWidth = _l === void 0 ? DEFAULT_RADIUS_LINE_WIDTH : _l, _m = _a.fontSize, fontSize = _m === void 0 ? DEFAULT_FONT_SIZE : _m, _o = _a.perpendicularText, perpendicularText = _o === void 0 ? false : _o, _p = _a.textDistance, textDistance = _p === void 0 ? DEFAULT_TEXT_DISTANCE : _p;
     var wheelData = useRef(__spreadArrays(data));
@@ -60,13 +60,15 @@ export var Wheel = function (_a) {
     }, [hasStoppedSpinning, onStopSpinning]);
     var startSpinning = function () {
         setHasStartedSpinning(true);
-        setTimeout(function () { return setHasStoppedSpinning(true); }, START_SPINNING_TIME + CONTINUE_SPINNING_TIME + STOP_SPINNING_TIME - 300);
+        setTimeout(function () {
+            setHasStoppedSpinning(true);
+        }, START_SPINNING_TIME + CONTINUE_SPINNING_TIME + STOP_SPINNING_TIME - 300);
     };
     var getRouletteClass = function () {
         if (hasStartedSpinning) {
             return STARTED_SPINNING;
         }
-        return "";
+        return '';
     };
     if (!isDataUpdated) {
         return null;

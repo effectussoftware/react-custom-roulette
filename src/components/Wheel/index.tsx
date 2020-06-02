@@ -46,7 +46,7 @@ const STARTED_SPINNING = 'started-spinning'
 
 const START_SPINNING_TIME = 2600
 const CONTINUE_SPINNING_TIME = 750
-const STOP_SPINNING_TIME = 10500
+const STOP_SPINNING_TIME = 8000
 
 export const Wheel = ({
   mustStartSpinning,
@@ -111,7 +111,6 @@ export const Wheel = ({
     setHasStartedSpinning(true)
     setTimeout(() => {
       setHasStoppedSpinning(true)
-      setHasStartedSpinning(false)
     }, START_SPINNING_TIME + CONTINUE_SPINNING_TIME + STOP_SPINNING_TIME - 300)
   }
 

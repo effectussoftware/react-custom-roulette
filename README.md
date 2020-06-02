@@ -10,6 +10,12 @@
 
 </div>
 
+<div align="center">
+    
+![React Custom Roulette](https://github.com/effectussoftware/react-custom-roulette/raw/master/src/assets/images/roulette-demo.gif "React Custom Roulette")
+
+</div>
+
 ## Features
 
 - Customizable design
