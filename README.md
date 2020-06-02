@@ -6,6 +6,7 @@
     
 [![npm version](https://img.shields.io/npm/v/react-custom-roulette)](https://www.npmjs.com/package/react-custom-roulette)
 [![Types](https://img.shields.io/npm/types/react-custom-roulette)](https://www.typescriptlang.org/index.html)
+[![npm downloads](https://img.shields.io/npm/dm/react-custom-roulette)](https://www.npmjs.com/package/react-custom-roulette)
 
 </div>
 
