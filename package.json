@@ -1,6 +1,6 @@
 {
   "name": "react-custom-roulette",
-  "version": "1.0.11",
+  "version": "1.0.19",
   "description": "Customizable React roulette wheel with spinning animation",
   "main": "./dist/bundle.js",
   "repository": {
@@ -13,7 +13,8 @@
     "roulette",
     "spinning",
     "wheel",
-    "fortune"
+    "fortune",
+    "prize"
   ],
   "types": "./dist/index.d.ts",
   "private": false,
@@ -25,14 +26,32 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
-    "react-scripts": "3.4.1",
-    "styled-components": "^5.1.0",
-    "webpack": "^4.43.0"
+    "react-scripts": "3.4.1"
+  },
+  "peerDependencies": {
+    "react": "^16.13.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^3.5.3",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.7.5",
+    "url-loader": "^4.1.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0",
+    "webpack": "^4.43.0",
+    "styled-components": "^5.1.0"
   },
   "scripts": {
     "start-server": "react-scripts start",
     "start": "webpack --watch",
-    "build": "tsc && cp -R ./src/assets ./dist",
+    "build-webpack": "webpack",
+    "build": "webpack && tsc && cp -R ./src/assets ./dist",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -50,22 +69,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "peerDependencies": {
-    "react": "^16.13.1"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^8.1.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-plugin-transform-react-jsx": "^6.24.1",
-    "babel-preset-env": "^1.7.0",
-    "css-loader": "^3.5.3",
-    "ts-loader": "^7.0.5",
-    "typescript": "^3.7.5",
-    "url-loader": "^4.1.0",
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.11.0"
   }
 }
