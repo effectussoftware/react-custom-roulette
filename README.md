@@ -12,7 +12,7 @@
 
 <div align="center">
     
-![React Custom Roulette](https://github.com/effectussoftware/react-custom-roulette/raw/master/src/assets/images/roulette-demo.gif "React Custom Roulette")
+![React Custom Roulette](https://github.com/effectussoftware/react-custom-roulette/raw/master/src/demo/roulette-demo.gif)
 
 </div>
 
