@@ -1,7 +1,5 @@
 <h1 align="center">React Custom Roulette</h1>
 
-<p align="center">Customizable React roulette wheel with spinning animation</p>
-
 <div align="center">
     
 [![npm version](https://img.shields.io/npm/v/react-custom-roulette)](https://www.npmjs.com/package/react-custom-roulette)
@@ -9,6 +7,8 @@
 [![npm downloads](https://img.shields.io/npm/dm/react-custom-roulette)](https://www.npmjs.com/package/react-custom-roulette)
 
 </div>
+
+<p align="center">Customizable React roulette wheel with spinning animation</p>
 
 <div align="center">
     
