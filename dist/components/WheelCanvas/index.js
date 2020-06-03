@@ -3,11 +3,13 @@ import { WheelCanvasStyle } from './styles';
 import { clamp } from '../../utils';
 var drawWheel = function (canvasRef, data, drawWheelProps) {
     var QUANTITY = data.length;
+    /* eslint-disable prefer-const */
     var outerBorderColor = drawWheelProps.outerBorderColor, outerBorderWidth = drawWheelProps.outerBorderWidth, innerRadius = drawWheelProps.innerRadius, innerBorderColor = drawWheelProps.innerBorderColor, innerBorderWidth = drawWheelProps.innerBorderWidth, radiusLineColor = drawWheelProps.radiusLineColor, radiusLineWidth = drawWheelProps.radiusLineWidth, fontSize = drawWheelProps.fontSize, perpendicularText = drawWheelProps.perpendicularText, textDistance = drawWheelProps.textDistance;
-    outerBorderWidth = outerBorderWidth * 2;
-    innerBorderWidth = innerBorderWidth * 2;
-    radiusLineWidth = radiusLineWidth * 2;
-    fontSize = fontSize * 2;
+    /* eslint-enable prefer-const */
+    outerBorderWidth *= 2;
+    innerBorderWidth *= 2;
+    radiusLineWidth *= 2;
+    fontSize *= 2;
     var canvas = canvasRef.current;
     if (canvas === null || canvas === void 0 ? void 0 : canvas.getContext('2d')) {
         var ctx = canvas.getContext('2d');
@@ -47,14 +49,16 @@ var drawWheel = function (canvasRef, data, drawWheelProps) {
                 ctx.stroke();
             }
             // WHEEL OUTER BORDER
-            ctx.strokeStyle = outerBorderWidth <= 0 ? 'transparent' : outerBorderColor;
+            ctx.strokeStyle =
+                outerBorderWidth <= 0 ? 'transparent' : outerBorderColor;
             ctx.lineWidth = outerBorderWidth;
             ctx.beginPath();
             ctx.arc(centerX, centerY, outsideRadius - ctx.lineWidth / 2, 0, 2 * Math.PI);
             ctx.closePath();
             ctx.stroke();
             // WHEEL INNER BORDER
-            ctx.strokeStyle = innerBorderWidth <= 0 ? 'transparent' : innerBorderColor;
+            ctx.strokeStyle =
+                innerBorderWidth <= 0 ? 'transparent' : innerBorderColor;
             ctx.lineWidth = innerBorderWidth;
             ctx.beginPath();
             ctx.arc(centerX, centerY, insideRadius + ctx.lineWidth / 2 - 1, 0, 2 * Math.PI);

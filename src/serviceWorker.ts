@@ -1,3 +1,4 @@
+/* eslint-disable */
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
@@ -29,7 +30,7 @@ export function register(config?: Config) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(
-      process.env.PUBLIC_URL,
+      process.env.PUBLIC_URL as string,
       window.location.href
     );
     if (publicUrl.origin !== window.location.origin) {
@@ -109,7 +110,7 @@ function registerValidSW(swUrl: string, config?: Config) {
 function checkValidServiceWorker(swUrl: string, config?: Config) {
   // Check if the service worker can be found. If it can't reload the page.
   fetch(swUrl, {
-    headers: { 'Service-Worker': 'script' }
+    headers: { 'Service-Worker': 'script' },
   })
     .then(response => {
       // Ensure service worker exists, and that we really are getting a JS file.
