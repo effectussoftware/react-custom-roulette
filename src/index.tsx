@@ -1,4 +1,5 @@
-import { WheelData } from "./components/Wheel/types";
-export { Wheel } from "./components/Wheel";
+import { WheelData } from './components/Wheel/types';
 
-export interface WheelDataType extends WheelData {}
+export { Wheel } from './components/Wheel';
+
+export type WheelDataType = WheelData;

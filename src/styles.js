@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const AppContainer = styled.div`
   width: 100%;
@@ -10,4 +10,4 @@ export const AppContainer = styled.div`
   position: relative;
   background-color: #2d2d2d;
   overflow: hidden;
-`
+`;

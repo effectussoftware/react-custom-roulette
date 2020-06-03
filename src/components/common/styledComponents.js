@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const NonDraggableImage = styled.img`
   -webkit-user-drag: none;
@@ -6,4 +6,4 @@ export const NonDraggableImage = styled.img`
   -moz-user-drag: none;
   -o-user-drag: none;
   user-drag: none;
-`
+`;
