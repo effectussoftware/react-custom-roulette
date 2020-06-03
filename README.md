@@ -98,3 +98,16 @@ interface StyleType {
   textColor?: string; // Optional
 }
 ```
+
+## Contributors
+
+This project exists thanks to all the people who contribute!
+
+<ul>
+    <li><a href="https://github.com/luchozamora1">Luis Felipe Zamora</a></li>
+    <li><a href="https://github.com/nazabalm20">Martin Nazabal</a></li>
+</ul>
+
+## License
+
+This project is licensed under the MIT license, Copyright (c) 2020 <a href="https://effectussoftware.com">Effectus Software</a>. [[License](LICENSE)]
