@@ -40,7 +40,7 @@
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "css-loader": "^3.5.3",
-    "eslint": "^7.1.0",
+    "eslint": "6.6.0",
     "eslint-config-airbnb-typescript-prettier": "^2.1.1",
     "husky": "^4.2.5",
     "prettier": "^2.0.5",
@@ -48,9 +48,9 @@
     "ts-loader": "^7.0.5",
     "typescript": "^3.7.5",
     "url-loader": "^4.1.0",
-    "webpack": "^4.43.0",
+    "webpack": "4.42.0",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "3.10.3"
   },
   "scripts": {
     "start-server": "react-scripts start",
