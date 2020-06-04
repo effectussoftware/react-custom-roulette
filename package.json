@@ -1,6 +1,6 @@
 {
   "name": "react-custom-roulette",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Customizable React roulette wheel with spinning animation",
   "main": "./dist/bundle.js",
   "repository": {
@@ -20,9 +20,6 @@
   "types": "./dist/index.d.ts",
   "private": false,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.9.0",
-    "@testing-library/react": "^10.0.6",
-    "@testing-library/user-event": "^11.0.0",
     "@types/jest": "^25.2.3",
     "@types/node": "^14.0.9",
     "@types/react": "^16.9.0",
@@ -30,9 +27,13 @@
     "react-scripts": "3.4.1"
   },
   "peerDependencies": {
-    "react": "^16.13.1"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.9.0",
+    "@testing-library/react": "^10.0.6",
+    "@testing-library/user-event": "^11.0.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.1.0",
@@ -43,6 +44,7 @@
     "eslint": "6.6.0",
     "eslint-config-airbnb-typescript-prettier": "^2.1.1",
     "husky": "^4.2.5",
+    "jest-canvas-mock": "^2.2.0",
     "prettier": "^2.0.5",
     "styled-components": "^5.1.1",
     "ts-loader": "^7.0.5",
@@ -55,17 +57,23 @@
   "scripts": {
     "start-server": "react-scripts start",
     "start": "webpack --watch",
-    "build-webpack": "webpack",
     "build": "webpack && tsc && cp -R ./src/assets ./dist",
     "test": "react-scripts test",
+    "coverage": "CI=true npm test -- --env=jsdom --coverage",
     "eject": "react-scripts eject",
     "format": "prettier --write src/**/*.{js,ts,tsx}",
-    "lint": "eslint --fix src/**/*.{js,ts,tsx}"
+    "lint": "eslint --fix src/**/*.{js,ts,tsx}",
+    "link-react": "cd example/node_modules/react && npm link && cd ../react-dom && npm link && cd ../../.. && npm link react react-dom"
   },
   "husky": {
     "hooks": {
       "pre-commit": "yarn format && yarn lint"
     }
+  },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "src/serviceWorker.ts"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"

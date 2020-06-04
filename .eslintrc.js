@@ -9,4 +9,7 @@ module.exports = {
     'import/no-unresolved': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
   },
+  env: {
+    jest: true,
+  },
 };
