@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  /* background-color: #282c34; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -26,6 +26,28 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.spin-button {
+  margin-top: 22px;
+  background-color: rgb(20, 20, 20);
+  border: 0;
+  color: rgb(223, 223, 223);
+  width: 100px;
+  height: 35px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 10px;
+  outline: 0;
+  transition: 0.1s linear;
+  cursor: pointer;
+  letter-spacing: 0.7px;
+  padding-top: 3px;
+}
+
+.spin-button:active {
+  padding-top: 5px;
+  background-color: rgb(41, 41, 41);
 }
 
 @keyframes App-logo-spin {
