@@ -4,50 +4,27 @@ import './App.css';
 import { Wheel } from 'react-custom-roulette';
 
 const data = [
-  { option: '0', style: { backgroundColor: '#006900' } },
-  { option: '1' },
-  { option: '2' },
-  { option: '3' },
-  { option: '4' },
-  { option: '5' },
-  { option: '6' },
-  { option: '7' },
-  { option: '8' },
-  { option: '9' },
-  { option: '10' },
-  { option: '11' },
-  { option: '12' },
-  { option: '13' },
-  { option: '14' },
-  { option: '15' },
-  { option: '16' },
-  { option: '17' },
-  { option: '18' },
-  { option: '19' },
-  { option: '20' },
-  { option: '21' },
-  { option: '22' },
-  { option: '23' },
-  { option: '24' },
-  { option: '25' },
-  { option: '26' },
-  // { option: '27' },
-  // { option: '28' },
-  // { option: '29' },
-  // { option: '30' },
+  { option: 'REACT' },
+  { option: 'CUSTOM' },
+  { option: 'ROULETTE', style: { textColor: '#f9dd50' } },
+  { option: 'WHEEL' },
+  { option: 'REACT' },
+  { option: 'CUSTOM' },
+  { option: 'ROULETTE', style: { textColor: '#70bbe0' } },
+  { option: 'WHEEL' },
 ];
 
-const backgroundColors = ['#3e3e3e', '#df3428'];
-const textColors = ['white'];
-const outerBorderColor = '#d8a35a';
-const outerBorderWidth = 8;
-const innerBorderColor = '#d8a35a';
-const innerBorderWidth = 17;
-const innerRadius = 40;
-const radiusLineColor = '#dddddd';
-const radiusLineWidth = 3;
-const fontSize = 20;
-const textDistance = 86;
+const backgroundColors = ['#ff8f43', '#70bbe0', '#0b3351', '#f9dd50'];
+const textColors = ['#0b3351'];
+const outerBorderColor = '#eeeeee';
+const outerBorderWidth = 10;
+const innerBorderColor = '#30261a';
+const innerBorderWidth = 0;
+const innerRadius = 0;
+const radiusLineColor = '#eeeeee';
+const radiusLineWidth = 8;
+const fontSize = 17;
+const textDistance = 60;
 
 const App = () => {
   const [mustSpin, setMustSpin] = useState(false);
@@ -57,7 +34,7 @@ const App = () => {
       <header className="App-header">
         <Wheel
           mustStartSpinning={mustSpin}
-          prizeNumber={3}
+          prizeNumber={2}
           data={data}
           backgroundColors={backgroundColors}
           textColors={textColors}
@@ -69,10 +46,12 @@ const App = () => {
           innerBorderWidth={innerBorderWidth}
           radiusLineColor={radiusLineColor}
           radiusLineWidth={radiusLineWidth}
-          perpendicularText
+          // perpendicularText
           textDistance={textDistance}
         />
-        <button onClick={() => setMustSpin(true)}>ASD</button>
+        <button className={'spin-button'} onClick={() => setMustSpin(true)}>
+          SPIN
+        </button>
       </header>
     </div>
   );
