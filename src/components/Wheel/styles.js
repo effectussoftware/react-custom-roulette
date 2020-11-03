@@ -24,6 +24,7 @@ export const RotationContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  transform: rotate(${props => props.startRotationDegrees}deg);
 
   &.started-spinning {
     animation: spin ${({ startSpinningTime }) => startSpinningTime / 1000}s
@@ -40,23 +41,23 @@ export const RotationContainer = styled.div`
 
   @keyframes spin {
     from {
-      transform: rotate(0deg);
+      transform: rotate(${props => props.startRotationDegrees}deg);
     }
     to {
-      transform: rotate(360deg);
+      transform: rotate(${props => props.startRotationDegrees + 360}deg);
     }
   }
   @keyframes continueSpin {
     from {
-      transform: rotate(0deg);
+      transform: rotate(${props => props.startRotationDegrees}deg);
     }
     to {
-      transform: rotate(360deg);
+      transform: rotate(${props => props.startRotationDegrees + 360}deg);
     }
   }
   @keyframes stopSpin {
     from {
-      transform: rotate(0deg);
+      transform: rotate(${props => props.startRotationDegrees}deg);
     }
     to {
       transform: rotate(${props => 1440 + props.finalRotationDegrees}deg);

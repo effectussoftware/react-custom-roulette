@@ -8,6 +8,7 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'import/no-unresolved': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
+    'react-hooks/exhaustive-deps': 'off'
   },
   env: {
     jest: true,
