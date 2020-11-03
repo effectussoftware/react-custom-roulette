@@ -28,13 +28,20 @@ const textDistance = 60;
 
 const App = () => {
   const [mustSpin, setMustSpin] = useState(false);
+  const [prizeNumber, setPrizeNumber] = useState(0);
+
+  const handleSpinClick = () => {
+    const newPrizeNumber = Math.floor(Math.random() * data.length)
+    setPrizeNumber(newPrizeNumber)
+    setMustSpin(true)
+  }
 
   return (
     <div className="App">
       <header className="App-header">
         <Wheel
           mustStartSpinning={mustSpin}
-          prizeNumber={2}
+          prizeNumber={prizeNumber}
           data={data}
           backgroundColors={backgroundColors}
           textColors={textColors}
@@ -48,8 +55,12 @@ const App = () => {
           radiusLineWidth={radiusLineWidth}
           // perpendicularText
           textDistance={textDistance}
+
+          onStopSpinning={() => {
+            setMustSpin(false)
+          }}
         />
-        <button className={'spin-button'} onClick={() => setMustSpin(true)}>
+        <button className={'spin-button'} onClick={handleSpinClick}>
           SPIN
         </button>
       </header>
