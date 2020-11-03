@@ -67,10 +67,14 @@ export const Wheel = ({
   textDistance = DEFAULT_TEXT_DISTANCE,
 }: Props) => {
   const wheelData = useRef<WheelData[]>([...data]);
-  const [rotationDegrees, setRotationDegrees] = useState(NaN);
+  const [startRotationDegrees, setStartRotationDegrees] = useState(0);
+  const [finalRotationDegrees, setFinalRotationDegrees] = useState(0);
   const [hasStartedSpinning, setHasStartedSpinning] = useState(false);
   const [hasStoppedSpinning, setHasStoppedSpinning] = useState(false);
+  const [isCurrentlySpinning, setIsCurrentlySpinning] = useState(false);
   const [isDataUpdated, setIsDataUpdated] = useState(false);
+
+  const mustStopSpinning = useRef<boolean>(false);
 
   useEffect(() => {
     const dataLength = data.length;
@@ -91,26 +95,35 @@ export const Wheel = ({
   }, [data, backgroundColors, textColors]);
 
   useEffect(() => {
-    if (mustStartSpinning) {
+    if (mustStartSpinning && !isCurrentlySpinning) {
+      setIsCurrentlySpinning(true);
       startSpinning();
       const finalRotationDegreesCalculated = getRotationDegrees(
         prizeNumber,
         data.length
       );
-      setRotationDegrees(finalRotationDegreesCalculated);
+      setFinalRotationDegrees(finalRotationDegreesCalculated);
     }
-  }, [data.length, mustStartSpinning, prizeNumber]);
+  }, [mustStartSpinning]);
 
   useEffect(() => {
     if (hasStoppedSpinning) {
-      onStopSpinning();
+      setIsCurrentlySpinning(false);
+      setStartRotationDegrees(finalRotationDegrees);
     }
-  }, [hasStoppedSpinning, onStopSpinning]);
+  }, [hasStoppedSpinning]);
 
   const startSpinning = () => {
     setHasStartedSpinning(true);
+    setHasStoppedSpinning(false);
+    mustStopSpinning.current = true;
     setTimeout(() => {
-      setHasStoppedSpinning(true);
+      if (mustStopSpinning.current) {
+        mustStopSpinning.current = false;
+        setHasStartedSpinning(false);
+        setHasStoppedSpinning(true);
+        onStopSpinning();
+      }
     }, START_SPINNING_TIME + CONTINUE_SPINNING_TIME + STOP_SPINNING_TIME - 300);
   };
 
@@ -132,7 +145,8 @@ export const Wheel = ({
         startSpinningTime={START_SPINNING_TIME}
         continueSpinningTime={CONTINUE_SPINNING_TIME}
         stopSpinningTime={STOP_SPINNING_TIME}
-        finalRotationDegrees={rotationDegrees}
+        startRotationDegrees={startRotationDegrees}
+        finalRotationDegrees={finalRotationDegrees}
       >
         <WheelCanvas
           width="900"
