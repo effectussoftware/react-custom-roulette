@@ -77,6 +77,11 @@ export default () => (
 | radiusLineColor                | `string`           | 'black'                   | Color of the radial lines that separate each option                                                   |
 | radiusLineWidth                | `number`           | 5                         | Width of the radial lines that separate each option (0 represents no radial lines)                    |
 | fontSize                       | `number`           | 20                        | Font size of the option string                                                                        |
+| fontWeight                       | `lighter | normal | bold | bolder`           | bold                        | Font weight option for text
+| fontFace                       | `string`           | Helvetica, Arial                        | Comma delimited font faces
+| startSpinTime                       | `number`           | 2600                        | Time it takes to start the spin in MS
+| continueSpinTime                       | `number`           | 750                        | Time it takes the wheel fully spins in MS
+| stopSpinTime                       | `number`           | 8000                        | Time it takes to stop in ms
 | perpendicularText              | `boolean`          | false                     | When 'true', sets the option texts perpendicular to the roulette's radial lines                       |
 | textDistance                   | `number [0..100]`  | 60                        | Distance of the option texts from the center of the roulette                                          |
 

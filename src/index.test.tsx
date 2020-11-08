@@ -100,6 +100,11 @@ describe('Render Wheel', () => {
         innerBorderWidth={innerBorderWidth}
         radiusLineColor={radiusLineColor}
         radiusLineWidth={radiusLineWidth}
+        continueSpinningTime={radiusLineWidth}
+        stopSpinningTime={radiusLineWidth}
+        startSpinningTime={radiusLineWidth}
+        fontFace="Noto Sans"
+        fontWeight="bold"
         perpendicularText
         textDistance={textDistance}
         onStopSpinning={onStopSpinning}
