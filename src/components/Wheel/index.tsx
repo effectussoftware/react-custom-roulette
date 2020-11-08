@@ -42,9 +42,9 @@ interface Props {
   fontSize?: number;
   fontWeight?: 'bold' | 'bolder' | 'normal' | 'lighter';
   fontFace?: string;
-  startSpinningTime: number;
-  continueSpinningTime: number;
-  stopSpinningTime: number;
+  startSpinningTime?: number;
+  continueSpinningTime?: number;
+  stopSpinningTime?: number;
   perpendicularText?: boolean;
   textDistance?: number;
 }
