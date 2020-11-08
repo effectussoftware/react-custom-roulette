@@ -20,7 +20,7 @@ interface DrawWheelProps {
   radiusLineWidth: number;
   fontSize: number;
   fontFace: string;
-  fontWeight: "normal" | "bold" | "bolder" | "lighter";
+  fontWeight: 'normal' | 'bold' | 'bolder' | 'lighter';
   perpendicularText: boolean;
   textDistance: number;
 }
@@ -74,12 +74,12 @@ const drawWheel = (
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
 
-    ctx.font = `${fontWeight} ${fontSize}px {fontFace}}`;
+    ctx.font = `${fontWeight} ${fontSize}px ${fontFace}`;
 
     for (let i = 0; i < data.length; i++) {
       const angle = startAngle + i * arc;
       const { style } = data[i];
-      ctx.fillStyle = style?.backgroundColor ?? "undefined";
+      ctx.fillStyle = style?.backgroundColor ?? 'undefined';
 
       ctx.beginPath();
       ctx.arc(centerX, centerY, outsideRadius, angle, angle + arc, false);
@@ -138,7 +138,7 @@ const drawWheel = (
       ctx.stroke();
 
       // TEXT FILL
-      ctx.fillStyle = style?.textColor ?? "undefined";
+      ctx.fillStyle = style?.textColor ?? 'undefined';
       ctx.translate(
         centerX + Math.cos(angle + arc / 2) * textRadius,
         centerY + Math.sin(angle + arc / 2) * textRadius

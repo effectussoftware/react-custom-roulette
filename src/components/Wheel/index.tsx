@@ -40,8 +40,11 @@ interface Props {
   radiusLineColor?: string;
   radiusLineWidth?: number;
   fontSize?: number;
-  fontWeight?: "bold" | "bolder" | "normal" | "lighter";
+  fontWeight?: 'bold' | 'bolder' | 'normal' | 'lighter';
   fontFace?: string;
+  startSpinningTime: number;
+  continueSpinningTime: number;
+  stopSpinningTime: number;
   perpendicularText?: boolean;
   textDistance?: number;
 }
@@ -69,6 +72,9 @@ export const Wheel = ({
   fontSize = DEFAULT_FONT_SIZE,
   fontWeight = DEFAULT_FONT_WEIGHT,
   fontFace = DEFAULT_FONT_FACE,
+  startSpinningTime = START_SPINNING_TIME,
+  continueSpinningTime = CONTINUE_SPINNING_TIME,
+  stopSpinningTime = STOP_SPINNING_TIME,
   perpendicularText = false,
   textDistance = DEFAULT_TEXT_DISTANCE,
 }: Props) => {
@@ -130,7 +136,7 @@ export const Wheel = ({
         setHasStoppedSpinning(true);
         onStopSpinning();
       }
-    }, START_SPINNING_TIME + CONTINUE_SPINNING_TIME + STOP_SPINNING_TIME - 300);
+    }, startSpinningTime + continueSpinningTime + stopSpinningTime - 300);
   };
 
   const getRouletteClass = () => {
@@ -148,9 +154,9 @@ export const Wheel = ({
     <RouletteContainer>
       <RotationContainer
         className={getRouletteClass()}
-        startSpinningTime={START_SPINNING_TIME}
-        continueSpinningTime={CONTINUE_SPINNING_TIME}
-        stopSpinningTime={STOP_SPINNING_TIME}
+        startSpinningTime={startSpinningTime}
+        continueSpinningTime={continueSpinningTime}
+        stopSpinningTime={stopSpinningTime}
         startRotationDegrees={startRotationDegrees}
         finalRotationDegrees={finalRotationDegrees}
       >

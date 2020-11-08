@@ -14,7 +14,6 @@ export const RouletteContainer = styled.div`
   pointer-events: none;
 `;
 
-
 interface RotationContainerProps {
   startRotationDegrees: number;
   startSpinningTime: number;
@@ -22,7 +21,6 @@ interface RotationContainerProps {
   continueSpinningTime: number;
   finalRotationDegrees: number;
 }
-
 
 export const RotationContainer = styled.div<RotationContainerProps>`
   position: absolute;
@@ -45,7 +43,7 @@ export const RotationContainer = styled.div<RotationContainerProps>`
       stopSpin ${({ stopSpinningTime }) => stopSpinningTime / 1000}s
         cubic-bezier(0, 0, 0.35, 1.02)
         ${({ startSpinningTime, continueSpinningTime }) =>
-    (startSpinningTime + continueSpinningTime) / 1000}s
+          (startSpinningTime + continueSpinningTime) / 1000}s
         1 normal forwards running;
   }
 
