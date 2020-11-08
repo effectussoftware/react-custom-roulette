@@ -8,4 +8,6 @@ export var DEFAULT_INNER_BORDER_WIDTH = 0;
 export var DEFAULT_RADIUS_LINE_COLOR = 'black';
 export var DEFAULT_RADIUS_LINE_WIDTH = 5;
 export var DEFAULT_FONT_SIZE = 20;
+export var DEFAULT_FONT_WEIGHT = "bold";
+export var DEFAULT_FONT_FACE = "Helvetica, Arial";
 export var DEFAULT_TEXT_DISTANCE = 60;

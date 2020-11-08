@@ -2,9 +2,10 @@ import React, { createRef, useEffect } from 'react';
 import { WheelCanvasStyle } from './styles';
 import { clamp } from '../../utils';
 var drawWheel = function (canvasRef, data, drawWheelProps) {
+    var _a, _b;
     var QUANTITY = data.length;
     /* eslint-disable prefer-const */
-    var outerBorderColor = drawWheelProps.outerBorderColor, outerBorderWidth = drawWheelProps.outerBorderWidth, innerRadius = drawWheelProps.innerRadius, innerBorderColor = drawWheelProps.innerBorderColor, innerBorderWidth = drawWheelProps.innerBorderWidth, radiusLineColor = drawWheelProps.radiusLineColor, radiusLineWidth = drawWheelProps.radiusLineWidth, fontSize = drawWheelProps.fontSize, perpendicularText = drawWheelProps.perpendicularText, textDistance = drawWheelProps.textDistance;
+    var outerBorderColor = drawWheelProps.outerBorderColor, outerBorderWidth = drawWheelProps.outerBorderWidth, innerRadius = drawWheelProps.innerRadius, innerBorderColor = drawWheelProps.innerBorderColor, innerBorderWidth = drawWheelProps.innerBorderWidth, radiusLineColor = drawWheelProps.radiusLineColor, radiusLineWidth = drawWheelProps.radiusLineWidth, fontSize = drawWheelProps.fontSize, fontFace = drawWheelProps.fontFace, fontWeight = drawWheelProps.fontWeight, perpendicularText = drawWheelProps.perpendicularText, textDistance = drawWheelProps.textDistance;
     /* eslint-enable prefer-const */
     outerBorderWidth *= 2;
     innerBorderWidth *= 2;
@@ -26,11 +27,11 @@ var drawWheel = function (canvasRef, data, drawWheelProps) {
         var insideRadius = (outsideRadius * clampedInsideRadius) / 100;
         var centerX = canvas.width / 2;
         var centerY = canvas.height / 2;
-        ctx.font = "bold " + fontSize + "px Helvetica, Arial";
+        ctx.font = fontWeight + " " + fontSize + "px {fontFace}}";
         for (var i = 0; i < data.length; i++) {
             var angle = startAngle + i * arc;
             var style = data[i].style;
-            ctx.fillStyle = (style && style.backgroundColor);
+            ctx.fillStyle = (_a = style === null || style === void 0 ? void 0 : style.backgroundColor) !== null && _a !== void 0 ? _a : "undefined";
             ctx.beginPath();
             ctx.arc(centerX, centerY, outsideRadius, angle, angle + arc, false);
             ctx.arc(centerX, centerY, insideRadius, angle + arc, angle, true);
@@ -65,7 +66,7 @@ var drawWheel = function (canvasRef, data, drawWheelProps) {
             ctx.closePath();
             ctx.stroke();
             // TEXT FILL
-            ctx.fillStyle = (style && style.textColor);
+            ctx.fillStyle = (_b = style === null || style === void 0 ? void 0 : style.textColor) !== null && _b !== void 0 ? _b : "undefined";
             ctx.translate(centerX + Math.cos(angle + arc / 2) * textRadius, centerY + Math.sin(angle + arc / 2) * textRadius);
             var text = data[i].option;
             var textRotationAngle = perpendicularText
@@ -78,7 +79,7 @@ var drawWheel = function (canvasRef, data, drawWheelProps) {
     }
 };
 var WheelCanvas = function (_a) {
-    var width = _a.width, height = _a.height, data = _a.data, outerBorderColor = _a.outerBorderColor, outerBorderWidth = _a.outerBorderWidth, innerRadius = _a.innerRadius, innerBorderColor = _a.innerBorderColor, innerBorderWidth = _a.innerBorderWidth, radiusLineColor = _a.radiusLineColor, radiusLineWidth = _a.radiusLineWidth, fontSize = _a.fontSize, perpendicularText = _a.perpendicularText, textDistance = _a.textDistance;
+    var width = _a.width, height = _a.height, data = _a.data, outerBorderColor = _a.outerBorderColor, outerBorderWidth = _a.outerBorderWidth, innerRadius = _a.innerRadius, innerBorderColor = _a.innerBorderColor, innerBorderWidth = _a.innerBorderWidth, radiusLineColor = _a.radiusLineColor, radiusLineWidth = _a.radiusLineWidth, fontSize = _a.fontSize, fontWeight = _a.fontWeight, fontFace = _a.fontFace, perpendicularText = _a.perpendicularText, textDistance = _a.textDistance;
     var canvasRef = createRef();
     var drawWheelProps = {
         outerBorderColor: outerBorderColor,
@@ -89,6 +90,8 @@ var WheelCanvas = function (_a) {
         radiusLineColor: radiusLineColor,
         radiusLineWidth: radiusLineWidth,
         fontSize: fontSize,
+        fontWeight: fontWeight,
+        fontFace: fontFace,
         perpendicularText: perpendicularText,
         textDistance: textDistance,
     };

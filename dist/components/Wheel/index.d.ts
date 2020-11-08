@@ -15,8 +15,10 @@ interface Props {
     radiusLineColor?: string;
     radiusLineWidth?: number;
     fontSize?: number;
+    fontWeight?: "bold" | "bolder" | "normal" | "lighter";
+    fontFace?: string;
     perpendicularText?: boolean;
     textDistance?: number;
 }
-export declare const Wheel: ({ mustStartSpinning, prizeNumber, data, onStopSpinning, backgroundColors, textColors, outerBorderColor, outerBorderWidth, innerRadius, innerBorderColor, innerBorderWidth, radiusLineColor, radiusLineWidth, fontSize, perpendicularText, textDistance, }: Props) => JSX.Element | null;
+export declare const Wheel: ({ mustStartSpinning, prizeNumber, data, onStopSpinning, backgroundColors, textColors, outerBorderColor, outerBorderWidth, innerRadius, innerBorderColor, innerBorderWidth, radiusLineColor, radiusLineWidth, fontSize, fontWeight, fontFace, perpendicularText, textDistance, }: Props) => JSX.Element | null;
 export {};

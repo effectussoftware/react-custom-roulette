@@ -19,6 +19,8 @@ import {
   DEFAULT_RADIUS_LINE_WIDTH,
   DEFAULT_FONT_SIZE,
   DEFAULT_TEXT_DISTANCE,
+  DEFAULT_FONT_WEIGHT,
+  DEFAULT_FONT_FACE,
 } from '../../strings';
 import { WheelData } from './types';
 import WheelCanvas from '../WheelCanvas';
@@ -38,6 +40,8 @@ interface Props {
   radiusLineColor?: string;
   radiusLineWidth?: number;
   fontSize?: number;
+  fontWeight?: "bold" | "bolder" | "normal" | "lighter";
+  fontFace?: string;
   perpendicularText?: boolean;
   textDistance?: number;
 }
@@ -63,6 +67,8 @@ export const Wheel = ({
   radiusLineColor = DEFAULT_RADIUS_LINE_COLOR,
   radiusLineWidth = DEFAULT_RADIUS_LINE_WIDTH,
   fontSize = DEFAULT_FONT_SIZE,
+  fontWeight = DEFAULT_FONT_WEIGHT,
+  fontFace = DEFAULT_FONT_FACE,
   perpendicularText = false,
   textDistance = DEFAULT_TEXT_DISTANCE,
 }: Props) => {
@@ -160,6 +166,8 @@ export const Wheel = ({
           radiusLineColor={radiusLineColor}
           radiusLineWidth={radiusLineWidth}
           fontSize={fontSize}
+          fontFace={fontFace}
+          fontWeight={fontWeight}
           perpendicularText={perpendicularText}
           textDistance={textDistance}
         />

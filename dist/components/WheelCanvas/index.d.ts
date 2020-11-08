@@ -14,8 +14,10 @@ interface DrawWheelProps {
     radiusLineColor: string;
     radiusLineWidth: number;
     fontSize: number;
+    fontFace: string;
+    fontWeight: "normal" | "bold" | "bolder" | "lighter";
     perpendicularText: boolean;
     textDistance: number;
 }
-declare const WheelCanvas: ({ width, height, data, outerBorderColor, outerBorderWidth, innerRadius, innerBorderColor, innerBorderWidth, radiusLineColor, radiusLineWidth, fontSize, perpendicularText, textDistance, }: WheelCanvasProps) => JSX.Element;
+declare const WheelCanvas: ({ width, height, data, outerBorderColor, outerBorderWidth, innerRadius, innerBorderColor, innerBorderWidth, radiusLineColor, radiusLineWidth, fontSize, fontWeight, fontFace, perpendicularText, textDistance, }: WheelCanvasProps) => JSX.Element;
 export default WheelCanvas;

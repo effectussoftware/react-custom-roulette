@@ -19,6 +19,8 @@ interface DrawWheelProps {
   radiusLineColor: string;
   radiusLineWidth: number;
   fontSize: number;
+  fontFace: string;
+  fontWeight: "normal" | "bold" | "bolder" | "lighter";
   perpendicularText: boolean;
   textDistance: number;
 }
@@ -39,6 +41,8 @@ const drawWheel = (
     radiusLineColor,
     radiusLineWidth,
     fontSize,
+    fontFace,
+    fontWeight,
     perpendicularText,
     textDistance,
   } = drawWheelProps;
@@ -70,12 +74,12 @@ const drawWheel = (
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
 
-    ctx.font = `bold ${fontSize}px Helvetica, Arial`;
+    ctx.font = `${fontWeight} ${fontSize}px {fontFace}}`;
 
     for (let i = 0; i < data.length; i++) {
       const angle = startAngle + i * arc;
       const { style } = data[i];
-      ctx.fillStyle = (style && style.backgroundColor) as string;
+      ctx.fillStyle = style?.backgroundColor ?? "undefined";
 
       ctx.beginPath();
       ctx.arc(centerX, centerY, outsideRadius, angle, angle + arc, false);
@@ -134,7 +138,7 @@ const drawWheel = (
       ctx.stroke();
 
       // TEXT FILL
-      ctx.fillStyle = (style && style.textColor) as string;
+      ctx.fillStyle = style?.textColor ?? "undefined";
       ctx.translate(
         centerX + Math.cos(angle + arc / 2) * textRadius,
         centerY + Math.sin(angle + arc / 2) * textRadius
@@ -162,6 +166,8 @@ const WheelCanvas = ({
   radiusLineColor,
   radiusLineWidth,
   fontSize,
+  fontWeight,
+  fontFace,
   perpendicularText,
   textDistance,
 }: WheelCanvasProps) => {
@@ -175,6 +181,8 @@ const WheelCanvas = ({
     radiusLineColor,
     radiusLineWidth,
     fontSize,
+    fontWeight,
+    fontFace,
     perpendicularText,
     textDistance,
   };
