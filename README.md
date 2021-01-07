@@ -148,6 +148,7 @@ This project exists thanks to all the people who contribute!
 <ul>
     <li><a href="https://github.com/luchozamora1">Luis Felipe Zamora</a></li>
     <li><a href="https://github.com/nazabalm20">Martin Nazabal</a></li>
+    <li><a href="https://github.com/jpmazza">JP Mazza</a></li>
 </ul>
 
 ## License
