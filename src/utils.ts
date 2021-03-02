@@ -1,11 +1,3 @@
-interface WheelData {
-  option: string;
-  style: {
-    backgroundColor?: string;
-    textColor?: string;
-  };
-}
-
 export const getRotationDegrees = (
   prizeNumber: number,
   numberOfPrizes: number
