@@ -9,12 +9,10 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
 };
 import React, { useState, useEffect, useRef } from 'react';
 import { getRotationDegrees } from '../../utils';
@@ -28,7 +26,7 @@ var CONTINUE_SPINNING_TIME = 750;
 var STOP_SPINNING_TIME = 8000;
 export var Wheel = function (_a) {
     var mustStartSpinning = _a.mustStartSpinning, prizeNumber = _a.prizeNumber, data = _a.data, _b = _a.onStopSpinning, onStopSpinning = _b === void 0 ? function () { return null; } : _b, _c = _a.backgroundColors, backgroundColors = _c === void 0 ? DEFAULT_BACKGROUND_COLORS : _c, _d = _a.textColors, textColors = _d === void 0 ? DEFAULT_TEXT_COLORS : _d, _e = _a.outerBorderColor, outerBorderColor = _e === void 0 ? DEFAULT_OUTER_BORDER_COLOR : _e, _f = _a.outerBorderWidth, outerBorderWidth = _f === void 0 ? DEFAULT_OUTER_BORDER_WIDTH : _f, _g = _a.innerRadius, innerRadius = _g === void 0 ? DEFAULT_INNER_RADIUS : _g, _h = _a.innerBorderColor, innerBorderColor = _h === void 0 ? DEFAULT_INNER_BORDER_COLOR : _h, _j = _a.innerBorderWidth, innerBorderWidth = _j === void 0 ? DEFAULT_INNER_BORDER_WIDTH : _j, _k = _a.radiusLineColor, radiusLineColor = _k === void 0 ? DEFAULT_RADIUS_LINE_COLOR : _k, _l = _a.radiusLineWidth, radiusLineWidth = _l === void 0 ? DEFAULT_RADIUS_LINE_WIDTH : _l, _m = _a.fontSize, fontSize = _m === void 0 ? DEFAULT_FONT_SIZE : _m, _o = _a.perpendicularText, perpendicularText = _o === void 0 ? false : _o, _p = _a.textDistance, textDistance = _p === void 0 ? DEFAULT_TEXT_DISTANCE : _p;
-    var wheelData = useRef(__spreadArrays(data));
+    var wheelData = useRef(__spreadArray([], data));
     var _q = useState(0), startRotationDegrees = _q[0], setStartRotationDegrees = _q[1];
     var _r = useState(0), finalRotationDegrees = _r[0], setFinalRotationDegrees = _r[1];
     var _s = useState(false), hasStartedSpinning = _s[0], setHasStartedSpinning = _s[1];
@@ -39,7 +37,7 @@ export var Wheel = function (_a) {
     useEffect(function () {
         var _a, _b;
         var dataLength = data.length;
-        wheelData.current = __spreadArrays(data);
+        wheelData.current = __spreadArray([], data);
         for (var i = 0; i < dataLength; i++) {
             wheelData.current[i] = __assign(__assign({}, data[i]), { style: {
                     backgroundColor: ((_a = data[i].style) === null || _a === void 0 ? void 0 : _a.backgroundColor) ||
