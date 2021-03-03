@@ -66,7 +66,7 @@ export const Wheel = ({
   perpendicularText = false,
   textDistance = DEFAULT_TEXT_DISTANCE,
 }: Props) => {
-  const wheelData = useRef<WheelData[]>([...data]);
+  const [wheelData, setWheelData] = useState<WheelData[]>([...data]);
   const [startRotationDegrees, setStartRotationDegrees] = useState(0);
   const [finalRotationDegrees, setFinalRotationDegrees] = useState(0);
   const [hasStartedSpinning, setHasStartedSpinning] = useState(false);
@@ -78,9 +78,9 @@ export const Wheel = ({
 
   useEffect(() => {
     const dataLength = data.length;
-    wheelData.current = [...data];
+    const wheelDataAux = [{ option: '' }] as WheelData[];
     for (let i = 0; i < dataLength; i++) {
-      wheelData.current[i] = {
+      wheelDataAux[i] = {
         ...data[i],
         style: {
           backgroundColor:
@@ -91,6 +91,7 @@ export const Wheel = ({
         },
       };
     }
+    setWheelData([...wheelDataAux]);
     setIsDataUpdated(true);
   }, [data, backgroundColors, textColors]);
 
@@ -151,7 +152,7 @@ export const Wheel = ({
         <WheelCanvas
           width="900"
           height="900"
-          data={wheelData.current}
+          data={wheelData}
           outerBorderColor={outerBorderColor}
           outerBorderWidth={outerBorderWidth}
           innerRadius={innerRadius}
