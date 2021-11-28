@@ -37,8 +37,9 @@
   &.started-spinning {
     animation: spin ${({startSpinningTime:e})=>e/1e3}s
         cubic-bezier(0.71, -0.29, 0.96, 0.9) 0s 1 normal forwards running,
-      continueSpin ${({rotationTimeCoefficient:e})=>.75*e}s linear
-        ${({startSpinningTime:e})=>e/1e3}s 1 normal
+      continueSpin
+        ${({rotationTimeCoefficient:e})=>.75*e}s
+        linear ${({startSpinningTime:e})=>e/1e3}s 1 normal
         forwards running,
       stopSpin ${({stopSpinningTime:e})=>e/1e3}s
         cubic-bezier(0, 0, 0.35, 1.02)
