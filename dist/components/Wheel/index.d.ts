@@ -17,6 +17,7 @@ interface Props {
     fontSize?: number;
     perpendicularText?: boolean;
     textDistance?: number;
+    rotationTimeCoefficient?: number;
 }
-export declare const Wheel: ({ mustStartSpinning, prizeNumber, data, onStopSpinning, backgroundColors, textColors, outerBorderColor, outerBorderWidth, innerRadius, innerBorderColor, innerBorderWidth, radiusLineColor, radiusLineWidth, fontSize, perpendicularText, textDistance, }: Props) => JSX.Element | null;
+export declare const Wheel: ({ mustStartSpinning, prizeNumber, data, onStopSpinning, backgroundColors, textColors, outerBorderColor, outerBorderWidth, innerRadius, innerBorderColor, innerBorderWidth, radiusLineColor, radiusLineWidth, fontSize, perpendicularText, textDistance, rotationTimeCoefficient, }: Props) => JSX.Element | null;
 export {};
