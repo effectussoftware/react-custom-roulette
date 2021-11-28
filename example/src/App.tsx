@@ -25,6 +25,7 @@ const radiusLineColor = '#eeeeee';
 const radiusLineWidth = 8;
 const fontSize = 17;
 const textDistance = 60;
+const rotationTimeCoefficient = 1.0;
 
 const App = () => {
   const [mustSpin, setMustSpin] = useState(false);
@@ -53,6 +54,7 @@ const App = () => {
           innerBorderWidth={innerBorderWidth}
           radiusLineColor={radiusLineColor}
           radiusLineWidth={radiusLineWidth}
+          rotationTimeCoefficient={rotationTimeCoefficient}
           // perpendicularText
           textDistance={textDistance}
 
