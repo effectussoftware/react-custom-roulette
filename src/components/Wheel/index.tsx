@@ -73,9 +73,9 @@ export const Wheel = ({
   const [isCurrentlySpinning, setIsCurrentlySpinning] = useState(false);
   const [isDataUpdated, setIsDataUpdated] = useState(false);
 
-  const START_SPINNING_TIME:number = 2600 * rotationTimeCoefficient;
-  const CONTINUE_SPINNING_TIME:number = 750 * rotationTimeCoefficient;
-  const STOP_SPINNING_TIME:number = 8000 * rotationTimeCoefficient;
+  const START_SPINNING_TIME: number = 2600 * rotationTimeCoefficient;
+  const CONTINUE_SPINNING_TIME: number = 750 * rotationTimeCoefficient;
+  const STOP_SPINNING_TIME: number = 8000 * rotationTimeCoefficient;
 
   const mustStopSpinning = useRef<boolean>(false);
 
