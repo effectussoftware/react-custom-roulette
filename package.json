@@ -66,7 +66,7 @@
     "eject": "react-scripts eject",
     "format": "prettier --write src/**/*.{js,ts,tsx}",
     "lint": "eslint src/**/*.{js,ts,tsx}",
-    "link-react": "cd example/node_modules/react && npm link && cd ../react-dom && npm link && cd ../../.. && npm link react react-dom"
+    "link-react": "cd example/node_modules/react && yarn link && cd ../react-dom && yarn link && cd ../../.. && yarn link react react-dom"
   },
   "husky": {
     "hooks": {
