@@ -164,7 +164,7 @@ const WheelCanvas = ({
   fontSize,
   perpendicularText,
   textDistance,
-}: WheelCanvasProps) => {
+}: WheelCanvasProps): JSX.Element => {
   const canvasRef = createRef<HTMLCanvasElement>();
   const drawWheelProps = {
     outerBorderColor,

@@ -19,7 +19,7 @@ import {
   DEFAULT_RADIUS_LINE_WIDTH,
   DEFAULT_FONT_SIZE,
   DEFAULT_TEXT_DISTANCE,
-  DEFAULT_RORATION_TIME_COEFFICIENT,
+  DEFAULT_SPIN_DURATION,
 } from '../../strings';
 import { WheelData } from './types';
 import WheelCanvas from '../WheelCanvas';
@@ -41,10 +41,14 @@ interface Props {
   fontSize?: number;
   perpendicularText?: boolean;
   textDistance?: number;
-  rotationTimeCoefficient?: number;
+  spinDuration?: number;
 }
 
 const STARTED_SPINNING = 'started-spinning';
+
+const START_SPINNING_TIME = 2600;
+const CONTINUE_SPINNING_TIME = 750;
+const STOP_SPINNING_TIME = 8000;
 
 export const Wheel = ({
   mustStartSpinning,
@@ -63,8 +67,8 @@ export const Wheel = ({
   fontSize = DEFAULT_FONT_SIZE,
   perpendicularText = false,
   textDistance = DEFAULT_TEXT_DISTANCE,
-  rotationTimeCoefficient = DEFAULT_RORATION_TIME_COEFFICIENT,
-}: Props) => {
+  spinDuration = DEFAULT_SPIN_DURATION,
+}: Props): JSX.Element | null => {
   const [wheelData, setWheelData] = useState<WheelData[]>([...data]);
   const [startRotationDegrees, setStartRotationDegrees] = useState(0);
   const [finalRotationDegrees, setFinalRotationDegrees] = useState(0);
@@ -73,9 +77,14 @@ export const Wheel = ({
   const [isCurrentlySpinning, setIsCurrentlySpinning] = useState(false);
   const [isDataUpdated, setIsDataUpdated] = useState(false);
 
-  const START_SPINNING_TIME: number = 2600 * rotationTimeCoefficient;
-  const CONTINUE_SPINNING_TIME: number = 750 * rotationTimeCoefficient;
-  const STOP_SPINNING_TIME: number = 8000 * rotationTimeCoefficient;
+  const normalizedSpinDuration = Math.max(0.01, spinDuration);
+
+  const startSpinningTime = START_SPINNING_TIME * normalizedSpinDuration;
+  const continueSpinningTime = CONTINUE_SPINNING_TIME * normalizedSpinDuration;
+  const stopSpinningTime = STOP_SPINNING_TIME * normalizedSpinDuration;
+
+  const totalSpinningTime =
+    startSpinningTime + continueSpinningTime + stopSpinningTime;
 
   const mustStopSpinning = useRef<boolean>(false);
 
@@ -128,7 +137,7 @@ export const Wheel = ({
         setHasStoppedSpinning(true);
         onStopSpinning();
       }
-    }, START_SPINNING_TIME + CONTINUE_SPINNING_TIME + STOP_SPINNING_TIME - 300 * rotationTimeCoefficient);
+    }, totalSpinningTime);
   };
 
   const getRouletteClass = () => {
@@ -146,10 +155,9 @@ export const Wheel = ({
     <RouletteContainer>
       <RotationContainer
         className={getRouletteClass()}
-        startSpinningTime={START_SPINNING_TIME}
-        continueSpinningTime={CONTINUE_SPINNING_TIME}
-        rotationTimeCoefficient={rotationTimeCoefficient}
-        stopSpinningTime={STOP_SPINNING_TIME}
+        startSpinningTime={startSpinningTime}
+        continueSpinningTime={continueSpinningTime}
+        stopSpinningTime={stopSpinningTime}
         startRotationDegrees={startRotationDegrees}
         finalRotationDegrees={finalRotationDegrees}
       >

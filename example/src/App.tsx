@@ -25,17 +25,17 @@ const radiusLineColor = '#eeeeee';
 const radiusLineWidth = 8;
 const fontSize = 17;
 const textDistance = 60;
-const rotationTimeCoefficient = 1.0;
+const spinDuration = 1.0;
 
 const App = () => {
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
 
   const handleSpinClick = () => {
-    const newPrizeNumber = Math.floor(Math.random() * data.length)
-    setPrizeNumber(newPrizeNumber)
-    setMustSpin(true)
-  }
+    const newPrizeNumber = Math.floor(Math.random() * data.length);
+    setPrizeNumber(newPrizeNumber);
+    setMustSpin(true);
+  };
 
   return (
     <div className="App">
@@ -54,12 +54,11 @@ const App = () => {
           innerBorderWidth={innerBorderWidth}
           radiusLineColor={radiusLineColor}
           radiusLineWidth={radiusLineWidth}
-          rotationTimeCoefficient={rotationTimeCoefficient}
+          spinDuration={spinDuration}
           // perpendicularText
           textDistance={textDistance}
-
           onStopSpinning={() => {
-            setMustSpin(false)
+            setMustSpin(false);
           }}
         />
         <button className={'spin-button'} onClick={handleSpinClick}>
