@@ -1,4 +1,4 @@
-import React, { RefObject, createRef, useEffect } from 'react';
+import React, { createRef, RefObject, useEffect } from 'react';
 
 import { WheelCanvasStyle } from './styles';
 import { WheelData } from '../Wheel/types';
@@ -18,6 +18,7 @@ interface DrawWheelProps {
   innerBorderWidth: number;
   radiusLineColor: string;
   radiusLineWidth: number;
+  fontFamily: string;
   fontSize: number;
   perpendicularText: boolean;
   textDistance: number;
@@ -38,6 +39,7 @@ const drawWheel = (
     innerBorderWidth,
     radiusLineColor,
     radiusLineWidth,
+    fontFamily,
     fontSize,
     perpendicularText,
     textDistance,
@@ -47,7 +49,6 @@ const drawWheel = (
   outerBorderWidth *= 2;
   innerBorderWidth *= 2;
   radiusLineWidth *= 2;
-  fontSize *= 2;
 
   const canvas = canvasRef.current;
   if (canvas?.getContext('2d')) {
@@ -69,8 +70,6 @@ const drawWheel = (
 
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-
-    ctx.font = `bold ${fontSize}px Helvetica, Arial`;
 
     for (let i = 0; i < data.length; i++) {
       const angle = startAngle + i * arc;
@@ -134,6 +133,9 @@ const drawWheel = (
       ctx.stroke();
 
       // TEXT FILL
+      ctx.font = `bold ${((style && style.fontSize) || fontSize) * 2}px ${
+        (style && style.fontFamily) || fontFamily
+      }, Helvetica, Arial`;
       ctx.fillStyle = (style && style.textColor) as string;
       ctx.translate(
         centerX + Math.cos(angle + arc / 2) * textRadius,
@@ -161,6 +163,7 @@ const WheelCanvas = ({
   innerBorderWidth,
   radiusLineColor,
   radiusLineWidth,
+  fontFamily,
   fontSize,
   perpendicularText,
   textDistance,
@@ -174,6 +177,7 @@ const WheelCanvas = ({
     innerBorderWidth,
     radiusLineColor,
     radiusLineWidth,
+    fontFamily,
     fontSize,
     perpendicularText,
     textDistance,

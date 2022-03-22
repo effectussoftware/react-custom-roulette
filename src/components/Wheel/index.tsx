@@ -1,23 +1,23 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { getRotationDegrees } from '../../utils';
 import { rouletteSelector } from '../common/images';
 import {
+  RotationContainer,
   RouletteContainer,
   RouletteSelectorImage,
-  RotationContainer,
 } from './styles';
 import {
   DEFAULT_BACKGROUND_COLORS,
-  DEFAULT_TEXT_COLORS,
-  DEFAULT_OUTER_BORDER_COLOR,
-  DEFAULT_OUTER_BORDER_WIDTH,
-  DEFAULT_INNER_RADIUS,
+  DEFAULT_FONT_SIZE,
   DEFAULT_INNER_BORDER_COLOR,
   DEFAULT_INNER_BORDER_WIDTH,
+  DEFAULT_INNER_RADIUS,
+  DEFAULT_OUTER_BORDER_COLOR,
+  DEFAULT_OUTER_BORDER_WIDTH,
   DEFAULT_RADIUS_LINE_COLOR,
   DEFAULT_RADIUS_LINE_WIDTH,
-  DEFAULT_FONT_SIZE,
+  DEFAULT_TEXT_COLORS,
   DEFAULT_TEXT_DISTANCE,
   DEFAULT_SPIN_DURATION,
 } from '../../strings';
@@ -38,6 +38,7 @@ interface Props {
   innerBorderWidth?: number;
   radiusLineColor?: string;
   radiusLineWidth?: number;
+  fontFamily?: string;
   fontSize?: number;
   perpendicularText?: boolean;
   textDistance?: number;
@@ -64,6 +65,7 @@ export const Wheel = ({
   innerBorderWidth = DEFAULT_INNER_BORDER_WIDTH,
   radiusLineColor = DEFAULT_RADIUS_LINE_COLOR,
   radiusLineWidth = DEFAULT_RADIUS_LINE_WIDTH,
+  fontFamily = '',
   fontSize = DEFAULT_FONT_SIZE,
   perpendicularText = false,
   textDistance = DEFAULT_TEXT_DISTANCE,
@@ -98,6 +100,8 @@ export const Wheel = ({
           backgroundColor:
             data[i].style?.backgroundColor ||
             backgroundColors[i % backgroundColors.length],
+          fontFamily: data[i].style?.fontFamily || fontFamily,
+          fontSize: data[i].style?.fontSize || fontSize,
           textColor:
             data[i].style?.textColor || textColors[i % textColors.length],
         },
@@ -172,6 +176,7 @@ export const Wheel = ({
           innerBorderWidth={innerBorderWidth}
           radiusLineColor={radiusLineColor}
           radiusLineWidth={radiusLineWidth}
+          fontFamily={fontFamily}
           fontSize={fontSize}
           perpendicularText={perpendicularText}
           textDistance={textDistance}
