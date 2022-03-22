@@ -29,8 +29,7 @@ export const RotationContainer = styled.div`
   &.started-spinning {
     animation: spin ${({ startSpinningTime }) => startSpinningTime / 1000}s
         cubic-bezier(0.71, -0.29, 0.96, 0.9) 0s 1 normal forwards running,
-      continueSpin
-        ${({ rotationTimeCoefficient }) => 0.75 * rotationTimeCoefficient}s
+      continueSpin ${({ continueSpinningTime }) => continueSpinningTime / 1000}s
         linear ${({ startSpinningTime }) => startSpinningTime / 1000}s 1 normal
         forwards running,
       stopSpin ${({ stopSpinningTime }) => stopSpinningTime / 1000}s

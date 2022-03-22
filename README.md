@@ -22,6 +22,7 @@
 - Prize selection by props
 - Spinning animation
 - **[NEW!]** Multiple spins (see [Multi Spin](#multi-spin))
+- **[NEW!]** Customizable spin duration
 - Compatible with TypeScript
 
 ## Install
@@ -79,7 +80,7 @@ export default () => (
 | fontSize                       | `number`           | 20                        | Font size of the option string                                                                        |
 | perpendicularText              | `boolean`          | false                     | When 'true', sets the option texts perpendicular to the roulette's radial lines                       |
 | textDistance                   | `number [0..100]`  | 60                        | Distance of the option texts from the center of the roulette                                          |
-| coefficientOfRotation          | `number`           | 1.0                       | Coefficient to adjust the rotation time                                                               |
+| spinDuration                   | `number [0.01 ..]` | 1.0                       | Coefficient to adjust the default spin duration                                                              |
 
 ## Types
 
@@ -133,7 +134,7 @@ export default () => {
         data={data}
 
         onStopSpinning={() => {
-          setMustSpin(false)
+          setMustSpin(false);
         }}
       />
       <button onClick={handleSpinClick}>SPIN</button>
