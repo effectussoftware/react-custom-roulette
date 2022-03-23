@@ -5,7 +5,10 @@ import { Wheel } from 'react-custom-roulette';
 
 const data = [
   { option: 'REACT' },
-  { option: 'CUSTOM', style: { fontSize: 30 } },
+  {
+    option: 'CUSTOM',
+    style: { fontSize: 30, fontFamily: 'dassdas,serif, Arial' },
+  },
   {
     option: 'ROULETTE',
     style: { textColor: '#f9dd50', fontFamily: 'cursive' },
@@ -14,7 +17,7 @@ const data = [
   { option: 'REACT' },
   {
     option: 'CUSTOM',
-    style: { fontSize: 40, fontFamily: 'Times New Roman', textColor: 'white' },
+    style: { fontSize: 40, fontFamily: 'Chilanka', textColor: 'white' },
   },
   { option: 'ROULETTE', style: { textColor: '#70bbe0' } },
   { option: 'WHEEL' },
@@ -29,7 +32,7 @@ const innerBorderWidth = 0;
 const innerRadius = 0;
 const radiusLineColor = '#eeeeee';
 const radiusLineWidth = 8;
-const fontFamily = 'Nunito Sans';
+const fontFamily = 'Ubuntu';
 const fontSize = 17;
 const textDistance = 60;
 const spinDuration = 1.0;

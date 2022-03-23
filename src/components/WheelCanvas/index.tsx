@@ -3,6 +3,7 @@ import React, { createRef, RefObject, useEffect } from 'react';
 import { WheelCanvasStyle } from './styles';
 import { WheelData } from '../Wheel/types';
 import { clamp } from '../../utils';
+import '../../index.css';
 
 interface WheelCanvasProps extends DrawWheelProps {
   width: string;
@@ -19,6 +20,7 @@ interface DrawWheelProps {
   radiusLineColor: string;
   radiusLineWidth: number;
   fontFamily: string;
+  fontLoaded: boolean;
   fontSize: number;
   perpendicularText: boolean;
   textDistance: number;
@@ -45,7 +47,6 @@ const drawWheel = (
     textDistance,
   } = drawWheelProps;
   /* eslint-enable prefer-const */
-
   outerBorderWidth *= 2;
   innerBorderWidth *= 2;
   radiusLineWidth *= 2;
@@ -164,6 +165,7 @@ const WheelCanvas = ({
   radiusLineColor,
   radiusLineWidth,
   fontFamily,
+  fontLoaded,
   fontSize,
   perpendicularText,
   textDistance,
@@ -178,6 +180,7 @@ const WheelCanvas = ({
     radiusLineColor,
     radiusLineWidth,
     fontFamily,
+    fontLoaded,
     fontSize,
     perpendicularText,
     textDistance,
@@ -185,7 +188,7 @@ const WheelCanvas = ({
 
   useEffect(() => {
     drawWheel(canvasRef, data, drawWheelProps);
-  }, [canvasRef, data, drawWheelProps]);
+  }, [canvasRef, data, drawWheelProps, fontLoaded]);
 
   return <WheelCanvasStyle ref={canvasRef} width={width} height={height} />;
 };

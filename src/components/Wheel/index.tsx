@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import WebFont from 'webfontloader';
 
 import { getRotationDegrees } from '../../utils';
 import { rouletteSelector } from '../common/images';
@@ -78,6 +79,8 @@ export const Wheel = ({
   const [hasStoppedSpinning, setHasStoppedSpinning] = useState(false);
   const [isCurrentlySpinning, setIsCurrentlySpinning] = useState(false);
   const [isDataUpdated, setIsDataUpdated] = useState(false);
+  const [fontLoaded, setFontLoaded] = useState(false);
+  const mustStopSpinning = useRef<boolean>(false);
 
   const normalizedSpinDuration = Math.max(0.01, spinDuration);
 
@@ -88,12 +91,12 @@ export const Wheel = ({
   const totalSpinningTime =
     startSpinningTime + continueSpinningTime + stopSpinningTime;
 
-  const mustStopSpinning = useRef<boolean>(false);
-
   useEffect(() => {
     const dataLength = data.length;
     const wheelDataAux = [{ option: '' }] as WheelData[];
+    const fonts = [fontFamily];
     for (let i = 0; i < dataLength; i++) {
+      fonts.push(data[i].style?.fontFamily || '');
       wheelDataAux[i] = {
         ...data[i],
         style: {
@@ -107,6 +110,14 @@ export const Wheel = ({
         },
       };
     }
+    WebFont.load({
+      google: {
+        families: fonts.filter(font => font !== ''),
+      },
+      fontactive() {
+        setFontLoaded(!fontLoaded);
+      },
+    });
     setWheelData([...wheelDataAux]);
     setIsDataUpdated(true);
   }, [data, backgroundColors, textColors]);
@@ -177,6 +188,7 @@ export const Wheel = ({
           radiusLineColor={radiusLineColor}
           radiusLineWidth={radiusLineWidth}
           fontFamily={fontFamily}
+          fontLoaded={fontLoaded}
           fontSize={fontSize}
           perpendicularText={perpendicularText}
           textDistance={textDistance}
