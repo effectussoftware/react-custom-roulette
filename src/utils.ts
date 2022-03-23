@@ -1,3 +1,5 @@
+import { WEB_FONTS } from './strings';
+
 export const getRotationDegrees = (
   prizeNumber: number,
   numberOfPrizes: number
@@ -20,3 +22,6 @@ export const getRotationDegrees = (
 
 export const clamp = (min: number, max: number, val: number) =>
   Math.min(Math.max(min, +val), max);
+
+export const isCustomFont = (font: string) =>
+  !WEB_FONTS.includes(font.toLowerCase());

@@ -7,11 +7,14 @@ const data = [
   { option: 'REACT' },
   {
     option: 'CUSTOM',
-    style: { fontSize: 30, fontFamily: 'dassdas,serif, Arial' },
+    style: {
+      fontSize: 30,
+      fontFamily: 'Open Sans, Hurricane, Oswald, serif',
+    },
   },
   {
     option: 'ROULETTE',
-    style: { textColor: '#f9dd50', fontFamily: 'cursive' },
+    style: { textColor: '#f9dd50', fontFamily: 'cursive, Chilanka' },
   },
   { option: 'WHEEL', style: { fontSize: 10 } },
   { option: 'REACT' },
@@ -20,7 +23,7 @@ const data = [
     style: { fontSize: 40, fontFamily: 'Chilanka', textColor: 'white' },
   },
   { option: 'ROULETTE', style: { textColor: '#70bbe0' } },
-  { option: 'WHEEL' },
+  { option: 'WHEEL', style: { fontFamily: 'Times New roman' } },
 ];
 
 const backgroundColors = ['#ff8f43', '#70bbe0', '#0b3351', '#f9dd50'];

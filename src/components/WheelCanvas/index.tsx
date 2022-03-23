@@ -20,7 +20,7 @@ interface DrawWheelProps {
   radiusLineColor: string;
   radiusLineWidth: number;
   fontFamily: string;
-  fontLoaded: boolean;
+  fontUpdater: boolean;
   fontSize: number;
   perpendicularText: boolean;
   textDistance: number;
@@ -165,7 +165,7 @@ const WheelCanvas = ({
   radiusLineColor,
   radiusLineWidth,
   fontFamily,
-  fontLoaded,
+  fontUpdater,
   fontSize,
   perpendicularText,
   textDistance,
@@ -180,7 +180,7 @@ const WheelCanvas = ({
     radiusLineColor,
     radiusLineWidth,
     fontFamily,
-    fontLoaded,
+    fontUpdater,
     fontSize,
     perpendicularText,
     textDistance,
@@ -188,7 +188,7 @@ const WheelCanvas = ({
 
   useEffect(() => {
     drawWheel(canvasRef, data, drawWheelProps);
-  }, [canvasRef, data, drawWheelProps, fontLoaded]);
+  }, [canvasRef, data, drawWheelProps, fontUpdater]);
 
   return <WheelCanvasStyle ref={canvasRef} width={width} height={height} />;
 };

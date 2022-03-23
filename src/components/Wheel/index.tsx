@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import WebFont from 'webfontloader';
 
-import { getRotationDegrees } from '../../utils';
+import { getRotationDegrees, isCustomFont } from '../../utils';
 import { rouletteSelector } from '../common/images';
 import {
   RotationContainer,
@@ -80,6 +80,7 @@ export const Wheel = ({
   const [isCurrentlySpinning, setIsCurrentlySpinning] = useState(false);
   const [isDataUpdated, setIsDataUpdated] = useState(false);
   const [fontLoaded, setFontLoaded] = useState(false);
+  const [fontUpdater, setFontUpdater] = useState(false);
   const mustStopSpinning = useRef<boolean>(false);
 
   const normalizedSpinDuration = Math.max(0.01, spinDuration);
@@ -95,8 +96,14 @@ export const Wheel = ({
     const dataLength = data.length;
     const wheelDataAux = [{ option: '' }] as WheelData[];
     const fonts = [fontFamily];
+
     for (let i = 0; i < dataLength; i++) {
-      fonts.push(data[i].style?.fontFamily || '');
+      let fontArray = data[i]?.style?.fontFamily?.split(',') || [];
+      fontArray = fontArray
+        .map(font => font.trim())
+        .filter(font => isCustomFont(font));
+      fonts.push(...fontArray);
+
       wheelDataAux[i] = {
         ...data[i],
         style: {
@@ -112,10 +119,20 @@ export const Wheel = ({
     }
     WebFont.load({
       google: {
-        families: fonts.filter(font => font !== ''),
+        families: Array.from(new Set(fonts.filter(font => font !== ''))),
       },
       fontactive() {
+        setFontUpdater(!fontUpdater);
+      },
+      fontinactive() {
+        setFontUpdater(!fontUpdater);
+      },
+      loading() {
+        setFontUpdater(!fontUpdater);
+      },
+      active() {
         setFontLoaded(true);
+        setFontUpdater(!fontUpdater);
       },
     });
     setWheelData([...wheelDataAux]);
@@ -162,12 +179,12 @@ export const Wheel = ({
     return '';
   };
 
-  if (!isDataUpdated || !fontLoaded) {
+  if (!isDataUpdated) {
     return null;
   }
 
   return (
-    <RouletteContainer>
+    <RouletteContainer style={!fontLoaded ? { visibility: 'hidden' } : {}}>
       <RotationContainer
         className={getRouletteClass()}
         startSpinningTime={startSpinningTime}
@@ -188,7 +205,7 @@ export const Wheel = ({
           radiusLineColor={radiusLineColor}
           radiusLineWidth={radiusLineWidth}
           fontFamily={fontFamily}
-          fontLoaded={fontLoaded}
+          fontUpdater={fontUpdater}
           fontSize={fontSize}
           perpendicularText={perpendicularText}
           textDistance={textDistance}
