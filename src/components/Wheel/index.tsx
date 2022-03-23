@@ -18,9 +18,9 @@ import {
   DEFAULT_OUTER_BORDER_WIDTH,
   DEFAULT_RADIUS_LINE_COLOR,
   DEFAULT_RADIUS_LINE_WIDTH,
+  DEFAULT_SPIN_DURATION,
   DEFAULT_TEXT_COLORS,
   DEFAULT_TEXT_DISTANCE,
-  DEFAULT_SPIN_DURATION,
 } from '../../strings';
 import { WheelData } from './types';
 import WheelCanvas from '../WheelCanvas';
@@ -115,7 +115,7 @@ export const Wheel = ({
         families: fonts.filter(font => font !== ''),
       },
       fontactive() {
-        setFontLoaded(!fontLoaded);
+        setFontLoaded(true);
       },
     });
     setWheelData([...wheelDataAux]);
@@ -162,7 +162,7 @@ export const Wheel = ({
     return '';
   };
 
-  if (!isDataUpdated) {
+  if (!isDataUpdated || !fontLoaded) {
     return null;
   }
 

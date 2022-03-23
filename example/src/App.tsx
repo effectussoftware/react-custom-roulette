@@ -35,7 +35,7 @@ const radiusLineWidth = 8;
 const fontFamily = 'Ubuntu';
 const fontSize = 17;
 const textDistance = 60;
-const spinDuration = 1.0;
+const spinDuration = 0.1;
 
 const App = () => {
   const [mustSpin, setMustSpin] = useState(false);
