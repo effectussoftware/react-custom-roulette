@@ -55,7 +55,6 @@ const App = () => {
           data={data}
           backgroundColors={backgroundColors}
           textColors={textColors}
-          // @ts-ignore
           fontFamily={fontFamily}
           fontSize={fontSize}
           outerBorderColor={outerBorderColor}
