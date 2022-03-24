@@ -62,31 +62,26 @@ export default () => (
 
 #### Props
 
-| **Prop**                       | **Type**           | **Default**               | **
-Description**                                                                                       |
+| **Prop**                       | **Type**           | **Default**               | **Description**                                                                                       |
 |--------------------------------|--------------------|---------------------------|-------------------------------------------------------------------------------------------------------|
-| mustStartSpinning _(
-required)_ | `boolean`          | - | Sets when the roulette must start the spinning animation | | prizeNumber _(
-required)_       | `number`           | - | Sets the winning option. It's value must be between 0 and data.lenght-1 | |
-data _(
-required)_              | `Array<WheelData>` | - | Array of options. Can contain styling information for a specific
-option (see [WheelData](#wheeldata)) | | onStopSpinning | `function`         | () => null | Callback function that is
-called when the roulette ends the spinning animation | | backgroundColors | `Array<string>`
-| ['darkgrey', 'lightgrey'] | Array of colors that will fill the background of the roulette options, starting from
-option 0 | | textColors | `Array<string>`    | ['black']                 | Array of colors that will fill the text of
-the roulette options, starting from option 0 | | outerBorderColor | `string`           | 'black' | Color of the
-roulette's outer border line | | outerBorderWidth | `number`           | 5 | Width of the roulette's outer border line (
-0 represents no outer border line)                         | | innerRadius | `number [0..100]`  | 0 | Distance of the
-inner radius from the center of the roulette | | innerBorderColor | `string`           | 'black' | Color of the
-roulette's inner border line | | innerBorderWidth | `number`           | 0 | Width of the roulette's inner border line (
-0 represents no inner border line)                         | | radiusLineColor | `string`           | 'black' | Color of
-the radial lines that separate each option | | radiusLineWidth | `number`           | 5 | Width of the radial lines that
-separate each option (0 represents no radial lines)                    | | fontFamily | `string`           | 'Helevetia,
-sans-serif' | Global font family of the option string | | fontSize | `number`           | 20 | Global font size of the
-option string | | perpendicularText | `boolean`          | false | When 'true', sets the option texts perpendicular to
-the roulette's radial lines | | textDistance | `number [0..100]`  | 60 | Distance of the option texts from the center of
-the roulette | | spinDuration | `number [0.01 ..]` | 1.0 | Coefficient to adjust the default spin duration |
-
+| mustStartSpinning _(required)_ | `boolean`          | -                         | Sets when the roulette must start the spinning animation                                              |
+| prizeNumber _(required)_       | `number`           | -                         | Sets the winning option. It's value must be between 0 and data.lenght-1                               |
+| data _(required)_              | `Array<WheelData>` | -                         | Array of options. Can contain styling information for a specific option (see [WheelData](#wheeldata)) |
+| onStopSpinning                 | `function`         | () => null                | Callback function that is called when the roulette ends the spinning animation                        |
+| backgroundColors               | `Array<string>`    | ['darkgrey', 'lightgrey'] | Array of colors that will fill the background of the roulette options, starting from option 0         |
+| textColors                     | `Array<string>`    | ['black']                 | Array of colors that will fill the text of the roulette options, starting from option 0               |
+| outerBorderColor               | `string`           | 'black'                   | Color of the roulette's outer border line                                                             |
+| outerBorderWidth               | `number`           | 5                         | Width of the roulette's outer border line (0 represents no outer border line)                         |
+| innerRadius                    | `number [0..100]`  | 0                         | Distance of the inner radius from the center of the roulette                                          |
+| innerBorderColor               | `string`           | 'black'                   | Color of the roulette's inner border line                                                             |
+| innerBorderWidth               | `number`           | 0                         | Width of the roulette's inner border line (0 represents no inner border line)                         |
+| radiusLineColor                | `string`           | 'black'                   | Color of the radial lines that separate each option                                                   |
+| radiusLineWidth                | `number`           | 5                         | Width of the radial lines that separate each option (0 represents no radial lines)                    |
+| fontFamily                     | `string`           | 'Helvetica, sans-serif '  | Global font family of the option string                                                               |
+| fontSize                       | `number`           | 20                        | Global font size of the option string                                                                 |
+| perpendicularText              | `boolean`          | false                     | When 'true', sets the option texts perpendicular to the roulette's radial lines                       |
+| textDistance                   | `number [0..100]`  | 60                        | Distance of the option texts from the center of the roulette                                          |
+| spinDuration                   | `number [0.01 ..]` | 1.0                       | Coefficient to adjust the default spin duration                                                       |
 ## Types
 
 #### WheelData
@@ -96,7 +91,7 @@ interface
 WheelData
 {
   option: string;
-  style ? : StyleType; // Optional
+  style? : StyleType; // Optional
 }
 ```
 
@@ -106,10 +101,10 @@ WheelData
 interface
 StyleType
 {
-  backgroundColor ? : string; // Optional
-  textColor ? : string; // Optional
-  fontFamily ? : string; // Optional (defaults to `fontFamily`)
-  fontSize ? : number; // Optional (defaults to `fontSize`)
+  backgroundColor? : string; // Optional
+  textColor? : string; // Optional
+  fontFamily? : string; // Optional (defaults to `fontFamily`)
+  fontSize? : number; // Optional (defaults to `fontSize`)
 }
 ```
 
