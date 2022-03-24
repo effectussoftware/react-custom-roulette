@@ -4,14 +4,14 @@ import './App.css';
 import { Wheel } from 'react-custom-roulette';
 
 const data = [
-  { option: 'REACT' },
-  { option: 'CUSTOM' },
-  { option: 'ROULETTE', style: { textColor: '#f9dd50' } },
-  { option: 'WHEEL' },
-  { option: 'REACT' },
-  { option: 'CUSTOM' },
-  { option: 'ROULETTE', style: { textColor: '#70bbe0' } },
-  { option: 'WHEEL' },
+  { option: 'REACT', percentage: 10 },
+  { option: 'CUSTOM', percentage: 10 },
+  { option: 'ROULETTE', percentage: 10, style: { textColor: '#f9dd50' } },
+  { option: 'WHEEL', percentage: 10 },
+  { option: 'REACT', percentage: 10 },
+  { option: 'CUSTOM', percentage: 10 },
+  { option: 'ROULETTE', percentage: 10, style: { textColor: '#70bbe0' } },
+  { option: 'WHEEL', percentage: 30 },
 ];
 
 const backgroundColors = ['#ff8f43', '#70bbe0', '#0b3351', '#f9dd50'];
