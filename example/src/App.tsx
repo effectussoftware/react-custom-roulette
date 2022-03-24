@@ -7,27 +7,19 @@ const data = [
   { option: 'REACT' },
   {
     option: 'CUSTOM',
-    style: {
-      fontSize: 30,
-      fontFamily: 'Open Sans, Hurricane, Oswald, serif',
-    },
   },
   {
     option: 'ROULETTE',
     style: {
       textColor: '#f9dd50',
-      fontFamily:
-        'Josefin Sans, cursive, Chilanka, Mulish, Arimo, Dosis, Cabin, Bitter, Anton, Lobster, Fredoka, Open Sans, Montserrat, Roboto, Helvetica, Arial, sans-serif',
+      fontFamily: 'Ubuntu',
     },
   },
   { option: 'WHEEL' },
-  { option: 'REACT', style: { fontFamily: 'Fredoka' } },
-  {
-    option: 'CUSTOM',
-    style: { fontSize: 40, fontFamily: 'Prompt', textColor: 'white' },
-  },
+  { option: 'REACT' },
+  { option: 'CUSTOM', style: { textColor: 'white' } },
   { option: 'ROULETTE', style: { textColor: '#70bbe0' } },
-  { option: 'WHEEL', style: { fontFamily: 'Times New roman' } },
+  { option: 'WHEEL' },
 ];
 
 const backgroundColors = ['#ff8f43', '#70bbe0', '#0b3351', '#f9dd50'];
@@ -39,7 +31,7 @@ const innerBorderWidth = 0;
 const innerRadius = 0;
 const radiusLineColor = '#eeeeee';
 const radiusLineWidth = 8;
-const fontFamily = 'Ubuntu';
+const fontFamily = 'Nunito';
 const fontSize = 20;
 const textDistance = 60;
 const spinDuration = 1.0;
