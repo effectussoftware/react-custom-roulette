@@ -121,13 +121,8 @@ export const Wheel = ({
       google: {
         families: Array.from(new Set(fonts.filter(font => font !== ''))),
       },
+      timeout: 1000,
       fontactive() {
-        setFontUpdater(!fontUpdater);
-      },
-      fontinactive() {
-        setFontUpdater(!fontUpdater);
-      },
-      loading() {
         setFontUpdater(!fontUpdater);
       },
       active() {

@@ -14,13 +14,17 @@ const data = [
   },
   {
     option: 'ROULETTE',
-    style: { textColor: '#f9dd50', fontFamily: 'cursive, Chilanka' },
+    style: {
+      textColor: '#f9dd50',
+      fontFamily:
+        'Josefin Sans, cursive, Chilanka, Mulish, Arimo, Dosis, Cabin, Bitter, Anton, Lobster, Fredoka, Open Sans, Montserrat, Roboto, Helvetica, Arial, sans-serif',
+    },
   },
-  { option: 'WHEEL', style: { fontSize: 10 } },
-  { option: 'REACT' },
+  { option: 'WHEEL' },
+  { option: 'REACT', style: { fontFamily: 'Fredoka' } },
   {
     option: 'CUSTOM',
-    style: { fontSize: 40, fontFamily: 'Chilanka', textColor: 'white' },
+    style: { fontSize: 40, fontFamily: 'Prompt', textColor: 'white' },
   },
   { option: 'ROULETTE', style: { textColor: '#70bbe0' } },
   { option: 'WHEEL', style: { fontFamily: 'Times New roman' } },
@@ -36,9 +40,9 @@ const innerRadius = 0;
 const radiusLineColor = '#eeeeee';
 const radiusLineWidth = 8;
 const fontFamily = 'Ubuntu';
-const fontSize = 17;
+const fontSize = 20;
 const textDistance = 60;
-const spinDuration = 0.1;
+const spinDuration = 1.0;
 
 const App = () => {
   const [mustSpin, setMustSpin] = useState(false);
@@ -59,6 +63,7 @@ const App = () => {
           data={data}
           backgroundColors={backgroundColors}
           textColors={textColors}
+          // @ts-ignore
           fontFamily={fontFamily}
           fontSize={fontSize}
           outerBorderColor={outerBorderColor}
