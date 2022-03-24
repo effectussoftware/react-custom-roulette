@@ -163,6 +163,8 @@ This project exists thanks to all the people who contribute!
     <li><a href="https://github.com/nazabalm20">Martin Nazabal</a></li>
     <li><a href="https://github.com/jpmazza">JP Mazza</a></li>
     <li><a href="https://github.com/TakeshiOnishi">TakeshiOnishi</a></li>
+    <li><a href="https://github.com/Gaston-Gonzalez">Gastón González</a></li>
+
 </ul>
 
 ## License
