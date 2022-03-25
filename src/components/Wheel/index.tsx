@@ -1,25 +1,25 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-import { getRotationDegrees } from '../../utils';
+import { getQuantity, getRotationDegrees } from '../../utils';
 import { rouletteSelector } from '../common/images';
 import {
+  RotationContainer,
   RouletteContainer,
   RouletteSelectorImage,
-  RotationContainer,
 } from './styles';
 import {
   DEFAULT_BACKGROUND_COLORS,
-  DEFAULT_TEXT_COLORS,
-  DEFAULT_OUTER_BORDER_COLOR,
-  DEFAULT_OUTER_BORDER_WIDTH,
-  DEFAULT_INNER_RADIUS,
+  DEFAULT_FONT_SIZE,
   DEFAULT_INNER_BORDER_COLOR,
   DEFAULT_INNER_BORDER_WIDTH,
+  DEFAULT_INNER_RADIUS,
+  DEFAULT_OUTER_BORDER_COLOR,
+  DEFAULT_OUTER_BORDER_WIDTH,
   DEFAULT_RADIUS_LINE_COLOR,
   DEFAULT_RADIUS_LINE_WIDTH,
-  DEFAULT_FONT_SIZE,
-  DEFAULT_TEXT_DISTANCE,
   DEFAULT_SPIN_DURATION,
+  DEFAULT_TEXT_COLORS,
+  DEFAULT_TEXT_DISTANCE,
 } from '../../strings';
 import { WheelData } from './types';
 import WheelCanvas from '../WheelCanvas';
@@ -70,6 +70,7 @@ export const Wheel = ({
   spinDuration = DEFAULT_SPIN_DURATION,
 }: Props): JSX.Element | null => {
   const [wheelData, setWheelData] = useState<WheelData[]>([...data]);
+  const [prizeMap, setPrizeMap] = useState<number[][]>([[0]]);
   const [startRotationDegrees, setStartRotationDegrees] = useState(0);
   const [finalRotationDegrees, setFinalRotationDegrees] = useState(0);
   const [hasStartedSpinning, setHasStartedSpinning] = useState(false);
@@ -89,8 +90,10 @@ export const Wheel = ({
   const mustStopSpinning = useRef<boolean>(false);
 
   useEffect(() => {
+    let initialMapNum = 0;
+    const auxPrizeMap: number[][] = [];
     const dataLength = data.length;
-    const wheelDataAux = [{ option: '' }] as WheelData[];
+    const wheelDataAux = [{ option: '', optionSize: 1 }] as WheelData[];
     for (let i = 0; i < dataLength; i++) {
       wheelDataAux[i] = {
         ...data[i],
@@ -102,8 +105,13 @@ export const Wheel = ({
             data[i].style?.textColor || textColors[i % textColors.length],
         },
       };
+      auxPrizeMap.push([]);
+      for (let j = 0; j < (wheelDataAux[i].optionSize || 1); j++) {
+        auxPrizeMap[i][j] = initialMapNum++;
+      }
     }
     setWheelData([...wheelDataAux]);
+    setPrizeMap(auxPrizeMap);
     setIsDataUpdated(true);
   }, [data, backgroundColors, textColors]);
 
@@ -111,9 +119,13 @@ export const Wheel = ({
     if (mustStartSpinning && !isCurrentlySpinning) {
       setIsCurrentlySpinning(true);
       startSpinning();
+      const selectedPrize =
+        prizeMap[prizeNumber][
+          Math.floor(Math.random() * prizeMap[prizeNumber].length)
+        ];
       const finalRotationDegreesCalculated = getRotationDegrees(
-        prizeNumber,
-        data.length
+        selectedPrize,
+        getQuantity(prizeMap)
       );
       setFinalRotationDegrees(finalRotationDegreesCalculated);
     }
@@ -174,6 +186,7 @@ export const Wheel = ({
           radiusLineWidth={radiusLineWidth}
           fontSize={fontSize}
           perpendicularText={perpendicularText}
+          prizeMap={prizeMap}
           textDistance={textDistance}
         />
       </RotationContainer>

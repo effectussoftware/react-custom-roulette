@@ -2,7 +2,7 @@ import React, { createRef, RefObject, useEffect } from 'react';
 
 import { WheelCanvasStyle } from './styles';
 import { WheelData } from '../Wheel/types';
-import { clamp } from '../../utils';
+import { clamp, getQuantity } from '../../utils';
 
 interface WheelCanvasProps extends DrawWheelProps {
   width: string;
@@ -20,6 +20,7 @@ interface DrawWheelProps {
   radiusLineWidth: number;
   fontSize: number;
   perpendicularText: boolean;
+  prizeMap: number[][];
   textDistance: number;
 }
 
@@ -49,7 +50,6 @@ const drawWheel = (
   data: WheelData[],
   drawWheelProps: DrawWheelProps
 ) => {
-  const QUANTITY = data.length;
   /* eslint-disable prefer-const */
   let {
     outerBorderColor,
@@ -61,9 +61,11 @@ const drawWheel = (
     radiusLineWidth,
     fontSize,
     perpendicularText,
+    prizeMap,
     textDistance,
   } = drawWheelProps;
   /* eslint-enable prefer-const */
+  const QUANTITY = getQuantity(prizeMap);
 
   outerBorderWidth *= 2;
   innerBorderWidth *= 2;
@@ -78,7 +80,7 @@ const drawWheel = (
     ctx.lineWidth = 0;
     // ctx.translate(0.5, 0.5)
 
-    const onePercentAngle = (Math.PI * 2) / 100;
+    // const onePercentAngle = (Math.PI * 2) / 100;
     let startAngle = 0;
     const outsideRadius = canvas.width / 2 - 10;
 
@@ -93,12 +95,13 @@ const drawWheel = (
 
     ctx.font = `bold ${fontSize}px Helvetica, Arial`;
     for (let i = 0; i < data.length; i++) {
-      const { percentage } = data[i];
+      const { optionSize, style } = data[i];
+
       const arc =
-        (percentage && percentage * onePercentAngle) ||
+        (optionSize && (optionSize * (2 * Math.PI)) / QUANTITY) ||
         (2 * Math.PI) / QUANTITY;
       const endAngle = startAngle + arc;
-      const { style } = data[i];
+
       ctx.fillStyle = (style && style.backgroundColor) as string;
 
       ctx.beginPath();
@@ -192,6 +195,7 @@ const WheelCanvas = ({
   radiusLineWidth,
   fontSize,
   perpendicularText,
+  prizeMap,
   textDistance,
 }: WheelCanvasProps): JSX.Element => {
   const canvasRef = createRef<HTMLCanvasElement>();
@@ -205,6 +209,7 @@ const WheelCanvas = ({
     radiusLineWidth,
     fontSize,
     perpendicularText,
+    prizeMap,
     textDistance,
   };
 

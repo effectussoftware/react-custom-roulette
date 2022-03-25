@@ -20,3 +20,6 @@ export const getRotationDegrees = (
 
 export const clamp = (min: number, max: number, val: number) =>
   Math.min(Math.max(min, +val), max);
+
+export const getQuantity = (prizeMap: number[][]) =>
+  prizeMap.slice(-1)[0].slice(-1)[0] + 1;

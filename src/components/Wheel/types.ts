@@ -1,7 +1,7 @@
 export interface WheelData {
   option: string;
   style?: StyleType;
-  percentage?: number;
+  optionSize?: number;
 }
 
 export interface StyleType {
