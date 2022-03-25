@@ -34,7 +34,7 @@ export var Wheel = function (_a) {
     var _w = useState(false), hasStoppedSpinning = _w[0], setHasStoppedSpinning = _w[1];
     var _x = useState(false), isCurrentlySpinning = _x[0], setIsCurrentlySpinning = _x[1];
     var _y = useState(false), isDataUpdated = _y[0], setIsDataUpdated = _y[1];
-    var _z = useState(false), fontLoaded = _z[0], setFontLoaded = _z[1];
+    var _z = useState(false), isFontLoaded = _z[0], setIsFontLoaded = _z[1];
     var _0 = useState(false), fontUpdater = _0[0], setFontUpdater = _0[1];
     var mustStopSpinning = useRef(false);
     var normalizedSpinDuration = Math.max(0.01, spinDuration);
@@ -46,13 +46,11 @@ export var Wheel = function (_a) {
         var _a, _b, _c, _d, _e, _f, _g;
         var dataLength = data.length;
         var wheelDataAux = [{ option: '' }];
-        var fonts = [fontFamily];
+        var fontsToFetch = [isCustomFont(fontFamily === null || fontFamily === void 0 ? void 0 : fontFamily.trim()) ? fontFamily : ''];
         for (var i = 0; i < dataLength; i++) {
             var fontArray = ((_c = (_b = (_a = data[i]) === null || _a === void 0 ? void 0 : _a.style) === null || _b === void 0 ? void 0 : _b.fontFamily) === null || _c === void 0 ? void 0 : _c.split(',')) || [];
-            fontArray = fontArray
-                .map(function (font) { return font.trim(); })
-                .filter(function (font) { return isCustomFont(font); });
-            fonts.push.apply(fonts, fontArray);
+            fontArray = fontArray.map(function (font) { return font.trim(); }).filter(isCustomFont);
+            fontsToFetch.push.apply(fontsToFetch, fontArray);
             wheelDataAux[i] = __assign(__assign({}, data[i]), { style: {
                     backgroundColor: ((_d = data[i].style) === null || _d === void 0 ? void 0 : _d.backgroundColor) ||
                         backgroundColors[i % backgroundColors.length],
@@ -63,14 +61,14 @@ export var Wheel = function (_a) {
         }
         WebFont.load({
             google: {
-                families: Array.from(new Set(fonts.filter(function (font) { return font !== ''; }))),
+                families: Array.from(new Set(fontsToFetch.filter(function (font) { return !!font; }))),
             },
             timeout: 1000,
             fontactive: function () {
                 setFontUpdater(!fontUpdater);
             },
             active: function () {
-                setFontLoaded(true);
+                setIsFontLoaded(true);
                 setFontUpdater(!fontUpdater);
             },
         });
@@ -113,7 +111,7 @@ export var Wheel = function (_a) {
     if (!isDataUpdated) {
         return null;
     }
-    return (React.createElement(RouletteContainer, { style: !fontLoaded ? { visibility: 'hidden' } : {} },
+    return (React.createElement(RouletteContainer, { style: !isFontLoaded ? { visibility: 'hidden' } : {} },
         React.createElement(RotationContainer, { className: getRouletteClass(), startSpinningTime: startSpinningTime, continueSpinningTime: continueSpinningTime, stopSpinningTime: stopSpinningTime, startRotationDegrees: startRotationDegrees, finalRotationDegrees: finalRotationDegrees },
             React.createElement(WheelCanvas, { width: "900", height: "900", data: wheelData, outerBorderColor: outerBorderColor, outerBorderWidth: outerBorderWidth, innerRadius: innerRadius, innerBorderColor: innerBorderColor, innerBorderWidth: innerBorderWidth, radiusLineColor: radiusLineColor, radiusLineWidth: radiusLineWidth, fontFamily: fontFamily, fontUpdater: fontUpdater, fontSize: fontSize, perpendicularText: perpendicularText, textDistance: textDistance })),
         React.createElement(RouletteSelectorImage, { src: rouletteSelector.src, alt: "roulette-static" })));

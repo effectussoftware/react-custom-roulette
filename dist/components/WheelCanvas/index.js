@@ -1,7 +1,6 @@
 import React, { createRef, useEffect } from 'react';
 import { WheelCanvasStyle } from './styles';
 import { clamp } from '../../utils';
-import '../../index.css';
 var drawWheel = function (canvasRef, data, drawWheelProps) {
     var QUANTITY = data.length;
     /* eslint-disable prefer-const */
@@ -64,7 +63,7 @@ var drawWheel = function (canvasRef, data, drawWheelProps) {
             ctx.closePath();
             ctx.stroke();
             // TEXT FILL
-            ctx.font = "bold " + ((style && style.fontSize) || fontSize) * 2 + "px " + ((style && style.fontFamily) || fontFamily) + ", Helvetica, Arial";
+            ctx.font = "bold " + ((style === null || style === void 0 ? void 0 : style.fontSize) || fontSize) * 2 + "px " + ((style === null || style === void 0 ? void 0 : style.fontFamily) || fontFamily) + ", Helvetica, Arial";
             ctx.fillStyle = (style && style.textColor);
             ctx.translate(centerX + Math.cos(angle + arc / 2) * textRadius, centerY + Math.sin(angle + arc / 2) * textRadius);
             var text = data[i].option;

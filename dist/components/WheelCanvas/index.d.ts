@@ -1,6 +1,5 @@
 /// <reference types="react" />
 import { WheelData } from '../Wheel/types';
-import '../../index.css';
 interface WheelCanvasProps extends DrawWheelProps {
     width: string;
     height: string;
