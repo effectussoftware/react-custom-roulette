@@ -3,7 +3,6 @@ import React, { createRef, RefObject, useEffect } from 'react';
 import { WheelCanvasStyle } from './styles';
 import { WheelData } from '../Wheel/types';
 import { clamp } from '../../utils';
-import '../../index.css';
 
 interface WheelCanvasProps extends DrawWheelProps {
   width: string;
@@ -134,8 +133,8 @@ const drawWheel = (
       ctx.stroke();
 
       // TEXT FILL
-      ctx.font = `bold ${((style && style.fontSize) || fontSize) * 2}px ${
-        (style && style.fontFamily) || fontFamily
+      ctx.font = `bold ${(style?.fontSize || fontSize) * 2}px ${
+        style?.fontFamily || fontFamily
       }, Helvetica, Arial`;
       ctx.fillStyle = (style && style.textColor) as string;
       ctx.translate(

@@ -79,7 +79,7 @@ export const Wheel = ({
   const [hasStoppedSpinning, setHasStoppedSpinning] = useState(false);
   const [isCurrentlySpinning, setIsCurrentlySpinning] = useState(false);
   const [isDataUpdated, setIsDataUpdated] = useState(false);
-  const [fontLoaded, setFontLoaded] = useState(false);
+  const [isFontLoaded, setIsFontLoaded] = useState(false);
   const [fontUpdater, setFontUpdater] = useState(false);
   const mustStopSpinning = useRef<boolean>(false);
 
@@ -95,14 +95,12 @@ export const Wheel = ({
   useEffect(() => {
     const dataLength = data.length;
     const wheelDataAux = [{ option: '' }] as WheelData[];
-    const fonts = [fontFamily];
+    const fontsToFetch = [isCustomFont(fontFamily?.trim()) ? fontFamily : ''];
 
     for (let i = 0; i < dataLength; i++) {
       let fontArray = data[i]?.style?.fontFamily?.split(',') || [];
-      fontArray = fontArray
-        .map(font => font.trim())
-        .filter(font => isCustomFont(font));
-      fonts.push(...fontArray);
+      fontArray = fontArray.map(font => font.trim()).filter(isCustomFont);
+      fontsToFetch.push(...fontArray);
 
       wheelDataAux[i] = {
         ...data[i],
@@ -119,14 +117,14 @@ export const Wheel = ({
     }
     WebFont.load({
       google: {
-        families: Array.from(new Set(fonts.filter(font => font !== ''))),
+        families: Array.from(new Set(fontsToFetch.filter(font => !!font))),
       },
       timeout: 1000,
       fontactive() {
         setFontUpdater(!fontUpdater);
       },
       active() {
-        setFontLoaded(true);
+        setIsFontLoaded(true);
         setFontUpdater(!fontUpdater);
       },
     });
@@ -179,7 +177,7 @@ export const Wheel = ({
   }
 
   return (
-    <RouletteContainer style={!fontLoaded ? { visibility: 'hidden' } : {}}>
+    <RouletteContainer style={!isFontLoaded ? { visibility: 'hidden' } : {}}>
       <RotationContainer
         className={getRouletteClass()}
         startSpinningTime={startSpinningTime}

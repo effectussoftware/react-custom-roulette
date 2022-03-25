@@ -5,9 +5,7 @@ import { Wheel } from 'react-custom-roulette';
 
 const data = [
   { option: 'REACT' },
-  {
-    option: 'CUSTOM',
-  },
+  { option: 'CUSTOM' },
   {
     option: 'ROULETTE',
     style: {
