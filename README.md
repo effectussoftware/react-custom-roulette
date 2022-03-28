@@ -39,12 +39,12 @@ or
 
 ```jsx
 import React from 'react'
-import {Wheel} from 'react-custom-roulette'
+import { Wheel } from 'react-custom-roulette'
 
 const data = [
-  {option: '0', style: {backgroundColor: 'green', textColor: 'black'}},
-  {option: '1', style: {backgroundColor: 'white'}},
-  {option: '2'},
+  { option: '0', style: { backgroundColor: 'green', textColor: 'black' }},
+  { option: '1', style: { backgroundColor: 'white' }},
+  { option: '2'},
 ]
 
 export default () => (
@@ -77,7 +77,7 @@ export default () => (
 | innerBorderWidth               | `number`           | 0                         | Width of the roulette's inner border line (0 represents no inner border line)                                                                   |
 | radiusLineColor                | `string`           | 'black'                   | Color of the radial lines that separate each option                                                                                             |
 | radiusLineWidth                | `number`           | 5                         | Width of the radial lines that separate each option (0 represents no radial lines)                                                              |
-| fontFamily                     | `string`           | 'Helvetica, sans-serif '  | Global font family of the option string. Non-Web safe fonts are fetched from https://fonts.google.com/. All available fonts can be found there. |
+| fontFamily                     | `string`           | 'Helvetica, sans-serif'   | Global font family of the option string. Non-Web safe fonts are fetched from https://fonts.google.com/. All available fonts can be found there. |
 | fontSize                       | `number`           | 20                        | Global font size of the option string                                                                                                           |
 | perpendicularText              | `boolean`          | false                     | When 'true', sets the option texts perpendicular to the roulette's radial lines                                                                 |
 | textDistance                   | `number [0..100]`  | 60                        | Distance of the option texts from the center of the roulette                                                                                    |
@@ -91,7 +91,7 @@ interface
 WheelData
 {
   option: string;
-  style? : StyleType; // Optional
+  style?: StyleType; // Optional
 }
 ```
 
@@ -101,10 +101,10 @@ WheelData
 interface
 StyleType
 {
-  backgroundColor? : string; // Optional
-  textColor? : string; // Optional
-  fontFamily? : string; // Optional
-  fontSize? : number; // Optional
+  backgroundColor?: string; // Optional
+  textColor?: string; // Optional
+  fontFamily?: string; // Optional
+  fontSize?: number; // Optional
 }
 ```
 
@@ -117,9 +117,9 @@ import React, {useState} from 'react'
 import {Wheel} from 'react-custom-roulette'
 
 const data = [
-  {option: '0'},
-  {option: '1'},
-  {option: '2'},
+  { option: '0' },
+  { option: '1' },
+  { option: '2' },
 ]
 
 export default () => {
@@ -164,5 +164,4 @@ This project exists thanks to all the people who contribute!
 
 ## License
 
-This project is licensed under the MIT license, Copyright (c) 2020 <a href="https://effectussoftware.com">Effectus
-Software</a>. [[License](LICENSE)]
+This project is licensed under the MIT license, Copyright (c) 2020 <a href="https://effectussoftware.com">Effectus Software</a>. [[License](LICENSE)]
