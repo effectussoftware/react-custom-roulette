@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { WheelData } from './types';
 interface Props {
     mustStartSpinning: boolean;
