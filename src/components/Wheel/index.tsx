@@ -1,27 +1,27 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { getRotationDegrees } from '../../utils';
 import { rouletteSelector } from '../common/images';
 import {
+  RotationContainer,
   RouletteContainer,
   RouletteSelectorImage,
-  RotationContainer,
 } from './styles';
 import {
   DEFAULT_BACKGROUND_COLORS,
-  DEFAULT_TEXT_COLORS,
-  DEFAULT_OUTER_BORDER_COLOR,
-  DEFAULT_OUTER_BORDER_WIDTH,
-  DEFAULT_INNER_RADIUS,
+  DEFAULT_FONT_SIZE,
   DEFAULT_INNER_BORDER_COLOR,
   DEFAULT_INNER_BORDER_WIDTH,
+  DEFAULT_INNER_RADIUS,
+  DEFAULT_OUTER_BORDER_COLOR,
+  DEFAULT_OUTER_BORDER_WIDTH,
   DEFAULT_RADIUS_LINE_COLOR,
   DEFAULT_RADIUS_LINE_WIDTH,
-  DEFAULT_FONT_SIZE,
-  DEFAULT_TEXT_DISTANCE,
   DEFAULT_SPIN_DURATION,
+  DEFAULT_TEXT_COLORS,
+  DEFAULT_TEXT_DISTANCE,
 } from '../../strings';
-import { WheelData } from './types';
+import { SelectorProps, WheelData } from './types';
 import WheelCanvas from '../WheelCanvas';
 
 interface Props {
@@ -42,6 +42,7 @@ interface Props {
   perpendicularText?: boolean;
   textDistance?: number;
   spinDuration?: number;
+  selectorProps?: SelectorProps;
 }
 
 const STARTED_SPINNING = 'started-spinning';
@@ -68,6 +69,7 @@ export const Wheel = ({
   perpendicularText = false,
   textDistance = DEFAULT_TEXT_DISTANCE,
   spinDuration = DEFAULT_SPIN_DURATION,
+  selectorProps = {},
 }: Props): JSX.Element | null => {
   const [wheelData, setWheelData] = useState<WheelData[]>([...data]);
   const [startRotationDegrees, setStartRotationDegrees] = useState(0);
@@ -177,7 +179,11 @@ export const Wheel = ({
           textDistance={textDistance}
         />
       </RotationContainer>
-      <RouletteSelectorImage src={rouletteSelector.src} alt="roulette-static" />
+      <RouletteSelectorImage
+        style={selectorProps.style}
+        src={selectorProps.src || rouletteSelector.src}
+        alt="roulette-static"
+      />
     </RouletteContainer>
   );
 };

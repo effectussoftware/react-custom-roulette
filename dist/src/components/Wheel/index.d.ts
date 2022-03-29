@@ -1,5 +1,4 @@
-/// <reference types="react" />
-import { WheelData } from './types';
+import { SelectorProps, WheelData } from './types';
 interface Props {
     mustStartSpinning: boolean;
     prizeNumber: number;
@@ -18,6 +17,7 @@ interface Props {
     perpendicularText?: boolean;
     textDistance?: number;
     spinDuration?: number;
+    selectorProps?: SelectorProps;
 }
-export declare const Wheel: ({ mustStartSpinning, prizeNumber, data, onStopSpinning, backgroundColors, textColors, outerBorderColor, outerBorderWidth, innerRadius, innerBorderColor, innerBorderWidth, radiusLineColor, radiusLineWidth, fontSize, perpendicularText, textDistance, spinDuration, }: Props) => JSX.Element | null;
+export declare const Wheel: ({ mustStartSpinning, prizeNumber, data, onStopSpinning, backgroundColors, textColors, outerBorderColor, outerBorderWidth, innerRadius, innerBorderColor, innerBorderWidth, radiusLineColor, radiusLineWidth, fontSize, perpendicularText, textDistance, spinDuration, selectorProps, }: Props) => JSX.Element | null;
 export {};
