@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { getQuantity, getRotationDegrees } from '../../utils';
+import { getQuantity, getRotationDegrees, makeClassKey } from '../../utils';
 import { rouletteSelector } from '../common/images';
 import {
   RotationContainer,
@@ -77,6 +77,7 @@ export const Wheel = ({
   const [hasStoppedSpinning, setHasStoppedSpinning] = useState(false);
   const [isCurrentlySpinning, setIsCurrentlySpinning] = useState(false);
   const [isDataUpdated, setIsDataUpdated] = useState(false);
+  const [classKey] = useState(makeClassKey(5));
 
   const normalizedSpinDuration = Math.max(0.01, spinDuration);
 
@@ -154,9 +155,9 @@ export const Wheel = ({
 
   const getRouletteClass = () => {
     if (hasStartedSpinning) {
-      return STARTED_SPINNING;
+      return `${classKey} ${classKey}-${STARTED_SPINNING}`;
     }
-    return '';
+    return classKey;
   };
 
   if (!isDataUpdated) {
@@ -167,6 +168,7 @@ export const Wheel = ({
     <RouletteContainer>
       <RotationContainer
         className={getRouletteClass()}
+        classKey={classKey}
         startSpinningTime={startSpinningTime}
         continueSpinningTime={continueSpinningTime}
         stopSpinningTime={stopSpinningTime}
