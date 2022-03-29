@@ -9,5 +9,9 @@ export interface StyleType {
 export interface SelectorProps {
     src?: string;
     className?: string;
-    style?: Record<string, any>;
+    style?: SelectorStyle;
+}
+export interface SelectorStyle {
+    height?: number;
+    width?: number;
 }
