@@ -91,9 +91,15 @@ interface WheelData {
   option: string;
   style?: StyleType; // Optional
   optionSize?: number; // Optional
+  startingOption?: boolean; // Optional
 }
 ```
+
+##### `optionSize`
 With `optionSize` you can set the size of the option measured in roulette pieces. For example: if `data` provides 2 options A and B, and you set A's `optionSize` to `2`, B's `optionSize` to `1`, the roulette will render `3` pieces: 2 corresponding to A and 1 corresponding to B. Therefore, A will appear to be twice as big as B. 
+
+##### `startingOption`
+With `startingOption` set to `true`, the roulette will be rendered with that option next to the selector.
 
 #### StyleType
 

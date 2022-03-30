@@ -90,10 +90,13 @@ export const Wheel = ({
   const mustStopSpinning = useRef<boolean>(false);
 
   useEffect(() => {
+    let startingOptionIndex = -1;
     let initialMapNum = 0;
     const auxPrizeMap: number[][] = [];
     const dataLength = data.length;
-    const wheelDataAux = [{ option: '', optionSize: 1 }] as WheelData[];
+    const wheelDataAux = [
+      { option: '', optionSize: 1, startingOption: false },
+    ] as WheelData[];
     for (let i = 0; i < dataLength; i++) {
       wheelDataAux[i] = {
         ...data[i],
@@ -109,9 +112,21 @@ export const Wheel = ({
       for (let j = 0; j < (wheelDataAux[i].optionSize || 1); j++) {
         auxPrizeMap[i][j] = initialMapNum++;
       }
+      if (data[i].startingOption) {
+        startingOptionIndex = i;
+      }
     }
     setWheelData([...wheelDataAux]);
     setPrizeMap(auxPrizeMap);
+    if (startingOptionIndex !== -1) {
+      const startingOption =
+        auxPrizeMap[startingOptionIndex][
+          Math.floor(auxPrizeMap[startingOptionIndex].length / 2)
+        ];
+      setStartRotationDegrees(
+        getRotationDegrees(startingOption, getQuantity(auxPrizeMap), false)
+      );
+    }
     setIsDataUpdated(true);
   }, [data, backgroundColors, textColors]);
 
