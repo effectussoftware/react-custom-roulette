@@ -78,9 +78,7 @@ const drawWheel = (
     ctx.clearRect(0, 0, 500, 500);
     ctx.strokeStyle = 'transparent';
     ctx.lineWidth = 0;
-    // ctx.translate(0.5, 0.5)
 
-    // const onePercentAngle = (Math.PI * 2) / 100;
     let startAngle = 0;
     const outsideRadius = canvas.width / 2 - 10;
 
