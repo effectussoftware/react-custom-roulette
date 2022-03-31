@@ -29,15 +29,15 @@ var START_SPINNING_TIME = 2600;
 var CONTINUE_SPINNING_TIME = 750;
 var STOP_SPINNING_TIME = 8000;
 export var Wheel = function (_a) {
-    var mustStartSpinning = _a.mustStartSpinning, prizeNumber = _a.prizeNumber, data = _a.data, _b = _a.onStopSpinning, onStopSpinning = _b === void 0 ? function () { return null; } : _b, _c = _a.backgroundColors, backgroundColors = _c === void 0 ? DEFAULT_BACKGROUND_COLORS : _c, _d = _a.textColors, textColors = _d === void 0 ? DEFAULT_TEXT_COLORS : _d, _e = _a.outerBorderColor, outerBorderColor = _e === void 0 ? DEFAULT_OUTER_BORDER_COLOR : _e, _f = _a.outerBorderWidth, outerBorderWidth = _f === void 0 ? DEFAULT_OUTER_BORDER_WIDTH : _f, _g = _a.innerRadius, innerRadius = _g === void 0 ? DEFAULT_INNER_RADIUS : _g, _h = _a.innerBorderColor, innerBorderColor = _h === void 0 ? DEFAULT_INNER_BORDER_COLOR : _h, _j = _a.innerBorderWidth, innerBorderWidth = _j === void 0 ? DEFAULT_INNER_BORDER_WIDTH : _j, _k = _a.radiusLineColor, radiusLineColor = _k === void 0 ? DEFAULT_RADIUS_LINE_COLOR : _k, _l = _a.radiusLineWidth, radiusLineWidth = _l === void 0 ? DEFAULT_RADIUS_LINE_WIDTH : _l, _m = _a.fontSize, fontSize = _m === void 0 ? DEFAULT_FONT_SIZE : _m, _o = _a.perpendicularText, perpendicularText = _o === void 0 ? false : _o, _p = _a.textDistance, textDistance = _p === void 0 ? DEFAULT_TEXT_DISTANCE : _p, _q = _a.spinDuration, spinDuration = _q === void 0 ? DEFAULT_SPIN_DURATION : _q;
-    var _r = useState(__spreadArray([], data, true)), wheelData = _r[0], setWheelData = _r[1];
-    var _s = useState([[0]]), prizeMap = _s[0], setPrizeMap = _s[1];
-    var _t = useState(0), startRotationDegrees = _t[0], setStartRotationDegrees = _t[1];
-    var _u = useState(0), finalRotationDegrees = _u[0], setFinalRotationDegrees = _u[1];
-    var _v = useState(false), hasStartedSpinning = _v[0], setHasStartedSpinning = _v[1];
-    var _w = useState(false), hasStoppedSpinning = _w[0], setHasStoppedSpinning = _w[1];
-    var _x = useState(false), isCurrentlySpinning = _x[0], setIsCurrentlySpinning = _x[1];
-    var _y = useState(false), isDataUpdated = _y[0], setIsDataUpdated = _y[1];
+    var mustStartSpinning = _a.mustStartSpinning, prizeNumber = _a.prizeNumber, data = _a.data, _b = _a.onStopSpinning, onStopSpinning = _b === void 0 ? function () { return null; } : _b, _c = _a.backgroundColors, backgroundColors = _c === void 0 ? DEFAULT_BACKGROUND_COLORS : _c, _d = _a.textColors, textColors = _d === void 0 ? DEFAULT_TEXT_COLORS : _d, _e = _a.outerBorderColor, outerBorderColor = _e === void 0 ? DEFAULT_OUTER_BORDER_COLOR : _e, _f = _a.outerBorderWidth, outerBorderWidth = _f === void 0 ? DEFAULT_OUTER_BORDER_WIDTH : _f, _g = _a.innerRadius, innerRadius = _g === void 0 ? DEFAULT_INNER_RADIUS : _g, _h = _a.innerBorderColor, innerBorderColor = _h === void 0 ? DEFAULT_INNER_BORDER_COLOR : _h, _j = _a.innerBorderWidth, innerBorderWidth = _j === void 0 ? DEFAULT_INNER_BORDER_WIDTH : _j, _k = _a.radiusLineColor, radiusLineColor = _k === void 0 ? DEFAULT_RADIUS_LINE_COLOR : _k, _l = _a.radiusLineWidth, radiusLineWidth = _l === void 0 ? DEFAULT_RADIUS_LINE_WIDTH : _l, _m = _a.fontSize, fontSize = _m === void 0 ? DEFAULT_FONT_SIZE : _m, _o = _a.perpendicularText, perpendicularText = _o === void 0 ? false : _o, _p = _a.textDistance, textDistance = _p === void 0 ? DEFAULT_TEXT_DISTANCE : _p, _q = _a.spinDuration, spinDuration = _q === void 0 ? DEFAULT_SPIN_DURATION : _q, _r = _a.startingOptionIndex, startingOptionIndex = _r === void 0 ? -1 : _r;
+    var _s = useState(__spreadArray([], data, true)), wheelData = _s[0], setWheelData = _s[1];
+    var _t = useState([[0]]), prizeMap = _t[0], setPrizeMap = _t[1];
+    var _u = useState(0), startRotationDegrees = _u[0], setStartRotationDegrees = _u[1];
+    var _v = useState(0), finalRotationDegrees = _v[0], setFinalRotationDegrees = _v[1];
+    var _w = useState(false), hasStartedSpinning = _w[0], setHasStartedSpinning = _w[1];
+    var _x = useState(false), hasStoppedSpinning = _x[0], setHasStoppedSpinning = _x[1];
+    var _y = useState(false), isCurrentlySpinning = _y[0], setIsCurrentlySpinning = _y[1];
+    var _z = useState(false), isDataUpdated = _z[0], setIsDataUpdated = _z[1];
     var normalizedSpinDuration = Math.max(0.01, spinDuration);
     var startSpinningTime = START_SPINNING_TIME * normalizedSpinDuration;
     var continueSpinningTime = CONTINUE_SPINNING_TIME * normalizedSpinDuration;
@@ -46,7 +46,6 @@ export var Wheel = function (_a) {
     var mustStopSpinning = useRef(false);
     useEffect(function () {
         var _a, _b;
-        var startingOptionIndex = -1;
         var initialMapNum = 0;
         var auxPrizeMap = [];
         var dataLength = data.length;
@@ -63,14 +62,12 @@ export var Wheel = function (_a) {
             for (var j = 0; j < (wheelDataAux[i].optionSize || 1); j++) {
                 auxPrizeMap[i][j] = initialMapNum++;
             }
-            if (data[i].startingOption) {
-                startingOptionIndex = i;
-            }
         }
         setWheelData(__spreadArray([], wheelDataAux, true));
         setPrizeMap(auxPrizeMap);
-        if (startingOptionIndex !== -1) {
-            var startingOption = auxPrizeMap[startingOptionIndex][Math.floor(auxPrizeMap[startingOptionIndex].length / 2)];
+        if (startingOptionIndex >= 0) {
+            var idx = Math.floor(startingOptionIndex) % auxPrizeMap.length;
+            var startingOption = auxPrizeMap[idx][Math.floor(auxPrizeMap[idx].length / 2)];
             setStartRotationDegrees(getRotationDegrees(startingOption, getQuantity(auxPrizeMap), false));
         }
         setIsDataUpdated(true);

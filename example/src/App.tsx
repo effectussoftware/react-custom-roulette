@@ -60,6 +60,7 @@ const App = () => {
           onStopSpinning={() => {
             setMustSpin(false);
           }}
+          startingOptionIndex={7}
         />
         <button className={'spin-button'} onClick={handleSpinClick}>
           SPIN
