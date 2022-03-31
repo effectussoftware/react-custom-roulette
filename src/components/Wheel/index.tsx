@@ -155,9 +155,9 @@ export const Wheel = ({
 
   const getRouletteClass = () => {
     if (hasStartedSpinning) {
-      return `${classKey} ${classKey}-${STARTED_SPINNING}`;
+      return `${STARTED_SPINNING}`;
     }
-    return classKey;
+    return '';
   };
 
   if (!isDataUpdated) {

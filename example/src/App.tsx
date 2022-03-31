@@ -14,6 +14,12 @@ const data = [
   { option: 'WHEEL' },
 ];
 
+const data2 = [
+  { option: 'REACT 0' },
+  { option: 'CUSTOM 1' },
+  { option: 'ROULETTE 2', style: { textColor: '#f9dd50' } },
+];
+
 const backgroundColors = ['#ff8f43', '#70bbe0', '#0b3351', '#f9dd50'];
 const textColors = ['#0b3351'];
 const outerBorderColor = '#eeeeee';
@@ -86,7 +92,7 @@ const App = () => {
           <Wheel
             mustStartSpinning={mustSpin2}
             prizeNumber={prizeNumber2}
-            data={data}
+            data={data2}
             backgroundColors={backgroundColors}
             textColors={textColors}
             fontSize={fontSize}
