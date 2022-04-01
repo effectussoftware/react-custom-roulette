@@ -4,11 +4,11 @@ import './App.css';
 import { Wheel } from 'react-custom-roulette';
 
 const data = [
-  { option: 'REACT', optionSize: 3 },
+  { option: 'REACT' },
   { option: 'CUSTOM' },
   { option: 'ROULETTE', style: { textColor: '#f9dd50' } },
   { option: 'WHEEL' },
-  { option: 'REACT', optionSize: 3 },
+  { option: 'REACT' },
   { option: 'CUSTOM' },
   { option: 'ROULETTE', style: { textColor: '#70bbe0' } },
   { option: 'WHEEL' },

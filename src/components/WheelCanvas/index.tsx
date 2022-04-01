@@ -161,18 +161,31 @@ const drawWheel = (
       ctx.closePath();
       ctx.stroke();
 
+      const img = new Image(150, (150 * 4) / 3);
+      img.src =
+        'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR_BSXPlBjoBeJruSaCamv7kQuMNjoIIWX0CITXUVoapFCbRM9g';
+
       // TEXT FILL
+      // img.onload = () => {
       ctx.fillStyle = (style && style.textColor) as string;
       ctx.translate(
         centerX + Math.cos(startAngle + arc / 2) * textRadius,
         centerY + Math.sin(startAngle + arc / 2) * textRadius
       );
-      const text = data[i].option;
-      const textRotationAngle = perpendicularText
-        ? startAngle + arc / 2 + Math.PI / 2
-        : startAngle + arc / 2;
+      // const text = data[i].option;
+      const textRotationAngle = startAngle + arc / 2 + Math.PI / 2;
+      // perpendicularText
+      // : startAngle + arc / 2;
       ctx.rotate(textRotationAngle);
-      ctx.fillText(text, -ctx.measureText(text).width / 2, fontSize / 2.7);
+      console.log(perpendicularText);
+      const w = 150;
+      const h = (w * 4) / 3;
+
+      ctx.drawImage(img, -w / 2, -h / 2, w, h);
+
+      // ctx.drawImage(img, -w / 2, -h / 2, w, h);
+
+      // ctx.fillText(text, -ctx.measureText(text).width / 2, fontSize / 2.7);
       ctx.restore();
 
       startAngle = endAngle;

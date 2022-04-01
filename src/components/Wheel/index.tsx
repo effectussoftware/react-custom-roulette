@@ -109,6 +109,11 @@ export const Wheel = ({
       for (let j = 0; j < (wheelDataAux[i].optionSize || 1); j++) {
         auxPrizeMap[i][j] = initialMapNum++;
       }
+      // if (data[i].image) {
+      //   const img = new Image();
+      //   img.src = data[i].image ? data[i].image.uri : '';
+      //   // wheelDataAux[i].image =
+      // }
     }
     setWheelData([...wheelDataAux]);
     setPrizeMap(auxPrizeMap);
