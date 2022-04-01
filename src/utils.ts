@@ -23,3 +23,16 @@ export const clamp = (min: number, max: number, val: number) =>
 
 export const getQuantity = (prizeMap: number[][]) =>
   prizeMap.slice(-1)[0].slice(-1)[0] + 1;
+
+const characters =
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+export const makeClassKey = (length: number) => {
+  let result = '';
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+
+  return result;
+};
