@@ -9,11 +9,15 @@ export const getRotationDegrees = (
 
   const randomDifference = (-1 + Math.random() * 2) * degreesPerPrize * 0.35;
 
-  const prizeRotation = randomDif
-    ? degreesPerPrize * (numberOfPrizes - prizeNumber) -
-      initialRotation +
-      randomDifference
-    : degreesPerPrize * (numberOfPrizes - prizeNumber) - initialRotation;
+  const perfectRotation =
+    degreesPerPrize * (numberOfPrizes - prizeNumber) - initialRotation;
+
+  const imperfectRotation =
+    degreesPerPrize * (numberOfPrizes - prizeNumber) -
+    initialRotation +
+    randomDifference;
+
+  const prizeRotation = randomDif ? imperfectRotation : perfectRotation;
 
   return numberOfPrizes - prizeNumber > numberOfPrizes / 2
     ? -360 + prizeRotation
