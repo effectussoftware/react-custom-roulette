@@ -8,6 +8,8 @@ export interface WheelData {
 export interface StyleType {
   backgroundColor?: string;
   textColor?: string;
+  fontFamily?: string;
+  fontSize?: number;
 }
 
 export interface ImageStyle {

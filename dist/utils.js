@@ -1,3 +1,4 @@
+import { WEB_FONTS } from './strings';
 export var getRotationDegrees = function (prizeNumber, numberOfPrizes) {
     var degreesPerPrize = 360 / numberOfPrizes;
     var initialRotation = 43 + degreesPerPrize / 2;
@@ -11,4 +12,7 @@ export var getRotationDegrees = function (prizeNumber, numberOfPrizes) {
 };
 export var clamp = function (min, max, val) {
     return Math.min(Math.max(min, +val), max);
+};
+export var isCustomFont = function (font) {
+    return !WEB_FONTS.includes(font.toLowerCase());
 };

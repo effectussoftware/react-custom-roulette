@@ -1,25 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react';
+import WebFont from 'webfontloader';
 
-import { getQuantity, getRotationDegrees } from '../../utils';
+import { getQuantity, getRotationDegrees, isCustomFont } from '../../utils';
 import { rouletteSelector } from '../common/images';
 import {
-  RotationContainer,
   RouletteContainer,
   RouletteSelectorImage,
+  RotationContainer,
 } from './styles';
 import {
   DEFAULT_BACKGROUND_COLORS,
-  DEFAULT_FONT_SIZE,
-  DEFAULT_INNER_BORDER_COLOR,
-  DEFAULT_INNER_BORDER_WIDTH,
-  DEFAULT_INNER_RADIUS,
+  DEFAULT_TEXT_COLORS,
   DEFAULT_OUTER_BORDER_COLOR,
   DEFAULT_OUTER_BORDER_WIDTH,
+  DEFAULT_INNER_RADIUS,
+  DEFAULT_INNER_BORDER_COLOR,
+  DEFAULT_INNER_BORDER_WIDTH,
   DEFAULT_RADIUS_LINE_COLOR,
   DEFAULT_RADIUS_LINE_WIDTH,
-  DEFAULT_SPIN_DURATION,
-  DEFAULT_TEXT_COLORS,
+  DEFAULT_FONT_SIZE,
   DEFAULT_TEXT_DISTANCE,
+  DEFAULT_SPIN_DURATION,
 } from '../../strings';
 import { WheelData } from './types';
 import WheelCanvas from '../WheelCanvas';
@@ -38,6 +39,7 @@ interface Props {
   innerBorderWidth?: number;
   radiusLineColor?: string;
   radiusLineWidth?: number;
+  fontFamily?: string;
   fontSize?: number;
   perpendicularText?: boolean;
   textDistance?: number;
@@ -64,6 +66,7 @@ export const Wheel = ({
   innerBorderWidth = DEFAULT_INNER_BORDER_WIDTH,
   radiusLineColor = DEFAULT_RADIUS_LINE_COLOR,
   radiusLineWidth = DEFAULT_RADIUS_LINE_WIDTH,
+  fontFamily = '',
   fontSize = DEFAULT_FONT_SIZE,
   perpendicularText = false,
   textDistance = DEFAULT_TEXT_DISTANCE,
@@ -77,6 +80,9 @@ export const Wheel = ({
   const [hasStoppedSpinning, setHasStoppedSpinning] = useState(false);
   const [isCurrentlySpinning, setIsCurrentlySpinning] = useState(false);
   const [isDataUpdated, setIsDataUpdated] = useState(false);
+  const [isFontLoaded, setIsFontLoaded] = useState(false);
+  const [fontUpdater, setFontUpdater] = useState(false);
+  const mustStopSpinning = useRef<boolean>(false);
 
   const normalizedSpinDuration = Math.max(0.01, spinDuration);
 
@@ -87,20 +93,25 @@ export const Wheel = ({
   const totalSpinningTime =
     startSpinningTime + continueSpinningTime + stopSpinningTime;
 
-  const mustStopSpinning = useRef<boolean>(false);
-
   useEffect(() => {
     let initialMapNum = 0;
     const auxPrizeMap: number[][] = [];
     const dataLength = data.length;
     const wheelDataAux = [{ option: '', optionSize: 1 }] as WheelData[];
+    const fontsToFetch = [isCustomFont(fontFamily?.trim()) ? fontFamily : ''];
     for (let i = 0; i < dataLength; i++) {
+      let fontArray = data[i]?.style?.fontFamily?.split(',') || [];
+      fontArray = fontArray.map(font => font.trim()).filter(isCustomFont);
+      fontsToFetch.push(...fontArray);
+
       wheelDataAux[i] = {
         ...data[i],
         style: {
           backgroundColor:
             data[i].style?.backgroundColor ||
             backgroundColors[i % backgroundColors.length],
+          fontFamily: data[i].style?.fontFamily || fontFamily,
+          fontSize: data[i].style?.fontSize || fontSize,
           textColor:
             data[i].style?.textColor || textColors[i % textColors.length],
         },
@@ -115,6 +126,19 @@ export const Wheel = ({
       //   // wheelDataAux[i].image =
       // }
     }
+    WebFont.load({
+      google: {
+        families: Array.from(new Set(fontsToFetch.filter(font => !!font))),
+      },
+      timeout: 1000,
+      fontactive() {
+        setFontUpdater(!fontUpdater);
+      },
+      active() {
+        setIsFontLoaded(true);
+        setFontUpdater(!fontUpdater);
+      },
+    });
     setWheelData([...wheelDataAux]);
     setPrizeMap(auxPrizeMap);
     setIsDataUpdated(true);
@@ -169,7 +193,7 @@ export const Wheel = ({
   }
 
   return (
-    <RouletteContainer>
+    <RouletteContainer style={!isFontLoaded ? { visibility: 'hidden' } : {}}>
       <RotationContainer
         className={getRouletteClass()}
         startSpinningTime={startSpinningTime}
@@ -189,6 +213,8 @@ export const Wheel = ({
           innerBorderWidth={innerBorderWidth}
           radiusLineColor={radiusLineColor}
           radiusLineWidth={radiusLineWidth}
+          fontFamily={fontFamily}
+          fontUpdater={fontUpdater}
           fontSize={fontSize}
           perpendicularText={perpendicularText}
           prizeMap={prizeMap}

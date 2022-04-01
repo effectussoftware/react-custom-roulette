@@ -18,6 +18,8 @@ interface DrawWheelProps {
   innerBorderWidth: number;
   radiusLineColor: string;
   radiusLineWidth: number;
+  fontFamily: string;
+  fontUpdater: boolean;
   fontSize: number;
   perpendicularText: boolean;
   prizeMap: number[][];
@@ -59,6 +61,7 @@ const drawWheel = (
     innerBorderWidth,
     radiusLineColor,
     radiusLineWidth,
+    fontFamily,
     fontSize,
     perpendicularText,
     prizeMap,
@@ -70,7 +73,6 @@ const drawWheel = (
   outerBorderWidth *= 2;
   innerBorderWidth *= 2;
   radiusLineWidth *= 2;
-  fontSize *= 2;
 
   const canvas = canvasRef.current;
   if (canvas?.getContext('2d')) {
@@ -91,7 +93,6 @@ const drawWheel = (
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
 
-    ctx.font = `bold ${fontSize}px Helvetica, Arial`;
     for (let i = 0; i < data.length; i++) {
       const { optionSize, style } = data[i];
 
@@ -166,7 +167,9 @@ const drawWheel = (
         'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR_BSXPlBjoBeJruSaCamv7kQuMNjoIIWX0CITXUVoapFCbRM9g';
 
       // TEXT FILL
-      // img.onload = () => {
+      ctx.font = `bold ${(style?.fontSize || fontSize) * 2}px ${
+        style?.fontFamily || fontFamily
+      }, Helvetica, Arial`;
       ctx.fillStyle = (style && style.textColor) as string;
       ctx.translate(
         centerX + Math.cos(startAngle + arc / 2) * textRadius,
@@ -204,6 +207,8 @@ const WheelCanvas = ({
   innerBorderWidth,
   radiusLineColor,
   radiusLineWidth,
+  fontFamily,
+  fontUpdater,
   fontSize,
   perpendicularText,
   prizeMap,
@@ -218,6 +223,8 @@ const WheelCanvas = ({
     innerBorderWidth,
     radiusLineColor,
     radiusLineWidth,
+    fontFamily,
+    fontUpdater,
     fontSize,
     perpendicularText,
     prizeMap,
@@ -226,7 +233,7 @@ const WheelCanvas = ({
 
   useEffect(() => {
     drawWheel(canvasRef, data, drawWheelProps);
-  }, [canvasRef, data, drawWheelProps]);
+  }, [canvasRef, data, drawWheelProps, fontUpdater]);
 
   return <WheelCanvasStyle ref={canvasRef} width={width} height={height} />;
 };

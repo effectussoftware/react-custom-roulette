@@ -14,10 +14,11 @@ interface Props {
     innerBorderWidth?: number;
     radiusLineColor?: string;
     radiusLineWidth?: number;
+    fontFamily?: string;
     fontSize?: number;
     perpendicularText?: boolean;
     textDistance?: number;
     spinDuration?: number;
 }
-export declare const Wheel: ({ mustStartSpinning, prizeNumber, data, onStopSpinning, backgroundColors, textColors, outerBorderColor, outerBorderWidth, innerRadius, innerBorderColor, innerBorderWidth, radiusLineColor, radiusLineWidth, fontSize, perpendicularText, textDistance, spinDuration, }: Props) => JSX.Element | null;
+export declare const Wheel: ({ mustStartSpinning, prizeNumber, data, onStopSpinning, backgroundColors, textColors, outerBorderColor, outerBorderWidth, innerRadius, innerBorderColor, innerBorderWidth, radiusLineColor, radiusLineWidth, fontFamily, fontSize, perpendicularText, textDistance, spinDuration, }: Props) => JSX.Element | null;
 export {};
