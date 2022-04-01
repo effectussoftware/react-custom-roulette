@@ -63,7 +63,7 @@ export default () => (
 #### Props
 
 | **Prop**                       | **Type**           | **Default**               | **Description**                                                                                       |
-| ------------------------------ | ------------------ | ------------------------- | ----------------------------------------------------------------------------------------------------- |
+|--------------------------------|--------------------|---------------------------|-------------------------------------------------------------------------------------------------------|
 | mustStartSpinning _(required)_ | `boolean`          | -                         | Sets when the roulette must start the spinning animation                                              |
 | prizeNumber _(required)_       | `number`           | -                         | Sets the winning option. It's value must be between 0 and data.lenght-1                               |
 | data _(required)_              | `Array<WheelData>` | -                         | Array of options. Can contain styling information for a specific option (see [WheelData](#wheeldata)) |
@@ -80,7 +80,7 @@ export default () => (
 | fontSize                       | `number`           | 20                        | Font size of the option string                                                                        |
 | perpendicularText              | `boolean`          | false                     | When 'true', sets the option texts perpendicular to the roulette's radial lines                       |
 | textDistance                   | `number [0..100]`  | 60                        | Distance of the option texts from the center of the roulette                                          |
-| spinDuration                   | `number [0.01 ..]` | 1.0                       | Coefficient to adjust the default spin duration                                                              |
+| spinDuration                   | `number [0.01 ..]` | 1.0                       | Coefficient to adjust the default spin duration                                                       |
 
 ## Types
 
@@ -90,8 +90,10 @@ export default () => (
 interface WheelData {
   option: string;
   style?: StyleType; // Optional
+  optionSize?: number; // Optional
 }
 ```
+With `optionSize` you can set the size of the option measured in roulette pieces. For example: if `data` provides 2 options A and B, and you set A's `optionSize` to `2`, B's `optionSize` to `1`, the roulette will render `3` pieces: 2 corresponding to A and 1 corresponding to B. Therefore, A will appear to be twice as big as B. 
 
 #### StyleType
 
