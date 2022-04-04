@@ -13,6 +13,9 @@ export var getRotationDegrees = function (prizeNumber, numberOfPrizes) {
 export var clamp = function (min, max, val) {
     return Math.min(Math.max(min, +val), max);
 };
+export var getQuantity = function (prizeMap) {
+    return prizeMap.slice(-1)[0].slice(-1)[0] + 1;
+};
 export var isCustomFont = function (font) {
     return !WEB_FONTS.includes(font.toLowerCase());
 };

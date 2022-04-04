@@ -5,19 +5,46 @@ import { Wheel } from 'react-custom-roulette';
 
 const data = [
   { option: 'REACT' },
-  { option: 'CUSTOM' },
   {
-    option: 'ROULETTE',
-    style: {
-      textColor: '#f9dd50',
-      fontFamily: 'Ubuntu',
+    option: 'CUSTOM',
+    image: {
+      uri:
+        'https://as01.epimg.net/futbol/imagenes/2021/08/06/primera/1628278370_371377_1628282424_noticia_normal_recorte1.jpg',
+      sizeMultiplier: 1,
+    },
+    style: { textColor: 'white' },
+  },
+
+  { option: 'ROULETTE', style: { textColor: '#f9dd50' } },
+  {
+    option: 'WHEEL',
+    image: {
+      uri:
+        'https://images.ecestaticos.com/mXiaMzhISsDQH7Ki2YqTyi3XcCc=/0x0:0x0/1200x900/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2F36a%2Fe15%2F4ac%2F36ae154acded8663e9bd0402a78ab17f.jpg',
+      sizeMultiplier: 1,
     },
   },
-  { option: 'WHEEL' },
+
   { option: 'REACT' },
-  { option: 'CUSTOM', style: { textColor: 'white' } },
+  {
+    option: 'CUSTOM',
+    image: {
+      uri:
+        'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR_BSXPlBjoBeJruSaCamv7kQuMNjoIIWX0CITXUVoapFCbRM9g',
+      // height: 4 * 40,
+      // width: 3 * 40,
+      sizeMultiplier: 1,
+    },
+  },
   { option: 'ROULETTE', style: { textColor: '#70bbe0' } },
-  { option: 'WHEEL' },
+  {
+    option: 'WHEEL',
+    image: {
+      uri:
+        'https://phantom-marca.unidadeditorial.es/341a9478190ebbb9984e09b1c3238ad8/resize/1320/f/jpg/assets/multimedia/imagenes/2022/01/12/16420121570853.jpg',
+      sizeMultiplier: 1,
+    },
+  },
 ];
 
 const backgroundColors = ['#ff8f43', '#70bbe0', '#0b3351', '#f9dd50'];

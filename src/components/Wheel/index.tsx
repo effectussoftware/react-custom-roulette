@@ -4,23 +4,23 @@ import WebFont from 'webfontloader';
 import { getQuantity, getRotationDegrees, isCustomFont } from '../../utils';
 import { rouletteSelector } from '../common/images';
 import {
+  RotationContainer,
   RouletteContainer,
   RouletteSelectorImage,
-  RotationContainer,
 } from './styles';
 import {
   DEFAULT_BACKGROUND_COLORS,
-  DEFAULT_TEXT_COLORS,
-  DEFAULT_OUTER_BORDER_COLOR,
-  DEFAULT_OUTER_BORDER_WIDTH,
-  DEFAULT_INNER_RADIUS,
+  DEFAULT_FONT_SIZE,
   DEFAULT_INNER_BORDER_COLOR,
   DEFAULT_INNER_BORDER_WIDTH,
+  DEFAULT_INNER_RADIUS,
+  DEFAULT_OUTER_BORDER_COLOR,
+  DEFAULT_OUTER_BORDER_WIDTH,
   DEFAULT_RADIUS_LINE_COLOR,
   DEFAULT_RADIUS_LINE_WIDTH,
-  DEFAULT_FONT_SIZE,
-  DEFAULT_TEXT_DISTANCE,
   DEFAULT_SPIN_DURATION,
+  DEFAULT_TEXT_COLORS,
+  DEFAULT_TEXT_DISTANCE,
 } from '../../strings';
 import { WheelData } from './types';
 import WheelCanvas from '../WheelCanvas';
@@ -81,11 +81,12 @@ export const Wheel = ({
   const [isCurrentlySpinning, setIsCurrentlySpinning] = useState(false);
   const [isDataUpdated, setIsDataUpdated] = useState(false);
   const [isFontLoaded, setIsFontLoaded] = useState(false);
-  const [fontUpdater, setFontUpdater] = useState(false);
+  const [rouletteUpdater, setRouletteUpdater] = useState(false);
+  const [loadedImagesCounter, setLoadedImagesCounter] = useState(0);
+  const [totalImages, setTotalImages] = useState(0);
   const mustStopSpinning = useRef<boolean>(false);
 
   const normalizedSpinDuration = Math.max(0.01, spinDuration);
-
   const startSpinningTime = START_SPINNING_TIME * normalizedSpinDuration;
   const continueSpinningTime = CONTINUE_SPINNING_TIME * normalizedSpinDuration;
   const stopSpinningTime = STOP_SPINNING_TIME * normalizedSpinDuration;
@@ -120,11 +121,22 @@ export const Wheel = ({
       for (let j = 0; j < (wheelDataAux[i].optionSize || 1); j++) {
         auxPrizeMap[i][j] = initialMapNum++;
       }
-      // if (data[i].image) {
-      //   const img = new Image();
-      //   img.src = data[i].image ? data[i].image.uri : '';
-      //   // wheelDataAux[i].image =
-      // }
+      if (data[i].image) {
+        setTotalImages(prevCounter => prevCounter + 1);
+
+        const img = new Image();
+        img.src = data[i].image?.uri || '';
+        img.onload = () => {
+          img.height = 200 * (data[i].image?.sizeMultiplier || 1);
+          img.width = (img.naturalWidth / img.naturalHeight) * img.height;
+          wheelDataAux[i].image = {
+            uri: data[i].image?.uri || '',
+            _imageHTML: img,
+          };
+          setLoadedImagesCounter(prevCounter => prevCounter + 1);
+          setRouletteUpdater(prevState => !prevState);
+        };
+      }
     }
     WebFont.load({
       google: {
@@ -132,11 +144,11 @@ export const Wheel = ({
       },
       timeout: 1000,
       fontactive() {
-        setFontUpdater(!fontUpdater);
+        setRouletteUpdater(!rouletteUpdater);
       },
       active() {
         setIsFontLoaded(true);
-        setFontUpdater(!fontUpdater);
+        setRouletteUpdater(!rouletteUpdater);
       },
     });
     setWheelData([...wheelDataAux]);
@@ -193,7 +205,14 @@ export const Wheel = ({
   }
 
   return (
-    <RouletteContainer style={!isFontLoaded ? { visibility: 'hidden' } : {}}>
+    <RouletteContainer
+      style={
+        !isFontLoaded ||
+        (totalImages > 0 && loadedImagesCounter !== totalImages)
+          ? { visibility: 'hidden' }
+          : {}
+      }
+    >
       <RotationContainer
         className={getRouletteClass()}
         startSpinningTime={startSpinningTime}
@@ -214,10 +233,10 @@ export const Wheel = ({
           radiusLineColor={radiusLineColor}
           radiusLineWidth={radiusLineWidth}
           fontFamily={fontFamily}
-          fontUpdater={fontUpdater}
           fontSize={fontSize}
           perpendicularText={perpendicularText}
           prizeMap={prizeMap}
+          rouletteUpdater={rouletteUpdater}
           textDistance={textDistance}
         />
       </RotationContainer>

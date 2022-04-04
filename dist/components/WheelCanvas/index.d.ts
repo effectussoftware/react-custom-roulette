@@ -14,10 +14,12 @@ interface DrawWheelProps {
     radiusLineColor: string;
     radiusLineWidth: number;
     fontFamily: string;
-    fontUpdater: boolean;
     fontSize: number;
     perpendicularText: boolean;
+    prizeMap: number[][];
+    rouletteUpdater: boolean;
+    setRouletteUpdater: (rouletteUpdater: boolean) => void;
     textDistance: number;
 }
-declare const WheelCanvas: ({ width, height, data, outerBorderColor, outerBorderWidth, innerRadius, innerBorderColor, innerBorderWidth, radiusLineColor, radiusLineWidth, fontFamily, fontUpdater, fontSize, perpendicularText, textDistance, }: WheelCanvasProps) => JSX.Element;
+declare const WheelCanvas: ({ width, height, data, outerBorderColor, outerBorderWidth, innerRadius, innerBorderColor, innerBorderWidth, radiusLineColor, radiusLineWidth, fontFamily, fontSize, perpendicularText, prizeMap, rouletteUpdater, setRouletteUpdater, textDistance, }: WheelCanvasProps) => JSX.Element;
 export default WheelCanvas;
