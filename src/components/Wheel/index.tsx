@@ -131,6 +131,10 @@ export const Wheel = ({
           img.width = (img.naturalWidth / img.naturalHeight) * img.height;
           wheelDataAux[i].image = {
             uri: data[i].image?.uri || '',
+            offsetX: data[i].image?.offsetX || 0,
+            offsetY: data[i].image?.offsetY || 0,
+            landscape: data[i].image?.landscape || false,
+            sizeMultiplier: data[i].image?.sizeMultiplier || 1,
             _imageHTML: img,
           };
           setLoadedImagesCounter(prevCounter => prevCounter + 1);

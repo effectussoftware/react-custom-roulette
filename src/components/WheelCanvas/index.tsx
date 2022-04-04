@@ -167,24 +167,31 @@ const drawWheel = (
         centerX + Math.cos(startAngle + arc / 2) * contentRadius,
         centerY + Math.sin(startAngle + arc / 2) * contentRadius
       );
-      const contentRotationAngle =
-        startAngle +
-        arc / 2 +
-        (perpendicularText || data[i].image ? Math.PI / 2 : 0);
-      ctx.rotate(contentRotationAngle);
+      let contentRotationAngle = startAngle + arc / 2;
 
       if (data[i].image) {
         // CASE IMAGE
+        contentRotationAngle +=
+          data[i].image && !data[i].image?.landscape ? Math.PI / 2 : 0;
+        ctx.rotate(contentRotationAngle);
+
         const img = data[i].image?._imageHTML || new Image();
         ctx.drawImage(
           img,
-          img.width / -2,
-          -(img.height - 90) / 2,
+          (img.width + (data[i].image?.offsetX || 0)) / -2,
+          -(
+            img.height -
+            (data[i].image?.landscape ? 0 : 90) + // offsetY correction for non landscape images
+            (data[i].image?.offsetY || 0)
+          ) / 2,
           img.width,
           img.height
         );
       } else {
         // CASE TEXT
+        contentRotationAngle += perpendicularText ? Math.PI / 2 : 0;
+        ctx.rotate(contentRotationAngle);
+
         const text = data[i].option;
         ctx.font = `bold ${(style?.fontSize || fontSize) * 2}px ${
           style?.fontFamily || fontFamily

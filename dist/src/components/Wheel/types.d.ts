@@ -14,6 +14,8 @@ export interface ImageStyle {
     uri: string;
     width?: number;
     height?: number;
+    offsetX?: number;
+    offsetY?: number;
     sizeMultiplier?: number;
     _imageHTML?: HTMLImageElement;
 }
