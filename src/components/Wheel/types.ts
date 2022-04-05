@@ -1,6 +1,10 @@
+interface ImagePropsLocal extends ImageProps {
+  _imageHTML: HTMLImageElement;
+}
+
 export interface WheelData {
-  option: string;
-  image?: ImageStyle;
+  image?: ImagePropsLocal;
+  option?: string;
   style?: StyleType;
   optionSize?: number;
 }
@@ -12,13 +16,10 @@ export interface StyleType {
   fontSize?: number;
 }
 
-export interface ImageStyle {
+export interface ImageProps {
   uri: string;
-  width?: number;
-  height?: number;
   offsetX?: number;
   offsetY?: number;
   sizeMultiplier?: number;
   landscape?: boolean;
-  _imageHTML?: HTMLImageElement;
 }

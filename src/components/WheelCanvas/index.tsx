@@ -197,7 +197,11 @@ const drawWheel = (
           style?.fontFamily || fontFamily
         }, Helvetica, Arial`;
         ctx.fillStyle = (style && style.textColor) as string;
-        ctx.fillText(text, -ctx.measureText(text).width / 2, fontSize / 2.7);
+        ctx.fillText(
+          text || '',
+          -ctx.measureText(text || '').width / 2,
+          fontSize / 2.7
+        );
       }
 
       ctx.restore();

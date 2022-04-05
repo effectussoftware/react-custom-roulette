@@ -18,8 +18,7 @@ interface DrawWheelProps {
     perpendicularText: boolean;
     prizeMap: number[][];
     rouletteUpdater: boolean;
-    setRouletteUpdater: (rouletteUpdater: boolean) => void;
     textDistance: number;
 }
-declare const WheelCanvas: ({ width, height, data, outerBorderColor, outerBorderWidth, innerRadius, innerBorderColor, innerBorderWidth, radiusLineColor, radiusLineWidth, fontFamily, fontSize, perpendicularText, prizeMap, rouletteUpdater, setRouletteUpdater, textDistance, }: WheelCanvasProps) => JSX.Element;
+declare const WheelCanvas: ({ width, height, data, outerBorderColor, outerBorderWidth, innerRadius, innerBorderColor, innerBorderWidth, radiusLineColor, radiusLineWidth, fontFamily, fontSize, perpendicularText, prizeMap, rouletteUpdater, textDistance, }: WheelCanvasProps) => JSX.Element;
 export default WheelCanvas;

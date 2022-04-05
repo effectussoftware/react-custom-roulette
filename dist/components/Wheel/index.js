@@ -41,6 +41,8 @@ export var Wheel = function (_a) {
     var _z = useState(false), isDataUpdated = _z[0], setIsDataUpdated = _z[1];
     var _0 = useState(false), isFontLoaded = _0[0], setIsFontLoaded = _0[1];
     var _1 = useState(false), rouletteUpdater = _1[0], setRouletteUpdater = _1[1];
+    var _2 = useState(0), loadedImagesCounter = _2[0], setLoadedImagesCounter = _2[1];
+    var _3 = useState(0), totalImages = _3[0], setTotalImages = _3[1];
     var mustStopSpinning = useRef(false);
     var normalizedSpinDuration = Math.max(0.01, spinDuration);
     var startSpinningTime = START_SPINNING_TIME * normalizedSpinDuration;
@@ -48,13 +50,13 @@ export var Wheel = function (_a) {
     var stopSpinningTime = STOP_SPINNING_TIME * normalizedSpinDuration;
     var totalSpinningTime = startSpinningTime + continueSpinningTime + stopSpinningTime;
     useEffect(function () {
-        var _a, _b, _c, _d, _e, _f, _g;
+        var _a, _b, _c, _d, _e, _f, _g, _h;
         var initialMapNum = 0;
         var auxPrizeMap = [];
         var dataLength = data.length;
         var wheelDataAux = [{ option: '', optionSize: 1 }];
         var fontsToFetch = [isCustomFont(fontFamily === null || fontFamily === void 0 ? void 0 : fontFamily.trim()) ? fontFamily : ''];
-        for (var i = 0; i < dataLength; i++) {
+        var _loop_1 = function (i) {
             var fontArray = ((_c = (_b = (_a = data[i]) === null || _a === void 0 ? void 0 : _a.style) === null || _b === void 0 ? void 0 : _b.fontFamily) === null || _c === void 0 ? void 0 : _c.split(',')) || [];
             fontArray = fontArray.map(function (font) { return font.trim(); }).filter(isCustomFont);
             fontsToFetch.push.apply(fontsToFetch, fontArray);
@@ -69,6 +71,29 @@ export var Wheel = function (_a) {
             for (var j = 0; j < (wheelDataAux[i].optionSize || 1); j++) {
                 auxPrizeMap[i][j] = initialMapNum++;
             }
+            if (data[i].image) {
+                setTotalImages(function (prevCounter) { return prevCounter + 1; });
+                var img_1 = new Image();
+                img_1.src = ((_h = data[i].image) === null || _h === void 0 ? void 0 : _h.uri) || '';
+                img_1.onload = function () {
+                    var _a, _b, _c, _d, _e, _f;
+                    img_1.height = 200 * (((_a = data[i].image) === null || _a === void 0 ? void 0 : _a.sizeMultiplier) || 1);
+                    img_1.width = (img_1.naturalWidth / img_1.naturalHeight) * img_1.height;
+                    wheelDataAux[i].image = {
+                        uri: ((_b = data[i].image) === null || _b === void 0 ? void 0 : _b.uri) || '',
+                        offsetX: ((_c = data[i].image) === null || _c === void 0 ? void 0 : _c.offsetX) || 0,
+                        offsetY: ((_d = data[i].image) === null || _d === void 0 ? void 0 : _d.offsetY) || 0,
+                        landscape: ((_e = data[i].image) === null || _e === void 0 ? void 0 : _e.landscape) || false,
+                        sizeMultiplier: ((_f = data[i].image) === null || _f === void 0 ? void 0 : _f.sizeMultiplier) || 1,
+                        _imageHTML: img_1,
+                    };
+                    setLoadedImagesCounter(function (prevCounter) { return prevCounter + 1; });
+                    setRouletteUpdater(function (prevState) { return !prevState; });
+                };
+            }
+        };
+        for (var i = 0; i < dataLength; i++) {
+            _loop_1(i);
         }
         WebFont.load({
             google: {
@@ -124,8 +149,11 @@ export var Wheel = function (_a) {
     if (!isDataUpdated) {
         return null;
     }
-    return (React.createElement(RouletteContainer, { style: !isFontLoaded ? { visibility: 'hidden' } : {} },
+    return (React.createElement(RouletteContainer, { style: !isFontLoaded ||
+            (totalImages > 0 && loadedImagesCounter !== totalImages)
+            ? { visibility: 'hidden' }
+            : {} },
         React.createElement(RotationContainer, { className: getRouletteClass(), startSpinningTime: startSpinningTime, continueSpinningTime: continueSpinningTime, stopSpinningTime: stopSpinningTime, startRotationDegrees: startRotationDegrees, finalRotationDegrees: finalRotationDegrees },
-            React.createElement(WheelCanvas, { width: "900", height: "900", data: wheelData, outerBorderColor: outerBorderColor, outerBorderWidth: outerBorderWidth, innerRadius: innerRadius, innerBorderColor: innerBorderColor, innerBorderWidth: innerBorderWidth, radiusLineColor: radiusLineColor, radiusLineWidth: radiusLineWidth, fontFamily: fontFamily, fontSize: fontSize, perpendicularText: perpendicularText, prizeMap: prizeMap, rouletteUpdater: rouletteUpdater, setRouletteUpdater: setRouletteUpdater, textDistance: textDistance })),
+            React.createElement(WheelCanvas, { width: "900", height: "900", data: wheelData, outerBorderColor: outerBorderColor, outerBorderWidth: outerBorderWidth, innerRadius: innerRadius, innerBorderColor: innerBorderColor, innerBorderWidth: innerBorderWidth, radiusLineColor: radiusLineColor, radiusLineWidth: radiusLineWidth, fontFamily: fontFamily, fontSize: fontSize, perpendicularText: perpendicularText, prizeMap: prizeMap, rouletteUpdater: rouletteUpdater, textDistance: textDistance })),
         React.createElement(RouletteSelectorImage, { src: rouletteSelector.src, alt: "roulette-static" })));
 };

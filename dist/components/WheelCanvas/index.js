@@ -9,9 +9,9 @@ var drawRadialBorder = function (ctx, centerX, centerY, insideRadius, outsideRad
     ctx.stroke();
 };
 var drawWheel = function (canvasRef, data, drawWheelProps) {
-    var _a, _b;
+    var _a, _b, _c, _d, _e;
     /* eslint-disable prefer-const */
-    var outerBorderColor = drawWheelProps.outerBorderColor, outerBorderWidth = drawWheelProps.outerBorderWidth, innerRadius = drawWheelProps.innerRadius, innerBorderColor = drawWheelProps.innerBorderColor, innerBorderWidth = drawWheelProps.innerBorderWidth, radiusLineColor = drawWheelProps.radiusLineColor, radiusLineWidth = drawWheelProps.radiusLineWidth, fontFamily = drawWheelProps.fontFamily, fontSize = drawWheelProps.fontSize, perpendicularText = drawWheelProps.perpendicularText, prizeMap = drawWheelProps.prizeMap, rouletteUpdater = drawWheelProps.rouletteUpdater, setRouletteUpdater = drawWheelProps.setRouletteUpdater, textDistance = drawWheelProps.textDistance;
+    var outerBorderColor = drawWheelProps.outerBorderColor, outerBorderWidth = drawWheelProps.outerBorderWidth, innerRadius = drawWheelProps.innerRadius, innerBorderColor = drawWheelProps.innerBorderColor, innerBorderWidth = drawWheelProps.innerBorderWidth, radiusLineColor = drawWheelProps.radiusLineColor, radiusLineWidth = drawWheelProps.radiusLineWidth, fontFamily = drawWheelProps.fontFamily, fontSize = drawWheelProps.fontSize, perpendicularText = drawWheelProps.perpendicularText, prizeMap = drawWheelProps.prizeMap, textDistance = drawWheelProps.textDistance;
     /* eslint-enable prefer-const */
     var QUANTITY = getQuantity(prizeMap);
     outerBorderWidth *= 2;
@@ -31,8 +31,8 @@ var drawWheel = function (canvasRef, data, drawWheelProps) {
         var insideRadius = (outsideRadius * clampedInsideRadius) / 100;
         var centerX = canvas.width / 2;
         var centerY = canvas.height / 2;
-        var _loop_1 = function (i) {
-            var _c = data[i], optionSize = _c.optionSize, style = _c.style;
+        for (var i = 0; i < data.length; i++) {
+            var _f = data[i], optionSize = _f.optionSize, style = _f.style;
             var arc = (optionSize && (optionSize * (2 * Math.PI)) / QUANTITY) ||
                 (2 * Math.PI) / QUANTITY;
             var endAngle = startAngle + arc;
@@ -68,39 +68,33 @@ var drawWheel = function (canvasRef, data, drawWheelProps) {
             ctx.stroke();
             // CONTENT FILL
             ctx.translate(centerX + Math.cos(startAngle + arc / 2) * contentRadius, centerY + Math.sin(startAngle + arc / 2) * contentRadius);
-            var contentRotationAngle = startAngle +
-                arc / 2 +
-                (perpendicularText || data[i].image ? Math.PI / 2 : 0);
-            ctx.rotate(contentRotationAngle);
+            var contentRotationAngle = startAngle + arc / 2;
             if (data[i].image) {
                 // CASE IMAGE
-                var img_1 = new Image();
-                img_1.src = (_b = (_a = data[i].image) === null || _a === void 0 ? void 0 : _a.uri) !== null && _b !== void 0 ? _b : '';
-                img_1.onload = function () {
-                    var sizeNormalizer = 450 / img_1.naturalHeight;
-                    img_1.height = 450; // * coef
-                    img_1.width = img_1.naturalWidth * sizeNormalizer;
-                    setRouletteUpdater(!rouletteUpdater);
-                };
-                ctx.drawImage(img_1, img_1.width / -2, img_1.height / -2, img_1.width, img_1.height);
+                contentRotationAngle +=
+                    data[i].image && !((_a = data[i].image) === null || _a === void 0 ? void 0 : _a.landscape) ? Math.PI / 2 : 0;
+                ctx.rotate(contentRotationAngle);
+                var img = ((_b = data[i].image) === null || _b === void 0 ? void 0 : _b._imageHTML) || new Image();
+                ctx.drawImage(img, (img.width + (((_c = data[i].image) === null || _c === void 0 ? void 0 : _c.offsetX) || 0)) / -2, -(img.height -
+                    (((_d = data[i].image) === null || _d === void 0 ? void 0 : _d.landscape) ? 0 : 90) + // offsetY correction for non landscape images
+                    (((_e = data[i].image) === null || _e === void 0 ? void 0 : _e.offsetY) || 0)) / 2, img.width, img.height);
             }
             else {
                 // CASE TEXT
+                contentRotationAngle += perpendicularText ? Math.PI / 2 : 0;
+                ctx.rotate(contentRotationAngle);
                 var text = data[i].option;
                 ctx.font = "bold ".concat(((style === null || style === void 0 ? void 0 : style.fontSize) || fontSize) * 2, "px ").concat((style === null || style === void 0 ? void 0 : style.fontFamily) || fontFamily, ", Helvetica, Arial");
                 ctx.fillStyle = (style && style.textColor);
-                ctx.fillText(text, -ctx.measureText(text).width / 2, fontSize / 2.7);
+                ctx.fillText(text || '', -ctx.measureText(text || '').width / 2, fontSize / 2.7);
             }
             ctx.restore();
             startAngle = endAngle;
-        };
-        for (var i = 0; i < data.length; i++) {
-            _loop_1(i);
         }
     }
 };
 var WheelCanvas = function (_a) {
-    var width = _a.width, height = _a.height, data = _a.data, outerBorderColor = _a.outerBorderColor, outerBorderWidth = _a.outerBorderWidth, innerRadius = _a.innerRadius, innerBorderColor = _a.innerBorderColor, innerBorderWidth = _a.innerBorderWidth, radiusLineColor = _a.radiusLineColor, radiusLineWidth = _a.radiusLineWidth, fontFamily = _a.fontFamily, fontSize = _a.fontSize, perpendicularText = _a.perpendicularText, prizeMap = _a.prizeMap, rouletteUpdater = _a.rouletteUpdater, setRouletteUpdater = _a.setRouletteUpdater, textDistance = _a.textDistance;
+    var width = _a.width, height = _a.height, data = _a.data, outerBorderColor = _a.outerBorderColor, outerBorderWidth = _a.outerBorderWidth, innerRadius = _a.innerRadius, innerBorderColor = _a.innerBorderColor, innerBorderWidth = _a.innerBorderWidth, radiusLineColor = _a.radiusLineColor, radiusLineWidth = _a.radiusLineWidth, fontFamily = _a.fontFamily, fontSize = _a.fontSize, perpendicularText = _a.perpendicularText, prizeMap = _a.prizeMap, rouletteUpdater = _a.rouletteUpdater, textDistance = _a.textDistance;
     var canvasRef = createRef();
     var drawWheelProps = {
         outerBorderColor: outerBorderColor,
@@ -115,7 +109,6 @@ var WheelCanvas = function (_a) {
         perpendicularText: perpendicularText,
         prizeMap: prizeMap,
         rouletteUpdater: rouletteUpdater,
-        setRouletteUpdater: setRouletteUpdater,
         textDistance: textDistance,
     };
     useEffect(function () {

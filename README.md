@@ -65,7 +65,7 @@ export default () => (
 | **Prop**                       | **Type**           | **Default**               | **Description**                                                                                                                                 |
 |--------------------------------|--------------------|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
 | mustStartSpinning _(required)_ | `boolean`          | -                         | Sets when the roulette must start the spinning animation                                                                                        |
-| prizeNumber _(required)_       | `number`           | -                         | Sets the winning option. It's value must be between 0 and data.lenght-1                                                                         |
+| prizeNumber _(required)_       | `number`           | -                         | Sets the winning option. It's value must be between 0 and data.length-1                                                                         |
 | data _(required)_              | `Array<WheelData>` | -                         | Array of options. Can contain styling information for a specific option (see [WheelData](#wheeldata))                                           |
 | onStopSpinning                 | `function`         | () => null                | Callback function that is called when the roulette ends the spinning animation                                                                  |
 | backgroundColors               | `Array<string>`    | ['darkgrey', 'lightgrey'] | Array of colors that will fill the background of the roulette options, starting from option 0                                                   |
@@ -88,12 +88,20 @@ export default () => (
 
 ```jsx
 interface WheelData {
-  option: string;
+  option?: string;
+  image?: ImageProps;
   style?: StyleType; // Optional
   optionSize?: number; // Optional
 }
 ```
-With `optionSize` you can set the size of the option measured in roulette pieces. For example: if `data` provides 2 options A and B, and you set A's `optionSize` to `2`, B's `optionSize` to `1`, the roulette will render `3` pieces: 2 corresponding to A and 1 corresponding to B. Therefore, A will appear to be twice as big as B. 
+
+| **Prop**   | **Type**     | **Default** | **Description**                                                                                                                                                                                                                                                                                                              |
+|------------|--------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| option     | `string`     | ''          | String to be rendered inside an option.                                                                                                                                                                                                                                                                                      |
+| image      | `ImageProps` | -           | Image to be rendered inside an option. It is configured through [ImageProps](#imageprops)                                                                                                                                                                                                                                    |
+| style      | `StyleType`  | -           | Styles for option. It is configured through [StyleType](#styletype)                                                                                                                                                                                                                                                          |
+| optionSize | `number`     | 1           | Integer that sets the size of the option measured in roulette pieces. For example: if `data` provides 2 options A and B, and you set A's `optionSize` to `2`, B's `optionSize` to `1`, the roulette will render `3` pieces: 2 corresponding to A and 1 corresponding to B. Therefore, A will appear to be twice as big as B. |
+
 
 #### StyleType
 
@@ -105,6 +113,33 @@ interface StyleType {
   fontSize?: number; // Optional
 }
 ```
+
+| **Prop**        | **Type** | **Default**               | **Description**                                                    |
+|-----------------|----------|---------------------------|--------------------------------------------------------------------|
+| backgroundColor | `string` | 'darkgrey' or 'lightgrey' | Background color for option.                                       |
+| textColor       | `string` | 'black'                   | Text color                                                         |
+| fontFamily      | `string` | 'Helvetica, Arial'        | String containing text font and its fallbacks separated by commas. |
+| fontSize        | `number` | 20                        | Number for font size.                                              |
+
+#### ImageProps
+
+```jsx
+export interface ImageProps {
+  uri: string;
+  offsetX?: number; // Optional
+  offsetY?: number; // Optional
+  sizeMultiplier?: number; // Optional
+  landscape?: boolean; // Optional
+}
+```
+
+| **Prop**       | **Type**  | **Default** | **Description**                                                                                                              |
+|----------------|-----------|-------------|------------------------------------------------------------------------------------------------------------------------------|
+| uri            | `string`  | -           | Image source. It can be url or path.                                                                                         |
+| offsetX        | `number`  | 0           | Image offset in its X axis                                                                                                   |
+| offsetY        | `number`  | 0           | Image offset in its Y axis                                                                                                   |
+| sizeMultiplier | `number`  | 1           | A value of 1 means image height is calculated as `200px * sizeMultiplier` and width will be calculated to keep aspect ratio. |
+| landscape      | `boolean` | false       | If true, image will be rotated 90 degrees so as to render in a landscape orientation                                         |
 
 ## Multi Spin
 
