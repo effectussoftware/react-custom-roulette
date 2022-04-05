@@ -81,7 +81,7 @@ export default () => (
 | perpendicularText              | `boolean`          | false                     | When 'true', sets the option texts perpendicular to the roulette's radial lines                       |
 | textDistance                   | `number [0..100]`  | 60                        | Distance of the option texts from the center of the roulette                                          |
 | spinDuration                   | `number [0.01 ..]` | 1.0                       | Coefficient to adjust the default spin duration                                                       |
-| selectorProps                  | `{ src, style }`   | { src: rouletteSelector } | Image source and CSS styling to apply to image.                                                       |
+| selectorProps                  | `SelectorProps`    | { src: rouletteSelector } | Image source and CSS styling to apply to image.                                                       |
 
 ## Types
 
@@ -108,10 +108,16 @@ interface StyleType {
 ```jsx
 interface SelectorProps {
   src?: string; // Optional
-  className?: string; // Optional
   style?: SelectorStyle; // Optional
 }
 ```
+
+| **Prop** | **Type**        | **Default**               | **Description**             |
+|----------|-----------------|---------------------------|-----------------------------|
+| src      | `string`        | -                         | Image src.                  |
+| style    | `SelectorStyle` | -                         | Styling for selector image. |
+
+
 #### SelectorStyle
 
 ```jsx
@@ -120,7 +126,10 @@ interface SelectorStyle {
   width?: number; // Optional
 }
 ```
-
+| **Prop** | **Type** | **Default**               | **Description**            |
+|----------|----------|---------------------------|----------------------------|
+| height   | `number` | -                         | Image height CSS property. |
+| style    | `number` | -                         | Image width CSS property.  |
 ## Multi Spin
 
 #### Example (using useState)
