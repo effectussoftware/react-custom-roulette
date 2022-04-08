@@ -1,7 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import WebFont from 'webfontloader';
 
-import { getRotationDegrees, isCustomFont } from '../../utils';
+import {
+  getQuantity,
+  getRotationDegrees,
+  isCustomFont,
+  makeClassKey,
+} from '../../utils';
 import { rouletteSelector } from '../common/images';
 import {
   RotationContainer,
@@ -73,6 +78,7 @@ export const Wheel = ({
   spinDuration = DEFAULT_SPIN_DURATION,
 }: Props): JSX.Element | null => {
   const [wheelData, setWheelData] = useState<WheelData[]>([...data]);
+  const [prizeMap, setPrizeMap] = useState<number[][]>([[0]]);
   const [startRotationDegrees, setStartRotationDegrees] = useState(0);
   const [finalRotationDegrees, setFinalRotationDegrees] = useState(0);
   const [hasStartedSpinning, setHasStartedSpinning] = useState(false);
@@ -82,6 +88,8 @@ export const Wheel = ({
   const [isFontLoaded, setIsFontLoaded] = useState(false);
   const [fontUpdater, setFontUpdater] = useState(false);
   const mustStopSpinning = useRef<boolean>(false);
+
+  const classKey = makeClassKey(5);
 
   const normalizedSpinDuration = Math.max(0.01, spinDuration);
 
@@ -93,8 +101,10 @@ export const Wheel = ({
     startSpinningTime + continueSpinningTime + stopSpinningTime;
 
   useEffect(() => {
+    let initialMapNum = 0;
+    const auxPrizeMap: number[][] = [];
     const dataLength = data.length;
-    const wheelDataAux = [{ option: '' }] as WheelData[];
+    const wheelDataAux = [{ option: '', optionSize: 1 }] as WheelData[];
     const fontsToFetch = [isCustomFont(fontFamily?.trim()) ? fontFamily : ''];
 
     for (let i = 0; i < dataLength; i++) {
@@ -114,6 +124,10 @@ export const Wheel = ({
             data[i].style?.textColor || textColors[i % textColors.length],
         },
       };
+      auxPrizeMap.push([]);
+      for (let j = 0; j < (wheelDataAux[i].optionSize || 1); j++) {
+        auxPrizeMap[i][j] = initialMapNum++;
+      }
     }
     WebFont.load({
       google: {
@@ -129,6 +143,7 @@ export const Wheel = ({
       },
     });
     setWheelData([...wheelDataAux]);
+    setPrizeMap(auxPrizeMap);
     setIsDataUpdated(true);
   }, [data, backgroundColors, textColors]);
 
@@ -136,9 +151,13 @@ export const Wheel = ({
     if (mustStartSpinning && !isCurrentlySpinning) {
       setIsCurrentlySpinning(true);
       startSpinning();
+      const selectedPrize =
+        prizeMap[prizeNumber][
+          Math.floor(Math.random() * prizeMap[prizeNumber].length)
+        ];
       const finalRotationDegreesCalculated = getRotationDegrees(
-        prizeNumber,
-        data.length
+        selectedPrize,
+        getQuantity(prizeMap)
       );
       setFinalRotationDegrees(finalRotationDegreesCalculated);
     }
@@ -167,7 +186,7 @@ export const Wheel = ({
 
   const getRouletteClass = () => {
     if (hasStartedSpinning) {
-      return STARTED_SPINNING;
+      return `${STARTED_SPINNING}`;
     }
     return '';
   };
@@ -180,6 +199,7 @@ export const Wheel = ({
     <RouletteContainer style={!isFontLoaded ? { visibility: 'hidden' } : {}}>
       <RotationContainer
         className={getRouletteClass()}
+        classKey={classKey}
         startSpinningTime={startSpinningTime}
         continueSpinningTime={continueSpinningTime}
         stopSpinningTime={stopSpinningTime}
@@ -201,6 +221,7 @@ export const Wheel = ({
           fontUpdater={fontUpdater}
           fontSize={fontSize}
           perpendicularText={perpendicularText}
+          prizeMap={prizeMap}
           textDistance={textDistance}
         />
       </RotationContainer>

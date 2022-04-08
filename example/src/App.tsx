@@ -4,7 +4,7 @@ import './App.css';
 import { Wheel } from 'react-custom-roulette';
 
 const data = [
-  { option: 'REACT' },
+  { option: 'REACT', optionSize: 3 },
   { option: 'CUSTOM' },
   {
     option: 'ROULETTE',
@@ -39,7 +39,7 @@ const App = () => {
   const [prizeNumber, setPrizeNumber] = useState(0);
 
   const handleSpinClick = () => {
-    const newPrizeNumber = Math.floor(Math.random() * data.length);
+    const newPrizeNumber = 0;
     setPrizeNumber(newPrizeNumber);
     setMustSpin(true);
   };

@@ -27,19 +27,21 @@ export const RotationContainer = styled.div`
   transform: rotate(${props => props.startRotationDegrees}deg);
 
   &.started-spinning {
-    animation: spin ${({ startSpinningTime }) => startSpinningTime / 1000}s
-        cubic-bezier(0.71, -0.29, 0.96, 0.9) 0s 1 normal forwards running,
-      continueSpin ${({ continueSpinningTime }) => continueSpinningTime / 1000}s
-        linear ${({ startSpinningTime }) => startSpinningTime / 1000}s 1 normal
+    animation: spin-${({ classKey }) => classKey} ${({ startSpinningTime }) =>
+          startSpinningTime / 1000}s cubic-bezier(0.71, -0.29, 0.96, 0.9) 0s 1 normal
         forwards running,
-      stopSpin ${({ stopSpinningTime }) => stopSpinningTime / 1000}s
-        cubic-bezier(0, 0, 0.35, 1.02)
-        ${({ startSpinningTime, continueSpinningTime }) =>
-          (startSpinningTime + continueSpinningTime) / 1000}s
-        1 normal forwards running;
+      continueSpin-${({ classKey }) => classKey} ${({ continueSpinningTime }) =>
+          continueSpinningTime / 1000}s linear ${({ startSpinningTime }) =>
+          startSpinningTime / 1000}s 1 normal forwards running,
+      stopSpin-${({ classKey }) => classKey} ${({ stopSpinningTime }) =>
+          stopSpinningTime / 1000}s cubic-bezier(0, 0, 0.35, 1.02) ${({
+          startSpinningTime,
+          continueSpinningTime,
+        }) => (startSpinningTime + continueSpinningTime) / 1000}s 1 normal forwards
+        running;
   }
 
-  @keyframes spin {
+  @keyframes spin-${({ classKey }) => classKey} {
     from {
       transform: rotate(${props => props.startRotationDegrees}deg);
     }
@@ -47,7 +49,7 @@ export const RotationContainer = styled.div`
       transform: rotate(${props => props.startRotationDegrees + 360}deg);
     }
   }
-  @keyframes continueSpin {
+  @keyframes continueSpin-${({ classKey }) => classKey} {
     from {
       transform: rotate(${props => props.startRotationDegrees}deg);
     }
@@ -55,7 +57,7 @@ export const RotationContainer = styled.div`
       transform: rotate(${props => props.startRotationDegrees + 360}deg);
     }
   }
-  @keyframes stopSpin {
+  @keyframes stopSpin-${({ classKey }) => classKey} {
     from {
       transform: rotate(${props => props.startRotationDegrees}deg);
     }
