@@ -24,7 +24,7 @@ import {
 import { WheelData } from './types';
 import WheelCanvas from '../WheelCanvas';
 
-interface Props {
+export interface WheelProps {
   mustStartSpinning: boolean;
   prizeNumber: number;
   data: WheelData[];
@@ -68,7 +68,7 @@ export const Wheel = ({
   perpendicularText = false,
   textDistance = DEFAULT_TEXT_DISTANCE,
   spinDuration = DEFAULT_SPIN_DURATION,
-}: Props): JSX.Element | null => {
+}: WheelProps): JSX.Element | null => {
   const [wheelData, setWheelData] = useState<WheelData[]>([...data]);
   const [startRotationDegrees, setStartRotationDegrees] = useState(0);
   const [finalRotationDegrees, setFinalRotationDegrees] = useState(0);
