@@ -42,9 +42,9 @@ import React from 'react'
 import { Wheel } from 'react-custom-roulette'
 
 const data = [
-  { option: '0', style: { backgroundColor: 'green', textColor: 'black' }},
-  { option: '1', style: { backgroundColor: 'white' }},
-  { option: '2'},
+  { option: '0', style: { backgroundColor: 'green', textColor: 'black' } },
+  { option: '1', style: { backgroundColor: 'white' } },
+  { option: '2' },
 ]
 
 export default () => (
@@ -87,20 +87,18 @@ export default () => (
 #### WheelData
 
 ```jsx
-interface
-WheelData
-{
+interface WheelData {
   option: string;
   style?: StyleType; // Optional
+  optionSize?: number; // Optional
 }
 ```
+With `optionSize` you can set the size of the option measured in roulette pieces. For example: if `data` provides 2 options A and B, and you set A's `optionSize` to `2`, B's `optionSize` to `1`, the roulette will render `3` pieces: 2 corresponding to A and 1 corresponding to B. Therefore, A will appear to be twice as big as B. 
 
 #### StyleType
 
 ```jsx
-interface
-StyleType
-{
+interface StyleType {
   backgroundColor?: string; // Optional
   textColor?: string; // Optional
   fontFamily?: string; // Optional
@@ -113,8 +111,8 @@ StyleType
 #### Example (using useState)
 
 ```jsx
-import React, {useState} from 'react'
-import {Wheel} from 'react-custom-roulette'
+import React, { useState } from 'react'
+import { Wheel } from 'react-custom-roulette'
 
 const data = [
   { option: '0' },
@@ -159,7 +157,6 @@ This project exists thanks to all the people who contribute!
     <li><a href="https://github.com/jpmazza">JP Mazza</a></li>
     <li><a href="https://github.com/TakeshiOnishi">TakeshiOnishi</a></li>
     <li><a href="https://github.com/Gaston-Gonzalez">Gastón González</a></li>
-
 </ul>
 
 ## License
