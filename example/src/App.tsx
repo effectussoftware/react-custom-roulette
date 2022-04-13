@@ -10,7 +10,7 @@ const data = [
     option: 'ROULETTE',
     style: {
       textColor: '#f9dd50',
-      fontFamily: 'Ubuntu',
+      // fontFamily: 'Ubuntu',
     },
   },
   { option: 'WHEEL' },
@@ -29,7 +29,7 @@ const innerBorderWidth = 0;
 const innerRadius = 0;
 const radiusLineColor = '#eeeeee';
 const radiusLineWidth = 8;
-const fontFamily = 'Nunito';
+const fontFamily = 'Verdana';
 const fontSize = 20;
 const textDistance = 60;
 const spinDuration = 1.0;

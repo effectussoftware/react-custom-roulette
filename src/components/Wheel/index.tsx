@@ -95,13 +95,12 @@ export const Wheel = ({
   useEffect(() => {
     const dataLength = data.length;
     const wheelDataAux = [{ option: '' }] as WheelData[];
-    const fontsToFetch = [isCustomFont(fontFamily?.trim()) ? fontFamily : ''];
+    const fontsToFetch = isCustomFont(fontFamily?.trim()) ? [fontFamily] : [];
 
     for (let i = 0; i < dataLength; i++) {
       let fontArray = data[i]?.style?.fontFamily?.split(',') || [];
       fontArray = fontArray.map(font => font.trim()).filter(isCustomFont);
       fontsToFetch.push(...fontArray);
-
       wheelDataAux[i] = {
         ...data[i],
         style: {
@@ -115,19 +114,23 @@ export const Wheel = ({
         },
       };
     }
-    WebFont.load({
-      google: {
-        families: Array.from(new Set(fontsToFetch.filter(font => !!font))),
-      },
-      timeout: 1000,
-      fontactive() {
-        setFontUpdater(!fontUpdater);
-      },
-      active() {
-        setIsFontLoaded(true);
-        setFontUpdater(!fontUpdater);
-      },
-    });
+    if (fontsToFetch.length > 0) {
+      WebFont.load({
+        google: {
+          families: Array.from(new Set(fontsToFetch.filter(font => !!font))),
+        },
+        timeout: 1000,
+        fontactive() {
+          setFontUpdater(!fontUpdater);
+        },
+        active() {
+          setIsFontLoaded(true);
+          setFontUpdater(!fontUpdater);
+        },
+      });
+    } else {
+      setIsFontLoaded(true);
+    }
     setWheelData([...wheelDataAux]);
     setIsDataUpdated(true);
   }, [data, backgroundColors, textColors]);
