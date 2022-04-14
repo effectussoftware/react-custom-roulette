@@ -4,15 +4,9 @@ import './App.css';
 import { Wheel } from 'react-custom-roulette';
 
 const data = [
-  { option: 'REACT', optionSize: 3 },
+  { option: 'REACT' },
   { option: 'CUSTOM' },
-  {
-    option: 'ROULETTE',
-    style: {
-      textColor: '#f9dd50',
-      fontFamily: 'Ubuntu',
-    },
-  },
+  { option: 'ROULETTE', style: { textColor: '#f9dd50' } },
   { option: 'WHEEL' },
   { option: 'REACT' },
   { option: 'CUSTOM', style: { textColor: 'white' } },
@@ -68,7 +62,7 @@ const App = () => {
           onStopSpinning={() => {
             setMustSpin(false);
           }}
-          startingOptionIndex={7}
+          // startingOptionIndex={7}
         />
         <button className={'spin-button'} onClick={handleSpinClick}>
           SPIN
