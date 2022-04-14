@@ -18,6 +18,8 @@ interface DrawWheelProps {
   innerBorderWidth: number;
   radiusLineColor: string;
   radiusLineWidth: number;
+  fontFamily: string;
+  fontUpdater: boolean;
   fontSize: number;
   perpendicularText: boolean;
   prizeMap: number[][];
@@ -59,18 +61,18 @@ const drawWheel = (
     innerBorderWidth,
     radiusLineColor,
     radiusLineWidth,
+    fontFamily,
     fontSize,
     perpendicularText,
     prizeMap,
     textDistance,
   } = drawWheelProps;
-  /* eslint-enable prefer-const */
+
   const QUANTITY = getQuantity(prizeMap);
 
   outerBorderWidth *= 2;
   innerBorderWidth *= 2;
   radiusLineWidth *= 2;
-  fontSize *= 2;
 
   const canvas = canvasRef.current;
   if (canvas?.getContext('2d')) {
@@ -162,6 +164,9 @@ const drawWheel = (
       ctx.stroke();
 
       // TEXT FILL
+      ctx.font = `bold ${(style?.fontSize || fontSize) * 2}px ${
+        style?.fontFamily || fontFamily
+      }, Helvetica, Arial`;
       ctx.fillStyle = (style && style.textColor) as string;
       ctx.translate(
         centerX + Math.cos(startAngle + arc / 2) * textRadius,
@@ -191,6 +196,8 @@ const WheelCanvas = ({
   innerBorderWidth,
   radiusLineColor,
   radiusLineWidth,
+  fontFamily,
+  fontUpdater,
   fontSize,
   perpendicularText,
   prizeMap,
@@ -205,6 +212,8 @@ const WheelCanvas = ({
     innerBorderWidth,
     radiusLineColor,
     radiusLineWidth,
+    fontFamily,
+    fontUpdater,
     fontSize,
     perpendicularText,
     prizeMap,
@@ -213,7 +222,7 @@ const WheelCanvas = ({
 
   useEffect(() => {
     drawWheel(canvasRef, data, drawWheelProps);
-  }, [canvasRef, data, drawWheelProps]);
+  }, [canvasRef, data, drawWheelProps, fontUpdater]);
 
   return <WheelCanvasStyle ref={canvasRef} width={width} height={height} />;
 };
