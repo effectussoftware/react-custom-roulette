@@ -10,13 +10,11 @@ var drawRadialBorder = function (ctx, centerX, centerY, insideRadius, outsideRad
 };
 var drawWheel = function (canvasRef, data, drawWheelProps) {
     /* eslint-disable prefer-const */
-    var outerBorderColor = drawWheelProps.outerBorderColor, outerBorderWidth = drawWheelProps.outerBorderWidth, innerRadius = drawWheelProps.innerRadius, innerBorderColor = drawWheelProps.innerBorderColor, innerBorderWidth = drawWheelProps.innerBorderWidth, radiusLineColor = drawWheelProps.radiusLineColor, radiusLineWidth = drawWheelProps.radiusLineWidth, fontSize = drawWheelProps.fontSize, perpendicularText = drawWheelProps.perpendicularText, prizeMap = drawWheelProps.prizeMap, textDistance = drawWheelProps.textDistance;
-    /* eslint-enable prefer-const */
+    var outerBorderColor = drawWheelProps.outerBorderColor, outerBorderWidth = drawWheelProps.outerBorderWidth, innerRadius = drawWheelProps.innerRadius, innerBorderColor = drawWheelProps.innerBorderColor, innerBorderWidth = drawWheelProps.innerBorderWidth, radiusLineColor = drawWheelProps.radiusLineColor, radiusLineWidth = drawWheelProps.radiusLineWidth, fontFamily = drawWheelProps.fontFamily, fontSize = drawWheelProps.fontSize, perpendicularText = drawWheelProps.perpendicularText, prizeMap = drawWheelProps.prizeMap, textDistance = drawWheelProps.textDistance;
     var QUANTITY = getQuantity(prizeMap);
     outerBorderWidth *= 2;
     innerBorderWidth *= 2;
     radiusLineWidth *= 2;
-    fontSize *= 2;
     var canvas = canvasRef.current;
     if (canvas === null || canvas === void 0 ? void 0 : canvas.getContext('2d')) {
         var ctx = canvas.getContext('2d');
@@ -68,6 +66,7 @@ var drawWheel = function (canvasRef, data, drawWheelProps) {
             ctx.closePath();
             ctx.stroke();
             // TEXT FILL
+            ctx.font = "bold ".concat(((style === null || style === void 0 ? void 0 : style.fontSize) || fontSize) * 2, "px ").concat((style === null || style === void 0 ? void 0 : style.fontFamily) || fontFamily, ", Helvetica, Arial");
             ctx.fillStyle = (style && style.textColor);
             ctx.translate(centerX + Math.cos(startAngle + arc / 2) * textRadius, centerY + Math.sin(startAngle + arc / 2) * textRadius);
             var text = data[i].option;
@@ -82,7 +81,7 @@ var drawWheel = function (canvasRef, data, drawWheelProps) {
     }
 };
 var WheelCanvas = function (_a) {
-    var width = _a.width, height = _a.height, data = _a.data, outerBorderColor = _a.outerBorderColor, outerBorderWidth = _a.outerBorderWidth, innerRadius = _a.innerRadius, innerBorderColor = _a.innerBorderColor, innerBorderWidth = _a.innerBorderWidth, radiusLineColor = _a.radiusLineColor, radiusLineWidth = _a.radiusLineWidth, fontSize = _a.fontSize, perpendicularText = _a.perpendicularText, prizeMap = _a.prizeMap, textDistance = _a.textDistance;
+    var width = _a.width, height = _a.height, data = _a.data, outerBorderColor = _a.outerBorderColor, outerBorderWidth = _a.outerBorderWidth, innerRadius = _a.innerRadius, innerBorderColor = _a.innerBorderColor, innerBorderWidth = _a.innerBorderWidth, radiusLineColor = _a.radiusLineColor, radiusLineWidth = _a.radiusLineWidth, fontFamily = _a.fontFamily, fontUpdater = _a.fontUpdater, fontSize = _a.fontSize, perpendicularText = _a.perpendicularText, prizeMap = _a.prizeMap, textDistance = _a.textDistance;
     var canvasRef = createRef();
     var drawWheelProps = {
         outerBorderColor: outerBorderColor,
@@ -92,6 +91,8 @@ var WheelCanvas = function (_a) {
         innerBorderWidth: innerBorderWidth,
         radiusLineColor: radiusLineColor,
         radiusLineWidth: radiusLineWidth,
+        fontFamily: fontFamily,
+        fontUpdater: fontUpdater,
         fontSize: fontSize,
         perpendicularText: perpendicularText,
         prizeMap: prizeMap,
@@ -99,7 +100,7 @@ var WheelCanvas = function (_a) {
     };
     useEffect(function () {
         drawWheel(canvasRef, data, drawWheelProps);
-    }, [canvasRef, data, drawWheelProps]);
+    }, [canvasRef, data, drawWheelProps, fontUpdater]);
     return React.createElement(WheelCanvasStyle, { ref: canvasRef, width: width, height: height });
 };
 export default WheelCanvas;

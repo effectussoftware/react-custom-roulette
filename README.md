@@ -77,6 +77,7 @@ export default () => (
 | innerBorderWidth               | `number`           | 0                         | Width of the roulette's inner border line (0 represents no inner border line)                                                                                                |
 | radiusLineColor                | `string`           | 'black'                   | Color of the radial lines that separate each option                                                                                                                          |
 | radiusLineWidth                | `number`           | 5                         | Width of the radial lines that separate each option (0 represents no radial lines)                                                                                           |
+| fontFamily                      | `string`           | 'Helvetica, sans-serif'   | Global font family of the option string. Non-Web safe fonts are fetched from https://fonts.google.com/. All available fonts can be found there.            |
 | fontSize                       | `number`           | 20                        | Font size of the option string                                                                                                                                               |
 | perpendicularText              | `boolean`          | false                     | When 'true', sets the option texts perpendicular to the roulette's radial lines                                                                                              |
 | textDistance                   | `number [0..100]`  | 60                        | Distance of the option texts from the center of the roulette                                                                                                                 |
@@ -104,6 +105,8 @@ With `optionSize` you can set the size of the option measured in roulette pieces
 interface StyleType {
   backgroundColor?: string; // Optional
   textColor?: string; // Optional
+  fontFamily?: string; // Optional
+  fontSize?: number; // Optional
 }
 ```
 
@@ -157,8 +160,9 @@ This project exists thanks to all the people who contribute!
     <li><a href="https://github.com/nazabalm20">Martin Nazabal</a></li>
     <li><a href="https://github.com/jpmazza">JP Mazza</a></li>
     <li><a href="https://github.com/TakeshiOnishi">TakeshiOnishi</a></li>
+    <li><a href="https://github.com/Gaston-Gonzalez">Gastón González</a></li>
 </ul>
 
 ## License
 
-This project is licensed under the MIT license, Copyright (c) 2020 <a href="https://effectussoftware.com">Effectus Software</a>. [[License](LICENSE)]
+This project is licensed under the MIT license, Copyright (c) 2022 <a href="https://effectussoftware.com">Effectus Software</a>. [[License](LICENSE)]
