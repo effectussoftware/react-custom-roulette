@@ -85,11 +85,9 @@ export const Wheel = ({
   const [hasStoppedSpinning, setHasStoppedSpinning] = useState(false);
   const [isCurrentlySpinning, setIsCurrentlySpinning] = useState(false);
   const [isDataUpdated, setIsDataUpdated] = useState(false);
-  const [isFontLoaded, setIsFontLoaded] = useState(false);
   const [rouletteUpdater, setRouletteUpdater] = useState(false);
   const [loadedImagesCounter, setLoadedImagesCounter] = useState(0);
   const [totalImages, setTotalImages] = useState(0);
-  const mustStopSpinning = useRef<boolean>(false);
   const [isFontLoaded, setIsFontLoaded] = useState(false);
   const mustStopSpinning = useRef<boolean>(false);
 
@@ -168,7 +166,7 @@ export const Wheel = ({
         },
       });
     } else {
-      setIsFontLoaded(true)
+      setIsFontLoaded(true);
     }
     setWheelData([...wheelDataAux]);
     setPrizeMap(auxPrizeMap);
