@@ -67,7 +67,7 @@ const drawWheel = (
     prizeMap,
     textDistance,
   } = drawWheelProps;
-  /* eslint-enable prefer-const */
+
   const QUANTITY = getQuantity(prizeMap);
 
   outerBorderWidth *= 2;

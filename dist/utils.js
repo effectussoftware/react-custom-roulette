@@ -13,9 +13,18 @@ export var getRotationDegrees = function (prizeNumber, numberOfPrizes) {
 export var clamp = function (min, max, val) {
     return Math.min(Math.max(min, +val), max);
 };
+export var isCustomFont = function (font) {
+    return !WEB_FONTS.includes(font.toLowerCase());
+};
 export var getQuantity = function (prizeMap) {
     return prizeMap.slice(-1)[0].slice(-1)[0] + 1;
 };
-export var isCustomFont = function (font) {
-    return !WEB_FONTS.includes(font.toLowerCase());
+var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+export var makeClassKey = function (length) {
+    var result = '';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
 };

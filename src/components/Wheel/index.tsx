@@ -1,7 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import WebFont from 'webfontloader';
 
-import { getQuantity, getRotationDegrees, isCustomFont } from '../../utils';
+import {
+  getQuantity,
+  getRotationDegrees,
+  isCustomFont,
+  makeClassKey,
+} from '../../utils';
 import { rouletteSelector } from '../common/images';
 import {
   RotationContainer,
@@ -85,8 +90,13 @@ export const Wheel = ({
   const [loadedImagesCounter, setLoadedImagesCounter] = useState(0);
   const [totalImages, setTotalImages] = useState(0);
   const mustStopSpinning = useRef<boolean>(false);
+  const [isFontLoaded, setIsFontLoaded] = useState(false);
+  const mustStopSpinning = useRef<boolean>(false);
+
+  const classKey = makeClassKey(5);
 
   const normalizedSpinDuration = Math.max(0.01, spinDuration);
+
   const startSpinningTime = START_SPINNING_TIME * normalizedSpinDuration;
   const continueSpinningTime = CONTINUE_SPINNING_TIME * normalizedSpinDuration;
   const stopSpinningTime = STOP_SPINNING_TIME * normalizedSpinDuration;
@@ -99,7 +109,8 @@ export const Wheel = ({
     const auxPrizeMap: number[][] = [];
     const dataLength = data.length;
     const wheelDataAux = [{ option: '', optionSize: 1 }] as WheelData[];
-    const fontsToFetch = [isCustomFont(fontFamily?.trim()) ? fontFamily : ''];
+    const fontsToFetch = isCustomFont(fontFamily?.trim()) ? [fontFamily] : [];
+
     for (let i = 0; i < dataLength; i++) {
       let fontArray = data[i]?.style?.fontFamily?.split(',') || [];
       fontArray = fontArray.map(font => font.trim()).filter(isCustomFont);
@@ -142,19 +153,23 @@ export const Wheel = ({
         };
       }
     }
-    WebFont.load({
-      google: {
-        families: Array.from(new Set(fontsToFetch.filter(font => !!font))),
-      },
-      timeout: 1000,
-      fontactive() {
-        setRouletteUpdater(!rouletteUpdater);
-      },
-      active() {
-        setIsFontLoaded(true);
-        setRouletteUpdater(!rouletteUpdater);
-      },
-    });
+    if (fontsToFetch.length > 0) {
+      WebFont.load({
+        google: {
+          families: Array.from(new Set(fontsToFetch.filter(font => !!font))),
+        },
+        timeout: 1000,
+        fontactive() {
+          setRouletteUpdater(!rouletteUpdater);
+        },
+        active() {
+          setIsFontLoaded(true);
+          setRouletteUpdater(!rouletteUpdater);
+        },
+      });
+    } else {
+      setIsFontLoaded(true)
+    }
     setWheelData([...wheelDataAux]);
     setPrizeMap(auxPrizeMap);
     setIsDataUpdated(true);
@@ -219,6 +234,7 @@ export const Wheel = ({
     >
       <RotationContainer
         className={getRouletteClass()}
+        classKey={classKey}
         startSpinningTime={startSpinningTime}
         continueSpinningTime={continueSpinningTime}
         stopSpinningTime={stopSpinningTime}
