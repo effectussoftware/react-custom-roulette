@@ -107,7 +107,7 @@ export const Wheel = ({
     const auxPrizeMap: number[][] = [];
     const dataLength = data.length;
     const wheelDataAux = [{ option: '', optionSize: 1 }] as WheelData[];
-    const fontsToFetch = [isCustomFont(fontFamily?.trim()) ? fontFamily : ''];
+    const fontsToFetch = isCustomFont(fontFamily?.trim()) ? [fontFamily] : [];
 
     for (let i = 0; i < dataLength; i++) {
       let fontArray = data[i]?.style?.fontFamily?.split(',') || [];
@@ -131,19 +131,23 @@ export const Wheel = ({
         auxPrizeMap[i][j] = initialMapNum++;
       }
     }
-    WebFont.load({
-      google: {
-        families: Array.from(new Set(fontsToFetch.filter(font => !!font))),
-      },
-      timeout: 1000,
-      fontactive() {
-        setFontUpdater(!fontUpdater);
-      },
-      active() {
-        setIsFontLoaded(true);
-        setFontUpdater(!fontUpdater);
-      },
-    });
+    if (fontsToFetch.length > 0) {
+      WebFont.load({
+        google: {
+          families: Array.from(new Set(fontsToFetch.filter(font => !!font))),
+        },
+        timeout: 1000,
+        fontactive() {
+          setFontUpdater(!fontUpdater);
+        },
+        active() {
+          setIsFontLoaded(true);
+          setFontUpdater(!fontUpdater);
+        },
+      });
+    } else {
+      setIsFontLoaded(true);
+    }
     setWheelData([...wheelDataAux]);
     setPrizeMap(auxPrizeMap);
     setIsDataUpdated(true);
