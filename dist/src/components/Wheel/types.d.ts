@@ -11,7 +11,6 @@ export interface StyleType {
 }
 export interface SelectorProps {
     src?: string;
-    className?: string;
     style?: SelectorStyle;
 }
 export interface SelectorStyle {
