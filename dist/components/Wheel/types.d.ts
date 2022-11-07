@@ -1,6 +1,10 @@
 /// <reference types="react" />
+interface ImagePropsLocal extends ImageProps {
+    _imageHTML: HTMLImageElement;
+}
 export interface WheelData {
-    option: string;
+    image?: ImagePropsLocal;
+    option?: string;
     style?: StyleType;
     optionSize?: number;
 }
@@ -14,3 +18,11 @@ export interface PointerProps {
     src?: string;
     style?: React.CSSProperties;
 }
+export interface ImageProps {
+    uri: string;
+    offsetX?: number;
+    offsetY?: number;
+    sizeMultiplier?: number;
+    landscape?: boolean;
+}
+export {};

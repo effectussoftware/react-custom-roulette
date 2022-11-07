@@ -1,7 +1,7 @@
 <h1 align="center">React Custom Roulette</h1>
 
 <div align="center">
-    
+
   [![npm version](https://img.shields.io/npm/v/react-custom-roulette)](https://www.npmjs.com/package/react-custom-roulette)
   [![Types](https://img.shields.io/npm/types/react-custom-roulette)](https://www.typescriptlang.org/index.html)
   [![npm downloads](https://img.shields.io/npm/dm/react-custom-roulette)](https://www.npmjs.com/package/react-custom-roulette)
@@ -11,7 +11,7 @@
 <p align="center">Customizable React roulette wheel with spinning animation</p>
 
 <div align="center">
-    
+
   ![React Custom Roulette](https://github.com/effectussoftware/react-custom-roulette/raw/master/demo/roulette-demo.gif)
 
 </div>
