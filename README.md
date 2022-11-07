@@ -66,7 +66,7 @@ export default () => (
 |---------------------------------|--------------------|---------------------------|--------------------------------------------------------------------|
 | mustStartSpinning _(required)_  | `boolean`          | -                         | Sets when the roulette must start the spinning animation                                              |
 | prizeNumber _(required)_        | `number`           | -                         | Sets the winning option. It's value must be between 0 and data.lenght-1                                               |
-| data _(required)_               | `Array<WheelData>` | -                         | Array of options. Can contain styling information for a specific option (see [WheelData](#wheeldata))                          |
+| data _(required)_               | `Array<WheelData>` | -                         | Array of options. Can contain styling information for a specific option (see [WheelData](#wheeldata))                               |
 | onStopSpinning                  | `function`         | () => null                | Callback function that is called when the roulette ends the spinning animation                                              |
 | backgroundColors                | `Array<string>`    | ['darkgrey', 'lightgrey'] | Array of colors that will fill the background of the roulette options, starting from option 0                                 |
 | textColors                      | `Array<string>`    | ['black']                 | Array of colors that will fill the text of the roulette options, starting from option 0                                          |
@@ -82,6 +82,7 @@ export default () => (
 | perpendicularText               | `boolean`          | false                     | When 'true', sets the option texts perpendicular to the roulette's radial lines                                                  |
 | textDistance                    | `number [0..100]`  | 60                        | Distance of the option texts from the center of the roulette     |
 | spinDuration                    | `number [0.01 ..]` | 1.0                       | Coefficient to adjust the default spin duration                  |
+| pointerProps                    | `PointerProps`     | { src: roulettePointer }  | Image source and CSS styling to apply to the pointer image.                                                 |
 
 ## Types
 
@@ -107,6 +108,20 @@ interface StyleType {
   fontSize?: number; // Optional
 }
 ```
+
+#### PointerProps
+
+```jsx
+interface PointerProps {
+  src?: string; // Optional
+  style?: React.CSSProperties; // Optional
+}
+```
+
+| **Prop** | **Type**              | **Default**               | **Description**             |
+|----------|-----------------------|---------------------------|-----------------------------|
+| src      | `string`              | -                         | Image src.                  |
+| style    | `React.CSSProperties` | -                         | Styling for pointer image.  |
 
 ## Multi Spin
 
