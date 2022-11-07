@@ -7,11 +7,11 @@ import {
   isCustomFont,
   makeClassKey,
 } from '../../utils';
-import { rouletteSelector } from '../common/images';
+import { roulettePointer } from '../common/images';
 import {
   RotationContainer,
   RouletteContainer,
-  RouletteSelectorImage,
+  RoulettePointerImage,
 } from './styles';
 import {
   DEFAULT_BACKGROUND_COLORS,
@@ -27,7 +27,7 @@ import {
   DEFAULT_TEXT_COLORS,
   DEFAULT_TEXT_DISTANCE,
 } from '../../strings';
-import { WheelData } from './types';
+import { PointerProps, WheelData } from './types';
 import WheelCanvas from '../WheelCanvas';
 
 interface Props {
@@ -50,6 +50,7 @@ interface Props {
   textDistance?: number;
   spinDuration?: number;
   startingOptionIndex?: number;
+  pointerProps?: PointerProps;
 }
 
 const STARTED_SPINNING = 'started-spinning';
@@ -78,6 +79,7 @@ export const Wheel = ({
   textDistance = DEFAULT_TEXT_DISTANCE,
   spinDuration = DEFAULT_SPIN_DURATION,
   startingOptionIndex = -1,
+  pointerProps = {},
 }: Props): JSX.Element | null => {
   const [wheelData, setWheelData] = useState<WheelData[]>([...data]);
   const [prizeMap, setPrizeMap] = useState<number[][]>([[0]]);
@@ -107,7 +109,7 @@ export const Wheel = ({
     const auxPrizeMap: number[][] = [];
     const dataLength = data.length;
     const wheelDataAux = [{ option: '', optionSize: 1 }] as WheelData[];
-    const fontsToFetch = [isCustomFont(fontFamily?.trim()) ? fontFamily : ''];
+    const fontsToFetch = isCustomFont(fontFamily?.trim()) ? [fontFamily] : [];
 
     for (let i = 0; i < dataLength; i++) {
       let fontArray = data[i]?.style?.fontFamily?.split(',') || [];
@@ -131,19 +133,23 @@ export const Wheel = ({
         auxPrizeMap[i][j] = initialMapNum++;
       }
     }
-    WebFont.load({
-      google: {
-        families: Array.from(new Set(fontsToFetch.filter(font => !!font))),
-      },
-      timeout: 1000,
-      fontactive() {
-        setFontUpdater(!fontUpdater);
-      },
-      active() {
-        setIsFontLoaded(true);
-        setFontUpdater(!fontUpdater);
-      },
-    });
+    if (fontsToFetch.length > 0) {
+      WebFont.load({
+        google: {
+          families: Array.from(new Set(fontsToFetch.filter(font => !!font))),
+        },
+        timeout: 1000,
+        fontactive() {
+          setFontUpdater(!fontUpdater);
+        },
+        active() {
+          setIsFontLoaded(true);
+          setFontUpdater(!fontUpdater);
+        },
+      });
+    } else {
+      setIsFontLoaded(true);
+    }
     setWheelData([...wheelDataAux]);
     setPrizeMap(auxPrizeMap);
     setStartingOption(startingOptionIndex, auxPrizeMap);
@@ -239,7 +245,11 @@ export const Wheel = ({
           textDistance={textDistance}
         />
       </RotationContainer>
-      <RouletteSelectorImage src={rouletteSelector.src} alt="roulette-static" />
+      <RoulettePointerImage
+        style={pointerProps?.style}
+        src={pointerProps?.src || roulettePointer.src}
+        alt="roulette-static"
+      />
     </RouletteContainer>
   );
 };

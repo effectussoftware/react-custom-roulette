@@ -1,5 +1,5 @@
 // IMAGES
-import Icon from '../../assets/roulette-selector.png';
-var rouletteSelector = new Image();
-rouletteSelector.src = Icon;
-export { rouletteSelector };
+import Icon from '../../assets/roulette-pointer.png';
+var roulettePointer = new Image();
+roulettePointer.src = Icon;
+export { roulettePointer };

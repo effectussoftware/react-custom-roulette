@@ -1,3 +1,4 @@
+/// <reference types="react" />
 export interface WheelData {
     option: string;
     style?: StyleType;
@@ -8,4 +9,8 @@ export interface StyleType {
     textColor?: string;
     fontFamily?: string;
     fontSize?: number;
+}
+export interface PointerProps {
+    src?: string;
+    style?: React.CSSProperties;
 }

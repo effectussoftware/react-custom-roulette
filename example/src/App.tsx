@@ -9,7 +9,7 @@ const data = [
   { option: 'ROULETTE', style: { textColor: '#f9dd50' } },
   { option: 'WHEEL' },
   { option: 'REACT' },
-  { option: 'CUSTOM', style: { textColor: 'white' } },
+  { option: 'CUSTOM' },
   { option: 'ROULETTE', style: { textColor: '#70bbe0' } },
   { option: 'WHEEL' },
 ];

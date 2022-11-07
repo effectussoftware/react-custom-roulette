@@ -10,3 +10,8 @@ export interface StyleType {
   fontFamily?: string;
   fontSize?: number;
 }
+
+export interface PointerProps {
+  src?: string;
+  style?: React.CSSProperties;
+}
