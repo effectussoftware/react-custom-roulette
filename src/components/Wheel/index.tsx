@@ -49,6 +49,7 @@ interface Props {
   perpendicularText?: boolean;
   textDistance?: number;
   spinDuration?: number;
+  startingOptionIndex?: number;
   pointerProps?: PointerProps;
 }
 
@@ -77,6 +78,7 @@ export const Wheel = ({
   perpendicularText = false,
   textDistance = DEFAULT_TEXT_DISTANCE,
   spinDuration = DEFAULT_SPIN_DURATION,
+  startingOptionIndex = -1,
   pointerProps = {},
 }: Props): JSX.Element | null => {
   const [wheelData, setWheelData] = useState<WheelData[]>([...data]);
@@ -150,6 +152,7 @@ export const Wheel = ({
     }
     setWheelData([...wheelDataAux]);
     setPrizeMap(auxPrizeMap);
+    setStartingOption(startingOptionIndex, auxPrizeMap);
     setIsDataUpdated(true);
   }, [data, backgroundColors, textColors]);
 
@@ -188,6 +191,17 @@ export const Wheel = ({
         onStopSpinning();
       }
     }, totalSpinningTime);
+  };
+
+  const setStartingOption = (optionIndex: number, optionMap: number[][]) => {
+    if (startingOptionIndex >= 0) {
+      const idx = Math.floor(optionIndex) % optionMap.length;
+      const startingOption =
+        optionMap[idx][Math.floor(optionMap[idx].length / 2)];
+      setStartRotationDegrees(
+        getRotationDegrees(startingOption, getQuantity(optionMap), false)
+      );
+    }
   };
 
   const getRouletteClass = () => {

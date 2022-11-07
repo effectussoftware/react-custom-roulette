@@ -82,6 +82,7 @@ export default () => (
 | perpendicularText               | `boolean`          | false                     | When 'true', sets the option texts perpendicular to the roulette's radial lines                                                  |
 | textDistance                    | `number [0..100]`  | 60                        | Distance of the option texts from the center of the roulette     |
 | spinDuration                    | `number [0.01 ..]` | 1.0                       | Coefficient to adjust the default spin duration                  |
+| startingOptionIndex             | `number`           | -                         | Set which option (through its index in the `data` array) will be initially selected by the roulette (before spinning). If not specified the roulette will render without choosing a starting option |
 | pointerProps                    | `PointerProps`     | { src: roulettePointer }  | Image source and CSS styling to apply to the pointer image.                                                 |
 
 ## Types
@@ -95,6 +96,8 @@ interface WheelData {
   optionSize?: number; // Optional
 }
 ```
+
+##### `optionSize`
 
 With `optionSize` you can set the size of the option measured in roulette pieces. For example: if `data` provides 2 options A and B, and you set A's `optionSize` to `2`, B's `optionSize` to `1`, the roulette will render `3` pieces: 2 corresponding to A and 1 corresponding to B. Therefore, A will appear to be twice as big as B. 
 

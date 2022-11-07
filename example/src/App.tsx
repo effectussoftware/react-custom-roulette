@@ -57,6 +57,7 @@ const App = () => {
           radiusLineColor={radiusLineColor}
           radiusLineWidth={radiusLineWidth}
           spinDuration={spinDuration}
+          startingOptionIndex={2}
           // perpendicularText
           textDistance={textDistance}
           onStopSpinning={() => {
