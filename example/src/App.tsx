@@ -57,12 +57,12 @@ const App = () => {
           radiusLineColor={radiusLineColor}
           radiusLineWidth={radiusLineWidth}
           spinDuration={spinDuration}
+          startingOptionIndex={2}
           // perpendicularText
           textDistance={textDistance}
           onStopSpinning={() => {
             setMustSpin(false);
           }}
-          // startingOptionIndex={7}
         />
         <button className={'spin-button'} onClick={handleSpinClick}>
           SPIN
