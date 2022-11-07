@@ -7,11 +7,11 @@ import {
   isCustomFont,
   makeClassKey,
 } from '../../utils';
-import { rouletteSelector } from '../common/images';
+import { roulettePointer } from '../common/images';
 import {
   RotationContainer,
   RouletteContainer,
-  RouletteSelectorImage,
+  RoulettePointerImage,
 } from './styles';
 import {
   DEFAULT_BACKGROUND_COLORS,
@@ -27,7 +27,7 @@ import {
   DEFAULT_TEXT_COLORS,
   DEFAULT_TEXT_DISTANCE,
 } from '../../strings';
-import { SelectorProps, WheelData } from './types';
+import { PointerProps, WheelData } from './types';
 import WheelCanvas from '../WheelCanvas';
 
 interface Props {
@@ -49,7 +49,7 @@ interface Props {
   perpendicularText?: boolean;
   textDistance?: number;
   spinDuration?: number;
-  selectorProps?: SelectorProps;
+  pointerProps?: PointerProps;
 }
 
 const STARTED_SPINNING = 'started-spinning';
@@ -77,7 +77,7 @@ export const Wheel = ({
   perpendicularText = false,
   textDistance = DEFAULT_TEXT_DISTANCE,
   spinDuration = DEFAULT_SPIN_DURATION,
-  selectorProps = {},
+  pointerProps = {},
 }: Props): JSX.Element | null => {
   const [wheelData, setWheelData] = useState<WheelData[]>([...data]);
   const [prizeMap, setPrizeMap] = useState<number[][]>([[0]]);
@@ -231,9 +231,9 @@ export const Wheel = ({
           textDistance={textDistance}
         />
       </RotationContainer>
-      <RouletteSelectorImage
-        style={selectorProps?.style}
-        src={selectorProps?.src || rouletteSelector.src}
+      <RoulettePointerImage
+        style={pointerProps?.style}
+        src={pointerProps?.src || roulettePointer.src}
         alt="roulette-static"
       />
     </RouletteContainer>

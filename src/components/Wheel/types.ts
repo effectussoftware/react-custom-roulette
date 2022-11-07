@@ -11,7 +11,7 @@ export interface StyleType {
   fontSize?: number;
 }
 
-export interface SelectorProps {
+export interface PointerProps {
   src?: string;
   style?: React.CSSProperties;
 }

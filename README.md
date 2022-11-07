@@ -82,7 +82,7 @@ export default () => (
 | perpendicularText               | `boolean`          | false                     | When 'true', sets the option texts perpendicular to the roulette's radial lines                                                  |
 | textDistance                    | `number [0..100]`  | 60                        | Distance of the option texts from the center of the roulette     |
 | spinDuration                    | `number [0.01 ..]` | 1.0                       | Coefficient to adjust the default spin duration                  |
-| selectorProps                   | `SelectorProps`    | { src: rouletteSelector } | Image source and CSS styling to apply to image.                                                 |
+| pointerProps                    | `PointerProps`     | { src: roulettePointer }  | Image source and CSS styling to apply to the pointer image.                                                 |
 
 ## Types
 
@@ -109,10 +109,10 @@ interface StyleType {
 }
 ```
 
-#### SelectorProps
+#### PointerProps
 
 ```jsx
-interface SelectorProps {
+interface PointerProps {
   src?: string; // Optional
   style?: React.CSSProperties; // Optional
 }
@@ -121,7 +121,7 @@ interface SelectorProps {
 | **Prop** | **Type**              | **Default**               | **Description**             |
 |----------|-----------------------|---------------------------|-----------------------------|
 | src      | `string`              | -                         | Image src.                  |
-| style    | `React.CSSProperties` | -                         | Styling for selector image. |
+| style    | `React.CSSProperties` | -                         | Styling for pointer image.  |
 
 ## Multi Spin
 
