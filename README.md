@@ -114,28 +114,14 @@ interface StyleType {
 ```jsx
 interface SelectorProps {
   src?: string; // Optional
-  style?: SelectorStyle; // Optional
+  style?: React.CSSProperties; // Optional
 }
 ```
 
-| **Prop** | **Type**        | **Default**               | **Description**             |
-|----------|-----------------|---------------------------|-----------------------------|
-| src      | `string`        | -                         | Image src.                  |
-| style    | `SelectorStyle` | -                         | Styling for selector image. |
-
-#### SelectorStyle
-
-```jsx
-interface SelectorStyle {
-  height?: number; // Optional
-  width?: number; // Optional
-}
-```
-
-| **Prop** | **Type** | **Default**               | **Description**            |
-|----------|----------|---------------------------|----------------------------|
-| height   | `number` | -                         | Image height CSS property. |
-| style    | `number` | -                         | Image width CSS property.  |
+| **Prop** | **Type**              | **Default**               | **Description**             |
+|----------|-----------------------|---------------------------|-----------------------------|
+| src      | `string`              | -                         | Image src.                  |
+| style    | `React.CSSProperties` | -                         | Styling for selector image. |
 
 ## Multi Spin
 

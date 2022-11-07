@@ -232,8 +232,8 @@ export const Wheel = ({
         />
       </RotationContainer>
       <RouletteSelectorImage
-        style={selectorProps.style}
-        src={selectorProps.src || rouletteSelector.src}
+        style={selectorProps?.style}
+        src={selectorProps?.src || rouletteSelector.src}
         alt="roulette-static"
       />
     </RouletteContainer>
