@@ -16,6 +16,11 @@ export interface StyleType {
   fontSize?: number;
 }
 
+export interface PointerProps {
+  src?: string;
+  style?: React.CSSProperties;
+}
+
 export interface ImageProps {
   uri: string;
   offsetX?: number;

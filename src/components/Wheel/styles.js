@@ -67,7 +67,7 @@ export const RotationContainer = styled.div`
   }
 `;
 
-export const RouletteSelectorImage = styled(NonDraggableImage)`
+export const RoulettePointerImage = styled(NonDraggableImage)`
   position: absolute;
   z-index: 5;
   width: 17%;

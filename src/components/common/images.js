@@ -1,8 +1,8 @@
 // IMAGES
 
-import Icon from '../../assets/roulette-selector.png';
+import Icon from '../../assets/roulette-pointer.png';
 
-const rouletteSelector = new Image();
-rouletteSelector.src = Icon;
+const roulettePointer = new Image();
+roulettePointer.src = Icon;
 
-export { rouletteSelector };
+export { roulettePointer };
