@@ -89,8 +89,10 @@ export const Wheel = ({
   const [hasStoppedSpinning, setHasStoppedSpinning] = useState(false);
   const [isCurrentlySpinning, setIsCurrentlySpinning] = useState(false);
   const [isDataUpdated, setIsDataUpdated] = useState(false);
+  const [rouletteUpdater, setRouletteUpdater] = useState(false);
+  const [loadedImagesCounter, setLoadedImagesCounter] = useState(0);
+  const [totalImages, setTotalImages] = useState(0);
   const [isFontLoaded, setIsFontLoaded] = useState(false);
-  const [fontUpdater, setFontUpdater] = useState(false);
   const mustStopSpinning = useRef<boolean>(false);
 
   const classKey = makeClassKey(5);
@@ -132,7 +134,28 @@ export const Wheel = ({
       for (let j = 0; j < (wheelDataAux[i].optionSize || 1); j++) {
         auxPrizeMap[i][j] = initialMapNum++;
       }
+      if (data[i].image) {
+        setTotalImages(prevCounter => prevCounter + 1);
+
+        const img = new Image();
+        img.src = data[i].image?.uri || '';
+        img.onload = () => {
+          img.height = 200 * (data[i].image?.sizeMultiplier || 1);
+          img.width = (img.naturalWidth / img.naturalHeight) * img.height;
+          wheelDataAux[i].image = {
+            uri: data[i].image?.uri || '',
+            offsetX: data[i].image?.offsetX || 0,
+            offsetY: data[i].image?.offsetY || 0,
+            landscape: data[i].image?.landscape || false,
+            sizeMultiplier: data[i].image?.sizeMultiplier || 1,
+            _imageHTML: img,
+          };
+          setLoadedImagesCounter(prevCounter => prevCounter + 1);
+          setRouletteUpdater(prevState => !prevState);
+        };
+      }
     }
+    
     if (fontsToFetch.length > 0) {
       WebFont.load({
         google: {
@@ -140,16 +163,17 @@ export const Wheel = ({
         },
         timeout: 1000,
         fontactive() {
-          setFontUpdater(!fontUpdater);
+          setRouletteUpdater(!rouletteUpdater);
         },
         active() {
           setIsFontLoaded(true);
-          setFontUpdater(!fontUpdater);
+          setRouletteUpdater(!rouletteUpdater);
         },
       });
     } else {
       setIsFontLoaded(true);
     }
+
     setWheelData([...wheelDataAux]);
     setPrizeMap(auxPrizeMap);
     setStartingOption(startingOptionIndex, auxPrizeMap);
@@ -206,7 +230,7 @@ export const Wheel = ({
 
   const getRouletteClass = () => {
     if (hasStartedSpinning) {
-      return `${STARTED_SPINNING}`;
+      return STARTED_SPINNING;
     }
     return '';
   };
@@ -216,7 +240,14 @@ export const Wheel = ({
   }
 
   return (
-    <RouletteContainer style={!isFontLoaded ? { visibility: 'hidden' } : {}}>
+    <RouletteContainer
+      style={
+        !isFontLoaded ||
+        (totalImages > 0 && loadedImagesCounter !== totalImages)
+          ? { visibility: 'hidden' }
+          : {}
+      }
+    >
       <RotationContainer
         className={getRouletteClass()}
         classKey={classKey}
@@ -238,10 +269,10 @@ export const Wheel = ({
           radiusLineColor={radiusLineColor}
           radiusLineWidth={radiusLineWidth}
           fontFamily={fontFamily}
-          fontUpdater={fontUpdater}
           fontSize={fontSize}
           perpendicularText={perpendicularText}
           prizeMap={prizeMap}
+          rouletteUpdater={rouletteUpdater}
           textDistance={textDistance}
         />
       </RotationContainer>
