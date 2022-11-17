@@ -1,5 +1,5 @@
 interface ImagePropsLocal extends ImageProps {
-  _imageHTML: HTMLImageElement;
+  _imageHTML?: HTMLImageElement;
 }
 
 export interface WheelData {
