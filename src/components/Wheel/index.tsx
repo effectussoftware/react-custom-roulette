@@ -1,27 +1,33 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import WebFont from 'webfontloader';
 
-import { getRotationDegrees } from '../../utils';
-import { rouletteSelector } from '../common/images';
 import {
-  RouletteContainer,
-  RouletteSelectorImage,
+  getQuantity,
+  getRotationDegrees,
+  isCustomFont,
+  makeClassKey,
+} from '../../utils';
+import { roulettePointer } from '../common/images';
+import {
   RotationContainer,
+  RouletteContainer,
+  RoulettePointerImage,
 } from './styles';
 import {
   DEFAULT_BACKGROUND_COLORS,
-  DEFAULT_TEXT_COLORS,
-  DEFAULT_OUTER_BORDER_COLOR,
-  DEFAULT_OUTER_BORDER_WIDTH,
-  DEFAULT_INNER_RADIUS,
+  DEFAULT_FONT_SIZE,
   DEFAULT_INNER_BORDER_COLOR,
   DEFAULT_INNER_BORDER_WIDTH,
+  DEFAULT_INNER_RADIUS,
+  DEFAULT_OUTER_BORDER_COLOR,
+  DEFAULT_OUTER_BORDER_WIDTH,
   DEFAULT_RADIUS_LINE_COLOR,
   DEFAULT_RADIUS_LINE_WIDTH,
-  DEFAULT_FONT_SIZE,
-  DEFAULT_TEXT_DISTANCE,
   DEFAULT_SPIN_DURATION,
+  DEFAULT_TEXT_COLORS,
+  DEFAULT_TEXT_DISTANCE,
 } from '../../strings';
-import { WheelData } from './types';
+import { PointerProps, WheelData } from './types';
 import WheelCanvas from '../WheelCanvas';
 
 interface Props {
@@ -38,10 +44,13 @@ interface Props {
   innerBorderWidth?: number;
   radiusLineColor?: string;
   radiusLineWidth?: number;
+  fontFamily?: string;
   fontSize?: number;
   perpendicularText?: boolean;
   textDistance?: number;
   spinDuration?: number;
+  startingOptionIndex?: number;
+  pointerProps?: PointerProps;
 }
 
 const STARTED_SPINNING = 'started-spinning';
@@ -64,18 +73,29 @@ export const Wheel = ({
   innerBorderWidth = DEFAULT_INNER_BORDER_WIDTH,
   radiusLineColor = DEFAULT_RADIUS_LINE_COLOR,
   radiusLineWidth = DEFAULT_RADIUS_LINE_WIDTH,
+  fontFamily = '',
   fontSize = DEFAULT_FONT_SIZE,
   perpendicularText = false,
   textDistance = DEFAULT_TEXT_DISTANCE,
   spinDuration = DEFAULT_SPIN_DURATION,
+  startingOptionIndex = -1,
+  pointerProps = {},
 }: Props): JSX.Element | null => {
   const [wheelData, setWheelData] = useState<WheelData[]>([...data]);
+  const [prizeMap, setPrizeMap] = useState<number[][]>([[0]]);
   const [startRotationDegrees, setStartRotationDegrees] = useState(0);
   const [finalRotationDegrees, setFinalRotationDegrees] = useState(0);
   const [hasStartedSpinning, setHasStartedSpinning] = useState(false);
   const [hasStoppedSpinning, setHasStoppedSpinning] = useState(false);
   const [isCurrentlySpinning, setIsCurrentlySpinning] = useState(false);
   const [isDataUpdated, setIsDataUpdated] = useState(false);
+  const [rouletteUpdater, setRouletteUpdater] = useState(false);
+  const [loadedImagesCounter, setLoadedImagesCounter] = useState(0);
+  const [totalImages, setTotalImages] = useState(0);
+  const [isFontLoaded, setIsFontLoaded] = useState(false);
+  const mustStopSpinning = useRef<boolean>(false);
+
+  const classKey = makeClassKey(5);
 
   const normalizedSpinDuration = Math.max(0.01, spinDuration);
 
@@ -86,24 +106,77 @@ export const Wheel = ({
   const totalSpinningTime =
     startSpinningTime + continueSpinningTime + stopSpinningTime;
 
-  const mustStopSpinning = useRef<boolean>(false);
-
   useEffect(() => {
+    let initialMapNum = 0;
+    const auxPrizeMap: number[][] = [];
     const dataLength = data.length;
-    const wheelDataAux = [{ option: '' }] as WheelData[];
+    const wheelDataAux = [{ option: '', optionSize: 1 }] as WheelData[];
+    const fontsToFetch = isCustomFont(fontFamily?.trim()) ? [fontFamily] : [];
+
     for (let i = 0; i < dataLength; i++) {
+      let fontArray = data[i]?.style?.fontFamily?.split(',') || [];
+      fontArray = fontArray.map(font => font.trim()).filter(isCustomFont);
+      fontsToFetch.push(...fontArray);
+
       wheelDataAux[i] = {
         ...data[i],
         style: {
           backgroundColor:
             data[i].style?.backgroundColor ||
             backgroundColors[i % backgroundColors.length],
+          fontFamily: data[i].style?.fontFamily || fontFamily,
+          fontSize: data[i].style?.fontSize || fontSize,
           textColor:
             data[i].style?.textColor || textColors[i % textColors.length],
         },
       };
+      auxPrizeMap.push([]);
+      for (let j = 0; j < (wheelDataAux[i].optionSize || 1); j++) {
+        auxPrizeMap[i][j] = initialMapNum++;
+      }
+      if (data[i].image) {
+        setTotalImages(prevCounter => prevCounter + 1);
+
+        const img = new Image();
+        img.src = data[i].image?.uri || '';
+        img.onload = () => {
+          img.height = 200 * (data[i].image?.sizeMultiplier || 1);
+          img.width = (img.naturalWidth / img.naturalHeight) * img.height;
+          wheelDataAux[i].image = {
+            uri: data[i].image?.uri || '',
+            offsetX: data[i].image?.offsetX || 0,
+            offsetY: data[i].image?.offsetY || 0,
+            landscape: data[i].image?.landscape || false,
+            sizeMultiplier: data[i].image?.sizeMultiplier || 1,
+            _imageHTML: img,
+          };
+          setLoadedImagesCounter(prevCounter => prevCounter + 1);
+          setRouletteUpdater(prevState => !prevState);
+        };
+      }
     }
+    
+    if (fontsToFetch.length > 0) {
+      WebFont.load({
+        google: {
+          families: Array.from(new Set(fontsToFetch.filter(font => !!font))),
+        },
+        timeout: 1000,
+        fontactive() {
+          setRouletteUpdater(!rouletteUpdater);
+        },
+        active() {
+          setIsFontLoaded(true);
+          setRouletteUpdater(!rouletteUpdater);
+        },
+      });
+    } else {
+      setIsFontLoaded(true);
+    }
+
     setWheelData([...wheelDataAux]);
+    setPrizeMap(auxPrizeMap);
+    setStartingOption(startingOptionIndex, auxPrizeMap);
     setIsDataUpdated(true);
   }, [data, backgroundColors, textColors]);
 
@@ -111,9 +184,13 @@ export const Wheel = ({
     if (mustStartSpinning && !isCurrentlySpinning) {
       setIsCurrentlySpinning(true);
       startSpinning();
+      const selectedPrize =
+        prizeMap[prizeNumber][
+          Math.floor(Math.random() * prizeMap[prizeNumber].length)
+        ];
       const finalRotationDegreesCalculated = getRotationDegrees(
-        prizeNumber,
-        data.length
+        selectedPrize,
+        getQuantity(prizeMap)
       );
       setFinalRotationDegrees(finalRotationDegreesCalculated);
     }
@@ -140,6 +217,17 @@ export const Wheel = ({
     }, totalSpinningTime);
   };
 
+  const setStartingOption = (optionIndex: number, optionMap: number[][]) => {
+    if (startingOptionIndex >= 0) {
+      const idx = Math.floor(optionIndex) % optionMap.length;
+      const startingOption =
+        optionMap[idx][Math.floor(optionMap[idx].length / 2)];
+      setStartRotationDegrees(
+        getRotationDegrees(startingOption, getQuantity(optionMap), false)
+      );
+    }
+  };
+
   const getRouletteClass = () => {
     if (hasStartedSpinning) {
       return STARTED_SPINNING;
@@ -152,9 +240,17 @@ export const Wheel = ({
   }
 
   return (
-    <RouletteContainer>
+    <RouletteContainer
+      style={
+        !isFontLoaded ||
+        (totalImages > 0 && loadedImagesCounter !== totalImages)
+          ? { visibility: 'hidden' }
+          : {}
+      }
+    >
       <RotationContainer
         className={getRouletteClass()}
+        classKey={classKey}
         startSpinningTime={startSpinningTime}
         continueSpinningTime={continueSpinningTime}
         stopSpinningTime={stopSpinningTime}
@@ -172,12 +268,19 @@ export const Wheel = ({
           innerBorderWidth={innerBorderWidth}
           radiusLineColor={radiusLineColor}
           radiusLineWidth={radiusLineWidth}
+          fontFamily={fontFamily}
           fontSize={fontSize}
           perpendicularText={perpendicularText}
+          prizeMap={prizeMap}
+          rouletteUpdater={rouletteUpdater}
           textDistance={textDistance}
         />
       </RotationContainer>
-      <RouletteSelectorImage src={rouletteSelector.src} alt="roulette-static" />
+      <RoulettePointerImage
+        style={pointerProps?.style}
+        src={pointerProps?.src || roulettePointer.src}
+        alt="roulette-static"
+      />
     </RouletteContainer>
   );
 };

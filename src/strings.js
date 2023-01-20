@@ -10,3 +10,21 @@ export const DEFAULT_RADIUS_LINE_WIDTH = 5;
 export const DEFAULT_FONT_SIZE = 20;
 export const DEFAULT_TEXT_DISTANCE = 60;
 export const DEFAULT_SPIN_DURATION = 1.0;
+export const WEB_FONTS = [
+  'arial',
+  'verdana',
+  'tahoma',
+  'trebuchet ms',
+  'times',
+  'garamond',
+  'brush script mt',
+  'courier new',
+  'georgia',
+  'helvetica',
+  'times new roman',
+  'serif',
+  'sans-serif',
+  'monospace',
+  'cursive',
+  'fantasy',
+];
