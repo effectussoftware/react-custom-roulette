@@ -23,7 +23,8 @@ const innerBorderWidth = 0;
 const innerRadius = 0;
 const radiusLineColor = '#eeeeee';
 const radiusLineWidth = 8;
-const fontSize = 17;
+const fontFamily = 'Nunito';
+const fontSize = 20;
 const textDistance = 60;
 const spinDuration = 1.0;
 
@@ -46,6 +47,7 @@ const App = () => {
           data={data}
           backgroundColors={backgroundColors}
           textColors={textColors}
+          fontFamily={fontFamily}
           fontSize={fontSize}
           outerBorderColor={outerBorderColor}
           outerBorderWidth={outerBorderWidth}
@@ -55,6 +57,7 @@ const App = () => {
           radiusLineColor={radiusLineColor}
           radiusLineWidth={radiusLineWidth}
           spinDuration={spinDuration}
+          startingOptionIndex={2}
           // perpendicularText
           textDistance={textDistance}
           onStopSpinning={() => {
