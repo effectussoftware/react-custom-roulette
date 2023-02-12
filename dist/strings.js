@@ -9,22 +9,3 @@ export var DEFAULT_RADIUS_LINE_COLOR = 'black';
 export var DEFAULT_RADIUS_LINE_WIDTH = 5;
 export var DEFAULT_FONT_SIZE = 20;
 export var DEFAULT_TEXT_DISTANCE = 60;
-export var DEFAULT_SPIN_DURATION = 1.0;
-export var WEB_FONTS = [
-    'arial',
-    'verdana',
-    'tahoma',
-    'trebuchet ms',
-    'times',
-    'garamond',
-    'brush script mt',
-    'courier new',
-    'georgia',
-    'helvetica',
-    'times new roman',
-    'serif',
-    'sans-serif',
-    'monospace',
-    'cursive',
-    'fantasy',
-];

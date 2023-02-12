@@ -1,4 +1,5 @@
-import { PointerProps, WheelData } from './types';
+/// <reference types="react" />
+import { WheelData } from './types';
 interface Props {
     mustStartSpinning: boolean;
     prizeNumber: number;
@@ -13,13 +14,9 @@ interface Props {
     innerBorderWidth?: number;
     radiusLineColor?: string;
     radiusLineWidth?: number;
-    fontFamily?: string;
     fontSize?: number;
     perpendicularText?: boolean;
     textDistance?: number;
-    spinDuration?: number;
-    startingOptionIndex?: number;
-    pointerProps?: PointerProps;
 }
-export declare const Wheel: ({ mustStartSpinning, prizeNumber, data, onStopSpinning, backgroundColors, textColors, outerBorderColor, outerBorderWidth, innerRadius, innerBorderColor, innerBorderWidth, radiusLineColor, radiusLineWidth, fontFamily, fontSize, perpendicularText, textDistance, spinDuration, startingOptionIndex, pointerProps, }: Props) => JSX.Element | null;
+export declare const Wheel: ({ mustStartSpinning, prizeNumber, data, onStopSpinning, backgroundColors, textColors, outerBorderColor, outerBorderWidth, innerRadius, innerBorderColor, innerBorderWidth, radiusLineColor, radiusLineWidth, fontSize, perpendicularText, textDistance, }: Props) => JSX.Element | null;
 export {};

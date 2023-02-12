@@ -20,9 +20,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "link-roulette": "cd .. && yarn && yarn link-react && yarn link && cd example && yarn link react-custom-roulette",
-    "watch-roulette": "cd .. && yarn start"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"

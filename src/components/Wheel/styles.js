@@ -27,21 +27,19 @@ export const RotationContainer = styled.div`
   transform: rotate(${props => props.startRotationDegrees}deg);
 
   &.started-spinning {
-    animation: spin-${({ classKey }) => classKey} ${({ startSpinningTime }) =>
-          startSpinningTime / 1000}s cubic-bezier(0.71, -0.29, 0.96, 0.9) 0s 1 normal
+    animation: spin ${({ startSpinningTime }) => startSpinningTime / 1000}s
+        cubic-bezier(0.71, -0.29, 0.96, 0.9) 0s 1 normal forwards running,
+      continueSpin 0.75s linear
+        ${({ startSpinningTime }) => startSpinningTime / 1000}s 1 normal
         forwards running,
-      continueSpin-${({ classKey }) => classKey} ${({ continueSpinningTime }) =>
-          continueSpinningTime / 1000}s linear ${({ startSpinningTime }) =>
-          startSpinningTime / 1000}s 1 normal forwards running,
-      stopSpin-${({ classKey }) => classKey} ${({ stopSpinningTime }) =>
-          stopSpinningTime / 1000}s cubic-bezier(0, 0, 0.35, 1.02) ${({
-          startSpinningTime,
-          continueSpinningTime,
-        }) => (startSpinningTime + continueSpinningTime) / 1000}s 1 normal forwards
-        running;
+      stopSpin ${({ stopSpinningTime }) => stopSpinningTime / 1000}s
+        cubic-bezier(0, 0, 0.35, 1.02)
+        ${({ startSpinningTime, continueSpinningTime }) =>
+          (startSpinningTime + continueSpinningTime) / 1000}s
+        1 normal forwards running;
   }
 
-  @keyframes spin-${({ classKey }) => classKey} {
+  @keyframes spin {
     from {
       transform: rotate(${props => props.startRotationDegrees}deg);
     }
@@ -49,7 +47,7 @@ export const RotationContainer = styled.div`
       transform: rotate(${props => props.startRotationDegrees + 360}deg);
     }
   }
-  @keyframes continueSpin-${({ classKey }) => classKey} {
+  @keyframes continueSpin {
     from {
       transform: rotate(${props => props.startRotationDegrees}deg);
     }
@@ -57,7 +55,7 @@ export const RotationContainer = styled.div`
       transform: rotate(${props => props.startRotationDegrees + 360}deg);
     }
   }
-  @keyframes stopSpin-${({ classKey }) => classKey} {
+  @keyframes stopSpin {
     from {
       transform: rotate(${props => props.startRotationDegrees}deg);
     }
@@ -67,7 +65,7 @@ export const RotationContainer = styled.div`
   }
 `;
 
-export const RoulettePointerImage = styled(NonDraggableImage)`
+export const RouletteSelectorImage = styled(NonDraggableImage)`
   position: absolute;
   z-index: 5;
   width: 17%;

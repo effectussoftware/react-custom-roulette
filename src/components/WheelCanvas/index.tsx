@@ -1,8 +1,8 @@
-import React, { createRef, RefObject, useEffect } from 'react';
+import React, { RefObject, createRef, useEffect } from 'react';
 
 import { WheelCanvasStyle } from './styles';
 import { WheelData } from '../Wheel/types';
-import { clamp, getQuantity } from '../../utils';
+import { clamp } from '../../utils';
 
 interface WheelCanvasProps extends DrawWheelProps {
   width: string;
@@ -18,40 +18,17 @@ interface DrawWheelProps {
   innerBorderWidth: number;
   radiusLineColor: string;
   radiusLineWidth: number;
-  fontFamily: string;
   fontSize: number;
   perpendicularText: boolean;
-  prizeMap: number[][];
-  rouletteUpdater: boolean;
   textDistance: number;
 }
-
-const drawRadialBorder = (
-  ctx: CanvasRenderingContext2D,
-  centerX: number,
-  centerY: number,
-  insideRadius: number,
-  outsideRadius: number,
-  angle: number
-) => {
-  ctx.beginPath();
-  ctx.moveTo(
-    centerX + (insideRadius + 1) * Math.cos(angle),
-    centerY + (insideRadius + 1) * Math.sin(angle)
-  );
-  ctx.lineTo(
-    centerX + (outsideRadius - 1) * Math.cos(angle),
-    centerY + (outsideRadius - 1) * Math.sin(angle)
-  );
-  ctx.closePath();
-  ctx.stroke();
-};
 
 const drawWheel = (
   canvasRef: RefObject<HTMLCanvasElement>,
   data: WheelData[],
   drawWheelProps: DrawWheelProps
 ) => {
+  const QUANTITY = data.length;
   /* eslint-disable prefer-const */
   let {
     outerBorderColor,
@@ -61,18 +38,16 @@ const drawWheel = (
     innerBorderWidth,
     radiusLineColor,
     radiusLineWidth,
-    fontFamily,
     fontSize,
     perpendicularText,
-    prizeMap,
     textDistance,
   } = drawWheelProps;
-
-  const QUANTITY = getQuantity(prizeMap);
+  /* eslint-enable prefer-const */
 
   outerBorderWidth *= 2;
   innerBorderWidth *= 2;
   radiusLineWidth *= 2;
+  fontSize *= 2;
 
   const canvas = canvasRef.current;
   if (canvas?.getContext('2d')) {
@@ -80,12 +55,14 @@ const drawWheel = (
     ctx.clearRect(0, 0, 500, 500);
     ctx.strokeStyle = 'transparent';
     ctx.lineWidth = 0;
+    // ctx.translate(0.5, 0.5)
 
-    let startAngle = 0;
+    const arc = Math.PI / (QUANTITY / 2);
+    const startAngle = 0;
     const outsideRadius = canvas.width / 2 - 10;
 
-    const clampedContentDistance = clamp(0, 100, textDistance);
-    const contentRadius = (outsideRadius * clampedContentDistance) / 100;
+    const clampedTextDistance = clamp(0, 100, textDistance);
+    const textRadius = (outsideRadius * clampedTextDistance) / 100;
 
     const clampedInsideRadius = clamp(0, 100, innerRadius);
     const insideRadius = (outsideRadius * clampedInsideRadius) / 100;
@@ -93,43 +70,37 @@ const drawWheel = (
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
 
+    ctx.font = `bold ${fontSize}px Helvetica, Arial`;
+
     for (let i = 0; i < data.length; i++) {
-      const { optionSize, style } = data[i];
-
-      const arc =
-        (optionSize && (optionSize * (2 * Math.PI)) / QUANTITY) ||
-        (2 * Math.PI) / QUANTITY;
-      const endAngle = startAngle + arc;
-
+      const angle = startAngle + i * arc;
+      const { style } = data[i];
       ctx.fillStyle = (style && style.backgroundColor) as string;
 
       ctx.beginPath();
-      ctx.arc(centerX, centerY, outsideRadius, startAngle, endAngle, false);
-      ctx.arc(centerX, centerY, insideRadius, endAngle, startAngle, true);
+      ctx.arc(centerX, centerY, outsideRadius, angle, angle + arc, false);
+      ctx.arc(centerX, centerY, insideRadius, angle + arc, angle, true);
       ctx.stroke();
       ctx.fill();
+
       ctx.save();
 
       // WHEEL RADIUS LINES
       ctx.strokeStyle = radiusLineWidth <= 0 ? 'transparent' : radiusLineColor;
       ctx.lineWidth = radiusLineWidth;
-      drawRadialBorder(
-        ctx,
-        centerX,
-        centerY,
-        insideRadius,
-        outsideRadius,
-        startAngle
-      );
-      if (i === data.length - 1) {
-        drawRadialBorder(
-          ctx,
-          centerX,
-          centerY,
-          insideRadius,
-          outsideRadius,
-          endAngle
+      for (let j = 0; j < data.length; j++) {
+        const radiusAngle = startAngle + j * arc;
+        ctx.beginPath();
+        ctx.moveTo(
+          centerX + (insideRadius + 1) * Math.cos(radiusAngle),
+          centerY + (insideRadius + 1) * Math.sin(radiusAngle)
         );
+        ctx.lineTo(
+          centerX + (outsideRadius - 1) * Math.cos(radiusAngle),
+          centerY + (outsideRadius - 1) * Math.sin(radiusAngle)
+        );
+        ctx.closePath();
+        ctx.stroke();
       }
 
       // WHEEL OUTER BORDER
@@ -162,51 +133,19 @@ const drawWheel = (
       ctx.closePath();
       ctx.stroke();
 
-      // CONTENT FILL
+      // TEXT FILL
+      ctx.fillStyle = (style && style.textColor) as string;
       ctx.translate(
-        centerX + Math.cos(startAngle + arc / 2) * contentRadius,
-        centerY + Math.sin(startAngle + arc / 2) * contentRadius
+        centerX + Math.cos(angle + arc / 2) * textRadius,
+        centerY + Math.sin(angle + arc / 2) * textRadius
       );
-      let contentRotationAngle = startAngle + arc / 2;
-
-      if (data[i].image) {
-        // CASE IMAGE
-        contentRotationAngle +=
-          data[i].image && !data[i].image?.landscape ? Math.PI / 2 : 0;
-        ctx.rotate(contentRotationAngle);
-
-        const img = data[i].image?._imageHTML || new Image();
-        ctx.drawImage(
-          img,
-          (img.width + (data[i].image?.offsetX || 0)) / -2,
-          -(
-            img.height -
-            (data[i].image?.landscape ? 0 : 90) + // offsetY correction for non landscape images
-            (data[i].image?.offsetY || 0)
-          ) / 2,
-          img.width,
-          img.height
-        );
-      } else {
-        // CASE TEXT
-        contentRotationAngle += perpendicularText ? Math.PI / 2 : 0;
-        ctx.rotate(contentRotationAngle);
-
-        const text = data[i].option;
-        ctx.font = `bold ${(style?.fontSize || fontSize) * 2}px ${
-          style?.fontFamily || fontFamily
-        }, Helvetica, Arial`;
-        ctx.fillStyle = (style && style.textColor) as string;
-        ctx.fillText(
-          text || '',
-          -ctx.measureText(text || '').width / 2,
-          fontSize / 2.7
-        );
-      }
-
+      const text = data[i].option;
+      const textRotationAngle = perpendicularText
+        ? angle + arc / 2 + Math.PI / 2
+        : angle + arc / 2;
+      ctx.rotate(textRotationAngle);
+      ctx.fillText(text, -ctx.measureText(text).width / 2, fontSize / 2.7);
       ctx.restore();
-
-      startAngle = endAngle;
     }
   }
 };
@@ -222,13 +161,10 @@ const WheelCanvas = ({
   innerBorderWidth,
   radiusLineColor,
   radiusLineWidth,
-  fontFamily,
   fontSize,
   perpendicularText,
-  prizeMap,
-  rouletteUpdater,
   textDistance,
-}: WheelCanvasProps): JSX.Element => {
+}: WheelCanvasProps) => {
   const canvasRef = createRef<HTMLCanvasElement>();
   const drawWheelProps = {
     outerBorderColor,
@@ -238,17 +174,14 @@ const WheelCanvas = ({
     innerBorderWidth,
     radiusLineColor,
     radiusLineWidth,
-    fontFamily,
     fontSize,
     perpendicularText,
-    prizeMap,
-    rouletteUpdater,
     textDistance,
   };
 
   useEffect(() => {
     drawWheel(canvasRef, data, drawWheelProps);
-  }, [canvasRef, data, drawWheelProps, rouletteUpdater]);
+  }, [canvasRef, data, drawWheelProps]);
 
   return <WheelCanvasStyle ref={canvasRef} width={width} height={height} />;
 };
