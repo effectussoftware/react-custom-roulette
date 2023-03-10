@@ -1,6 +1,6 @@
 {
   "name": "react-custom-roulette",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Customizable React roulette wheel with spinning animation",
   "main": "./dist/bundle.js",
   "repository": {
@@ -23,8 +23,7 @@
     "@types/jest": "^25.2.3",
     "@types/node": "^14.0.9",
     "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
-    "react-scripts": "^4.0.3"
+    "@types/react-dom": "^16.9.0"
   },
   "peerDependencies": {
     "react": "^16.13.1",
@@ -50,6 +49,7 @@
     "husky": "^4.2.5",
     "jest-canvas-mock": "^2.2.0",
     "prettier": "^2.0.5",
+    "react-scripts": "^4.0.3",
     "styled-components": "^5.1.1",
     "ts-loader": "8.0.7",
     "typescript": "^4.6.2",
