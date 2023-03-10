@@ -15,6 +15,7 @@ import {
 } from './styles';
 import {
   DEFAULT_BACKGROUND_COLORS,
+  DEFAULT_FONT_FAMILY,
   DEFAULT_FONT_SIZE,
   DEFAULT_INNER_BORDER_COLOR,
   DEFAULT_INNER_BORDER_WIDTH,
@@ -26,6 +27,7 @@ import {
   DEFAULT_SPIN_DURATION,
   DEFAULT_TEXT_COLORS,
   DEFAULT_TEXT_DISTANCE,
+  WEB_FONTS,
 } from '../../strings';
 import { PointerProps, WheelData } from './types';
 import WheelCanvas from '../WheelCanvas';
@@ -73,7 +75,7 @@ export const Wheel = ({
   innerBorderWidth = DEFAULT_INNER_BORDER_WIDTH,
   radiusLineColor = DEFAULT_RADIUS_LINE_COLOR,
   radiusLineWidth = DEFAULT_RADIUS_LINE_WIDTH,
-  fontFamily = '',
+  fontFamily = WEB_FONTS[0],
   fontSize = DEFAULT_FONT_SIZE,
   perpendicularText = false,
   textDistance = DEFAULT_TEXT_DISTANCE,
@@ -123,11 +125,15 @@ export const Wheel = ({
         style: {
           backgroundColor:
             data[i].style?.backgroundColor ||
-            backgroundColors?.[i % backgroundColors?.length],
-          fontFamily: data[i].style?.fontFamily || fontFamily,
-          fontSize: data[i].style?.fontSize || fontSize,
+            backgroundColors?.[i % backgroundColors?.length] ||
+            DEFAULT_BACKGROUND_COLORS[0],
+          fontFamily:
+            data[i].style?.fontFamily || fontFamily || DEFAULT_FONT_FAMILY,
+          fontSize: data[i].style?.fontSize || fontSize || DEFAULT_FONT_SIZE,
           textColor:
-            data[i].style?.textColor || textColors?.[i % textColors?.length],
+            data[i].style?.textColor ||
+            textColors?.[i % textColors?.length] ||
+            DEFAULT_TEXT_COLORS[0],
         },
       };
       auxPrizeMap.push([]);
