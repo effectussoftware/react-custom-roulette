@@ -17,7 +17,7 @@ export var clamp = function (min, max, val) {
     return Math.min(Math.max(min, +val), max);
 };
 export var isCustomFont = function (font) {
-    return !WEB_FONTS.includes(font.toLowerCase());
+    return !!font && !WEB_FONTS.includes(font.toLowerCase());
 };
 export var getQuantity = function (prizeMap) {
     return prizeMap.slice(-1)[0].slice(-1)[0] + 1;
