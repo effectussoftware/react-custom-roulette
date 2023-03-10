@@ -109,7 +109,7 @@ export const Wheel = ({
   useEffect(() => {
     let initialMapNum = 0;
     const auxPrizeMap: number[][] = [];
-    const dataLength = data.length;
+    const dataLength = data?.length || 0;
     const wheelDataAux = [{ option: '', optionSize: 1 }] as WheelData[];
     const fontsToFetch = isCustomFont(fontFamily?.trim()) ? [fontFamily] : [];
 
@@ -123,11 +123,11 @@ export const Wheel = ({
         style: {
           backgroundColor:
             data[i].style?.backgroundColor ||
-            backgroundColors[i % backgroundColors.length],
+            backgroundColors?.[i % backgroundColors?.length],
           fontFamily: data[i].style?.fontFamily || fontFamily,
           fontSize: data[i].style?.fontSize || fontSize,
           textColor:
-            data[i].style?.textColor || textColors[i % textColors.length],
+            data[i].style?.textColor || textColors?.[i % textColors?.length],
         },
       };
       auxPrizeMap.push([]);
@@ -155,21 +155,25 @@ export const Wheel = ({
         };
       }
     }
-    
-    if (fontsToFetch.length > 0) {
-      WebFont.load({
-        google: {
-          families: Array.from(new Set(fontsToFetch.filter(font => !!font))),
-        },
-        timeout: 1000,
-        fontactive() {
-          setRouletteUpdater(!rouletteUpdater);
-        },
-        active() {
-          setIsFontLoaded(true);
-          setRouletteUpdater(!rouletteUpdater);
-        },
-      });
+
+    if (fontsToFetch?.length > 0) {
+      try {
+        WebFont.load({
+          google: {
+            families: Array.from(new Set(fontsToFetch.filter(font => !!font))),
+          },
+          timeout: 1000,
+          fontactive() {
+            setRouletteUpdater(!rouletteUpdater);
+          },
+          active() {
+            setIsFontLoaded(true);
+            setRouletteUpdater(!rouletteUpdater);
+          },
+        });
+      } catch (err) {
+        console.log('Error loading webfonts:', err);
+      }
     } else {
       setIsFontLoaded(true);
     }
@@ -186,7 +190,7 @@ export const Wheel = ({
       startSpinning();
       const selectedPrize =
         prizeMap[prizeNumber][
-          Math.floor(Math.random() * prizeMap[prizeNumber].length)
+          Math.floor(Math.random() * prizeMap[prizeNumber]?.length)
         ];
       const finalRotationDegreesCalculated = getRotationDegrees(
         selectedPrize,
@@ -219,9 +223,9 @@ export const Wheel = ({
 
   const setStartingOption = (optionIndex: number, optionMap: number[][]) => {
     if (startingOptionIndex >= 0) {
-      const idx = Math.floor(optionIndex) % optionMap.length;
+      const idx = Math.floor(optionIndex) % optionMap?.length;
       const startingOption =
-        optionMap[idx][Math.floor(optionMap[idx].length / 2)];
+        optionMap[idx][Math.floor(optionMap[idx]?.length / 2)];
       setStartRotationDegrees(
         getRotationDegrees(startingOption, getQuantity(optionMap), false)
       );

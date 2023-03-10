@@ -54,7 +54,7 @@ export var Wheel = function (_a) {
         var _a, _b, _c, _d, _e, _f, _g, _h;
         var initialMapNum = 0;
         var auxPrizeMap = [];
-        var dataLength = data.length;
+        var dataLength = (data === null || data === void 0 ? void 0 : data.length) || 0;
         var wheelDataAux = [{ option: '', optionSize: 1 }];
         var fontsToFetch = isCustomFont(fontFamily === null || fontFamily === void 0 ? void 0 : fontFamily.trim()) ? [fontFamily] : [];
         var _loop_1 = function (i) {
@@ -63,10 +63,10 @@ export var Wheel = function (_a) {
             fontsToFetch.push.apply(fontsToFetch, fontArray);
             wheelDataAux[i] = __assign(__assign({}, data[i]), { style: {
                     backgroundColor: ((_d = data[i].style) === null || _d === void 0 ? void 0 : _d.backgroundColor) ||
-                        backgroundColors[i % backgroundColors.length],
+                        (backgroundColors === null || backgroundColors === void 0 ? void 0 : backgroundColors[i % (backgroundColors === null || backgroundColors === void 0 ? void 0 : backgroundColors.length)]),
                     fontFamily: ((_e = data[i].style) === null || _e === void 0 ? void 0 : _e.fontFamily) || fontFamily,
                     fontSize: ((_f = data[i].style) === null || _f === void 0 ? void 0 : _f.fontSize) || fontSize,
-                    textColor: ((_g = data[i].style) === null || _g === void 0 ? void 0 : _g.textColor) || textColors[i % textColors.length],
+                    textColor: ((_g = data[i].style) === null || _g === void 0 ? void 0 : _g.textColor) || (textColors === null || textColors === void 0 ? void 0 : textColors[i % (textColors === null || textColors === void 0 ? void 0 : textColors.length)]),
                 } });
             auxPrizeMap.push([]);
             for (var j = 0; j < (wheelDataAux[i].optionSize || 1); j++) {
@@ -96,20 +96,25 @@ export var Wheel = function (_a) {
         for (var i = 0; i < dataLength; i++) {
             _loop_1(i);
         }
-        if (fontsToFetch.length > 0) {
-            WebFont.load({
-                google: {
-                    families: Array.from(new Set(fontsToFetch.filter(function (font) { return !!font; }))),
-                },
-                timeout: 1000,
-                fontactive: function () {
-                    setRouletteUpdater(!rouletteUpdater);
-                },
-                active: function () {
-                    setIsFontLoaded(true);
-                    setRouletteUpdater(!rouletteUpdater);
-                },
-            });
+        if ((fontsToFetch === null || fontsToFetch === void 0 ? void 0 : fontsToFetch.length) > 0) {
+            try {
+                WebFont.load({
+                    google: {
+                        families: Array.from(new Set(fontsToFetch.filter(function (font) { return !!font; }))),
+                    },
+                    timeout: 1000,
+                    fontactive: function () {
+                        setRouletteUpdater(!rouletteUpdater);
+                    },
+                    active: function () {
+                        setIsFontLoaded(true);
+                        setRouletteUpdater(!rouletteUpdater);
+                    },
+                });
+            }
+            catch (err) {
+                console.log('Error loading webfonts:', err);
+            }
         }
         else {
             setIsFontLoaded(true);
@@ -120,10 +125,11 @@ export var Wheel = function (_a) {
         setIsDataUpdated(true);
     }, [data, backgroundColors, textColors]);
     useEffect(function () {
+        var _a;
         if (mustStartSpinning && !isCurrentlySpinning) {
             setIsCurrentlySpinning(true);
             startSpinning();
-            var selectedPrize = prizeMap[prizeNumber][Math.floor(Math.random() * prizeMap[prizeNumber].length)];
+            var selectedPrize = prizeMap[prizeNumber][Math.floor(Math.random() * ((_a = prizeMap[prizeNumber]) === null || _a === void 0 ? void 0 : _a.length))];
             var finalRotationDegreesCalculated = getRotationDegrees(selectedPrize, getQuantity(prizeMap));
             setFinalRotationDegrees(finalRotationDegreesCalculated);
         }
@@ -148,9 +154,10 @@ export var Wheel = function (_a) {
         }, totalSpinningTime);
     };
     var setStartingOption = function (optionIndex, optionMap) {
+        var _a;
         if (startingOptionIndex >= 0) {
-            var idx = Math.floor(optionIndex) % optionMap.length;
-            var startingOption = optionMap[idx][Math.floor(optionMap[idx].length / 2)];
+            var idx = Math.floor(optionIndex) % (optionMap === null || optionMap === void 0 ? void 0 : optionMap.length);
+            var startingOption = optionMap[idx][Math.floor(((_a = optionMap[idx]) === null || _a === void 0 ? void 0 : _a.length) / 2)];
             setStartRotationDegrees(getRotationDegrees(startingOption, getQuantity(optionMap), false));
         }
     };
