@@ -30,7 +30,7 @@ export const clamp = (min: number, max: number, val: number): number =>
   Math.min(Math.max(min, +val), max);
 
 export const isCustomFont = (font: string): boolean =>
-  !WEB_FONTS.includes(font.toLowerCase());
+  !!font && !WEB_FONTS.includes(font.toLowerCase());
 
 export const getQuantity = (prizeMap: number[][]): number =>
   prizeMap.slice(-1)[0].slice(-1)[0] + 1;
