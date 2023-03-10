@@ -23,14 +23,14 @@ import WebFont from 'webfontloader';
 import { getQuantity, getRotationDegrees, isCustomFont, makeClassKey, } from '../../utils';
 import { roulettePointer } from '../common/images';
 import { RotationContainer, RouletteContainer, RoulettePointerImage, } from './styles';
-import { DEFAULT_BACKGROUND_COLORS, DEFAULT_FONT_SIZE, DEFAULT_INNER_BORDER_COLOR, DEFAULT_INNER_BORDER_WIDTH, DEFAULT_INNER_RADIUS, DEFAULT_OUTER_BORDER_COLOR, DEFAULT_OUTER_BORDER_WIDTH, DEFAULT_RADIUS_LINE_COLOR, DEFAULT_RADIUS_LINE_WIDTH, DEFAULT_SPIN_DURATION, DEFAULT_TEXT_COLORS, DEFAULT_TEXT_DISTANCE, } from '../../strings';
+import { DEFAULT_BACKGROUND_COLORS, DEFAULT_FONT_FAMILY, DEFAULT_FONT_SIZE, DEFAULT_INNER_BORDER_COLOR, DEFAULT_INNER_BORDER_WIDTH, DEFAULT_INNER_RADIUS, DEFAULT_OUTER_BORDER_COLOR, DEFAULT_OUTER_BORDER_WIDTH, DEFAULT_RADIUS_LINE_COLOR, DEFAULT_RADIUS_LINE_WIDTH, DEFAULT_SPIN_DURATION, DEFAULT_TEXT_COLORS, DEFAULT_TEXT_DISTANCE, WEB_FONTS, } from '../../strings';
 import WheelCanvas from '../WheelCanvas';
 var STARTED_SPINNING = 'started-spinning';
 var START_SPINNING_TIME = 2600;
 var CONTINUE_SPINNING_TIME = 750;
 var STOP_SPINNING_TIME = 8000;
 export var Wheel = function (_a) {
-    var mustStartSpinning = _a.mustStartSpinning, prizeNumber = _a.prizeNumber, data = _a.data, _b = _a.onStopSpinning, onStopSpinning = _b === void 0 ? function () { return null; } : _b, _c = _a.backgroundColors, backgroundColors = _c === void 0 ? DEFAULT_BACKGROUND_COLORS : _c, _d = _a.textColors, textColors = _d === void 0 ? DEFAULT_TEXT_COLORS : _d, _e = _a.outerBorderColor, outerBorderColor = _e === void 0 ? DEFAULT_OUTER_BORDER_COLOR : _e, _f = _a.outerBorderWidth, outerBorderWidth = _f === void 0 ? DEFAULT_OUTER_BORDER_WIDTH : _f, _g = _a.innerRadius, innerRadius = _g === void 0 ? DEFAULT_INNER_RADIUS : _g, _h = _a.innerBorderColor, innerBorderColor = _h === void 0 ? DEFAULT_INNER_BORDER_COLOR : _h, _j = _a.innerBorderWidth, innerBorderWidth = _j === void 0 ? DEFAULT_INNER_BORDER_WIDTH : _j, _k = _a.radiusLineColor, radiusLineColor = _k === void 0 ? DEFAULT_RADIUS_LINE_COLOR : _k, _l = _a.radiusLineWidth, radiusLineWidth = _l === void 0 ? DEFAULT_RADIUS_LINE_WIDTH : _l, _m = _a.fontFamily, fontFamily = _m === void 0 ? '' : _m, _o = _a.fontSize, fontSize = _o === void 0 ? DEFAULT_FONT_SIZE : _o, _p = _a.perpendicularText, perpendicularText = _p === void 0 ? false : _p, _q = _a.textDistance, textDistance = _q === void 0 ? DEFAULT_TEXT_DISTANCE : _q, _r = _a.spinDuration, spinDuration = _r === void 0 ? DEFAULT_SPIN_DURATION : _r, _s = _a.startingOptionIndex, startingOptionIndex = _s === void 0 ? -1 : _s, _t = _a.pointerProps, pointerProps = _t === void 0 ? {} : _t;
+    var mustStartSpinning = _a.mustStartSpinning, prizeNumber = _a.prizeNumber, data = _a.data, _b = _a.onStopSpinning, onStopSpinning = _b === void 0 ? function () { return null; } : _b, _c = _a.backgroundColors, backgroundColors = _c === void 0 ? DEFAULT_BACKGROUND_COLORS : _c, _d = _a.textColors, textColors = _d === void 0 ? DEFAULT_TEXT_COLORS : _d, _e = _a.outerBorderColor, outerBorderColor = _e === void 0 ? DEFAULT_OUTER_BORDER_COLOR : _e, _f = _a.outerBorderWidth, outerBorderWidth = _f === void 0 ? DEFAULT_OUTER_BORDER_WIDTH : _f, _g = _a.innerRadius, innerRadius = _g === void 0 ? DEFAULT_INNER_RADIUS : _g, _h = _a.innerBorderColor, innerBorderColor = _h === void 0 ? DEFAULT_INNER_BORDER_COLOR : _h, _j = _a.innerBorderWidth, innerBorderWidth = _j === void 0 ? DEFAULT_INNER_BORDER_WIDTH : _j, _k = _a.radiusLineColor, radiusLineColor = _k === void 0 ? DEFAULT_RADIUS_LINE_COLOR : _k, _l = _a.radiusLineWidth, radiusLineWidth = _l === void 0 ? DEFAULT_RADIUS_LINE_WIDTH : _l, _m = _a.fontFamily, fontFamily = _m === void 0 ? WEB_FONTS[0] : _m, _o = _a.fontSize, fontSize = _o === void 0 ? DEFAULT_FONT_SIZE : _o, _p = _a.perpendicularText, perpendicularText = _p === void 0 ? false : _p, _q = _a.textDistance, textDistance = _q === void 0 ? DEFAULT_TEXT_DISTANCE : _q, _r = _a.spinDuration, spinDuration = _r === void 0 ? DEFAULT_SPIN_DURATION : _r, _s = _a.startingOptionIndex, startingOptionIndex = _s === void 0 ? -1 : _s, _t = _a.pointerProps, pointerProps = _t === void 0 ? {} : _t;
     var _u = useState(__spreadArray([], data, true)), wheelData = _u[0], setWheelData = _u[1];
     var _v = useState([[0]]), prizeMap = _v[0], setPrizeMap = _v[1];
     var _w = useState(0), startRotationDegrees = _w[0], setStartRotationDegrees = _w[1];
@@ -63,10 +63,13 @@ export var Wheel = function (_a) {
             fontsToFetch.push.apply(fontsToFetch, fontArray);
             wheelDataAux[i] = __assign(__assign({}, data[i]), { style: {
                     backgroundColor: ((_d = data[i].style) === null || _d === void 0 ? void 0 : _d.backgroundColor) ||
-                        (backgroundColors === null || backgroundColors === void 0 ? void 0 : backgroundColors[i % (backgroundColors === null || backgroundColors === void 0 ? void 0 : backgroundColors.length)]),
-                    fontFamily: ((_e = data[i].style) === null || _e === void 0 ? void 0 : _e.fontFamily) || fontFamily,
-                    fontSize: ((_f = data[i].style) === null || _f === void 0 ? void 0 : _f.fontSize) || fontSize,
-                    textColor: ((_g = data[i].style) === null || _g === void 0 ? void 0 : _g.textColor) || (textColors === null || textColors === void 0 ? void 0 : textColors[i % (textColors === null || textColors === void 0 ? void 0 : textColors.length)]),
+                        (backgroundColors === null || backgroundColors === void 0 ? void 0 : backgroundColors[i % (backgroundColors === null || backgroundColors === void 0 ? void 0 : backgroundColors.length)]) ||
+                        DEFAULT_BACKGROUND_COLORS[0],
+                    fontFamily: ((_e = data[i].style) === null || _e === void 0 ? void 0 : _e.fontFamily) || fontFamily || DEFAULT_FONT_FAMILY,
+                    fontSize: ((_f = data[i].style) === null || _f === void 0 ? void 0 : _f.fontSize) || fontSize || DEFAULT_FONT_SIZE,
+                    textColor: ((_g = data[i].style) === null || _g === void 0 ? void 0 : _g.textColor) ||
+                        (textColors === null || textColors === void 0 ? void 0 : textColors[i % (textColors === null || textColors === void 0 ? void 0 : textColors.length)]) ||
+                        DEFAULT_TEXT_COLORS[0],
                 } });
             auxPrizeMap.push([]);
             for (var j = 0; j < (wheelDataAux[i].optionSize || 1); j++) {
