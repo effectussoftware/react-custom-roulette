@@ -13,7 +13,8 @@
     "react-custom-roulette": "../",
     "react-dom": "^18.2.0",
     "react-scripts": "^4.0.3",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "@types/react-dom": "^18.0.11"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -37,8 +38,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/react-dom": "^18.0.11"
   }
 }
