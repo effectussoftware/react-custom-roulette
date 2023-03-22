@@ -19,10 +19,11 @@
 ## Features
 
 - Customizable design
-- Prize selection by props
-- Spinning animation
-- **[NEW!]** Multiple spins (see [Multi Spin](#multi-spin))
-- **[NEW!]** Customizable spin duration
+- Prize selection with props
+- Spinning animation (customizable spin duration)
+- **[NEW!]** Images as items (see [Types](#types))
+- **[NEW!]** Customizable pointer image
+- Multiple consecutive spins (see [Multi Spin](#multi-spin))
 - Compatible with TypeScript
 
 ## Install
@@ -210,8 +211,9 @@ This project exists thanks to all the people who contribute!
     <li><a href="https://github.com/jpmazza">JP Mazza</a></li>
     <li><a href="https://github.com/TakeshiOnishi">TakeshiOnishi</a></li>
     <li><a href="https://github.com/Gaston-Gonzalez">Gastón González</a></li>
+    <li><a href="https://github.com/jpmartinezeff">Juan Pablo Martinez</a></li>
 </ul>
 
 ## License
 
-This project is licensed under the MIT license, Copyright (c) 2022 <a href="https://effectussoftware.com">Effectus Software</a>. [[License](LICENSE)]
+This project is licensed under the MIT license, Copyright (c) 2023 <a href="https://effectussoftware.com">Effectus Software</a>. [[License](LICENSE)]
