@@ -9,6 +9,8 @@ export const DEFAULT_RADIUS_LINE_COLOR: "black";
 export const DEFAULT_RADIUS_LINE_WIDTH: 5;
 export const DEFAULT_FONT_FAMILY: "Nunito";
 export const DEFAULT_FONT_SIZE: 20;
+export const DEFAULT_FONT_WEIGHT: "bold";
+export const DEFAULT_FONT_STYLE: "normal";
 export const DEFAULT_TEXT_DISTANCE: 60;
 export const DEFAULT_SPIN_DURATION: 1;
 export const WEB_FONTS: string[];

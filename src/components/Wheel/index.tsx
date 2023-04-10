@@ -17,6 +17,8 @@ import {
   DEFAULT_BACKGROUND_COLORS,
   DEFAULT_FONT_FAMILY,
   DEFAULT_FONT_SIZE,
+  DEFAULT_FONT_STYLE,
+  DEFAULT_FONT_WEIGHT,
   DEFAULT_INNER_BORDER_COLOR,
   DEFAULT_INNER_BORDER_WIDTH,
   DEFAULT_INNER_RADIUS,
@@ -48,6 +50,8 @@ interface Props {
   radiusLineWidth?: number;
   fontFamily?: string;
   fontSize?: number;
+  fontWeight?: number | string;
+  fontStyle?: string;
   perpendicularText?: boolean;
   textDistance?: number;
   spinDuration?: number;
@@ -77,6 +81,8 @@ export const Wheel = ({
   radiusLineWidth = DEFAULT_RADIUS_LINE_WIDTH,
   fontFamily = WEB_FONTS[0],
   fontSize = DEFAULT_FONT_SIZE,
+  fontWeight = DEFAULT_FONT_WEIGHT,
+  fontStyle = DEFAULT_FONT_STYLE,
   perpendicularText = false,
   textDistance = DEFAULT_TEXT_DISTANCE,
   spinDuration = DEFAULT_SPIN_DURATION,
@@ -130,6 +136,10 @@ export const Wheel = ({
           fontFamily:
             data[i].style?.fontFamily || fontFamily || DEFAULT_FONT_FAMILY,
           fontSize: data[i].style?.fontSize || fontSize || DEFAULT_FONT_SIZE,
+          fontWeight:
+            data[i].style?.fontWeight || fontWeight || DEFAULT_FONT_WEIGHT,
+          fontStyle:
+            data[i].style?.fontStyle || fontStyle || DEFAULT_FONT_STYLE,
           textColor:
             data[i].style?.textColor ||
             textColors?.[i % textColors?.length] ||
@@ -279,6 +289,8 @@ export const Wheel = ({
           radiusLineColor={radiusLineColor}
           radiusLineWidth={radiusLineWidth}
           fontFamily={fontFamily}
+          fontWeight={fontWeight}
+          fontStyle={fontStyle}
           fontSize={fontSize}
           perpendicularText={perpendicularText}
           prizeMap={prizeMap}
