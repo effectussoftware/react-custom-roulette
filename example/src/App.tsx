@@ -27,7 +27,7 @@ const fontFamily = 'Nunito';
 const fontSize = 20;
 const textDistance = 60;
 const spinDuration = 1.0;
-const backwardBeginning = true;
+const disableInitialAnimation = true;
 
 const App = () => {
   const [mustSpin, setMustSpin] = useState(false);
@@ -61,7 +61,7 @@ const App = () => {
           radiusLineWidth={radiusLineWidth}
           spinDuration={spinDuration}
           startingOptionIndex={2}
-          backwardBeginning={backwardBeginning}
+          disableInitialAnimation={disableInitialAnimation}
           // perpendicularText
           textDistance={textDistance}
           onStopSpinning={() => {

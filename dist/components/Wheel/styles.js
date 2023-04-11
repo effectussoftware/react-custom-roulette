@@ -11,7 +11,7 @@ export var RotationContainer = styled.div(templateObject_2 || (templateObject_2 
 }, function (_a) {
     var startSpinningTime = _a.startSpinningTime;
     return startSpinningTime / 1000;
-}, function (props) { return (props.backwardBeginning ? -0.29 : 0); }, function (_a) {
+}, function (props) { return (props.disableInitialAnimation ? -0.29 : 0); }, function (_a) {
     var classKey = _a.classKey;
     return classKey;
 }, function (_a) {
