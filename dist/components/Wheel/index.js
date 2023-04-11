@@ -23,26 +23,26 @@ import WebFont from 'webfontloader';
 import { getQuantity, getRotationDegrees, isCustomFont, makeClassKey, } from '../../utils';
 import { roulettePointer } from '../common/images';
 import { RotationContainer, RouletteContainer, RoulettePointerImage, } from './styles';
-import { DEFAULT_BACKGROUND_COLORS, DEFAULT_FONT_FAMILY, DEFAULT_FONT_SIZE, DEFAULT_INNER_BORDER_COLOR, DEFAULT_INNER_BORDER_WIDTH, DEFAULT_INNER_RADIUS, DEFAULT_OUTER_BORDER_COLOR, DEFAULT_OUTER_BORDER_WIDTH, DEFAULT_RADIUS_LINE_COLOR, DEFAULT_RADIUS_LINE_WIDTH, DEFAULT_SPIN_DURATION, DEFAULT_TEXT_COLORS, DEFAULT_TEXT_DISTANCE, WEB_FONTS, } from '../../strings';
+import { DEFAULT_BACKGROUND_COLORS, DEFAULT_FONT_FAMILY, DEFAULT_FONT_SIZE, DEFAULT_INNER_BORDER_COLOR, DEFAULT_INNER_BORDER_WIDTH, DEFAULT_INNER_RADIUS, DEFAULT_OUTER_BORDER_COLOR, DEFAULT_OUTER_BORDER_WIDTH, DEFAULT_RADIUS_LINE_COLOR, DEFAULT_RADIUS_LINE_WIDTH, DEFAULT_SPIN_DURATION, DEFAULT_TEXT_COLORS, DEFAULT_TEXT_DISTANCE, WEB_FONTS, BACKWARD_BEGINNING, } from '../../strings';
 import WheelCanvas from '../WheelCanvas';
 var STARTED_SPINNING = 'started-spinning';
 var START_SPINNING_TIME = 2600;
 var CONTINUE_SPINNING_TIME = 750;
 var STOP_SPINNING_TIME = 8000;
 export var Wheel = function (_a) {
-    var mustStartSpinning = _a.mustStartSpinning, prizeNumber = _a.prizeNumber, data = _a.data, _b = _a.onStopSpinning, onStopSpinning = _b === void 0 ? function () { return null; } : _b, _c = _a.backgroundColors, backgroundColors = _c === void 0 ? DEFAULT_BACKGROUND_COLORS : _c, _d = _a.textColors, textColors = _d === void 0 ? DEFAULT_TEXT_COLORS : _d, _e = _a.outerBorderColor, outerBorderColor = _e === void 0 ? DEFAULT_OUTER_BORDER_COLOR : _e, _f = _a.outerBorderWidth, outerBorderWidth = _f === void 0 ? DEFAULT_OUTER_BORDER_WIDTH : _f, _g = _a.innerRadius, innerRadius = _g === void 0 ? DEFAULT_INNER_RADIUS : _g, _h = _a.innerBorderColor, innerBorderColor = _h === void 0 ? DEFAULT_INNER_BORDER_COLOR : _h, _j = _a.innerBorderWidth, innerBorderWidth = _j === void 0 ? DEFAULT_INNER_BORDER_WIDTH : _j, _k = _a.radiusLineColor, radiusLineColor = _k === void 0 ? DEFAULT_RADIUS_LINE_COLOR : _k, _l = _a.radiusLineWidth, radiusLineWidth = _l === void 0 ? DEFAULT_RADIUS_LINE_WIDTH : _l, _m = _a.fontFamily, fontFamily = _m === void 0 ? WEB_FONTS[0] : _m, _o = _a.fontSize, fontSize = _o === void 0 ? DEFAULT_FONT_SIZE : _o, _p = _a.perpendicularText, perpendicularText = _p === void 0 ? false : _p, _q = _a.textDistance, textDistance = _q === void 0 ? DEFAULT_TEXT_DISTANCE : _q, _r = _a.spinDuration, spinDuration = _r === void 0 ? DEFAULT_SPIN_DURATION : _r, _s = _a.startingOptionIndex, startingOptionIndex = _s === void 0 ? -1 : _s, _t = _a.pointerProps, pointerProps = _t === void 0 ? {} : _t;
-    var _u = useState(__spreadArray([], data, true)), wheelData = _u[0], setWheelData = _u[1];
-    var _v = useState([[0]]), prizeMap = _v[0], setPrizeMap = _v[1];
-    var _w = useState(0), startRotationDegrees = _w[0], setStartRotationDegrees = _w[1];
-    var _x = useState(0), finalRotationDegrees = _x[0], setFinalRotationDegrees = _x[1];
-    var _y = useState(false), hasStartedSpinning = _y[0], setHasStartedSpinning = _y[1];
-    var _z = useState(false), hasStoppedSpinning = _z[0], setHasStoppedSpinning = _z[1];
-    var _0 = useState(false), isCurrentlySpinning = _0[0], setIsCurrentlySpinning = _0[1];
-    var _1 = useState(false), isDataUpdated = _1[0], setIsDataUpdated = _1[1];
-    var _2 = useState(false), rouletteUpdater = _2[0], setRouletteUpdater = _2[1];
-    var _3 = useState(0), loadedImagesCounter = _3[0], setLoadedImagesCounter = _3[1];
-    var _4 = useState(0), totalImages = _4[0], setTotalImages = _4[1];
-    var _5 = useState(false), isFontLoaded = _5[0], setIsFontLoaded = _5[1];
+    var mustStartSpinning = _a.mustStartSpinning, prizeNumber = _a.prizeNumber, data = _a.data, _b = _a.onStopSpinning, onStopSpinning = _b === void 0 ? function () { return null; } : _b, _c = _a.backgroundColors, backgroundColors = _c === void 0 ? DEFAULT_BACKGROUND_COLORS : _c, _d = _a.textColors, textColors = _d === void 0 ? DEFAULT_TEXT_COLORS : _d, _e = _a.outerBorderColor, outerBorderColor = _e === void 0 ? DEFAULT_OUTER_BORDER_COLOR : _e, _f = _a.outerBorderWidth, outerBorderWidth = _f === void 0 ? DEFAULT_OUTER_BORDER_WIDTH : _f, _g = _a.innerRadius, innerRadius = _g === void 0 ? DEFAULT_INNER_RADIUS : _g, _h = _a.innerBorderColor, innerBorderColor = _h === void 0 ? DEFAULT_INNER_BORDER_COLOR : _h, _j = _a.innerBorderWidth, innerBorderWidth = _j === void 0 ? DEFAULT_INNER_BORDER_WIDTH : _j, _k = _a.radiusLineColor, radiusLineColor = _k === void 0 ? DEFAULT_RADIUS_LINE_COLOR : _k, _l = _a.radiusLineWidth, radiusLineWidth = _l === void 0 ? DEFAULT_RADIUS_LINE_WIDTH : _l, _m = _a.fontFamily, fontFamily = _m === void 0 ? WEB_FONTS[0] : _m, _o = _a.fontSize, fontSize = _o === void 0 ? DEFAULT_FONT_SIZE : _o, _p = _a.perpendicularText, perpendicularText = _p === void 0 ? false : _p, _q = _a.textDistance, textDistance = _q === void 0 ? DEFAULT_TEXT_DISTANCE : _q, _r = _a.spinDuration, spinDuration = _r === void 0 ? DEFAULT_SPIN_DURATION : _r, _s = _a.startingOptionIndex, startingOptionIndex = _s === void 0 ? -1 : _s, _t = _a.pointerProps, pointerProps = _t === void 0 ? {} : _t, _u = _a.backwardBeginning, backwardBeginning = _u === void 0 ? BACKWARD_BEGINNING : _u;
+    var _v = useState(__spreadArray([], data, true)), wheelData = _v[0], setWheelData = _v[1];
+    var _w = useState([[0]]), prizeMap = _w[0], setPrizeMap = _w[1];
+    var _x = useState(0), startRotationDegrees = _x[0], setStartRotationDegrees = _x[1];
+    var _y = useState(0), finalRotationDegrees = _y[0], setFinalRotationDegrees = _y[1];
+    var _z = useState(false), hasStartedSpinning = _z[0], setHasStartedSpinning = _z[1];
+    var _0 = useState(false), hasStoppedSpinning = _0[0], setHasStoppedSpinning = _0[1];
+    var _1 = useState(false), isCurrentlySpinning = _1[0], setIsCurrentlySpinning = _1[1];
+    var _2 = useState(false), isDataUpdated = _2[0], setIsDataUpdated = _2[1];
+    var _3 = useState(false), rouletteUpdater = _3[0], setRouletteUpdater = _3[1];
+    var _4 = useState(0), loadedImagesCounter = _4[0], setLoadedImagesCounter = _4[1];
+    var _5 = useState(0), totalImages = _5[0], setTotalImages = _5[1];
+    var _6 = useState(false), isFontLoaded = _6[0], setIsFontLoaded = _6[1];
     var mustStopSpinning = useRef(false);
     var classKey = makeClassKey(5);
     var normalizedSpinDuration = Math.max(0.01, spinDuration);
@@ -177,7 +177,7 @@ export var Wheel = function (_a) {
             (totalImages > 0 && loadedImagesCounter !== totalImages)
             ? { visibility: 'hidden' }
             : {} },
-        React.createElement(RotationContainer, { className: getRouletteClass(), classKey: classKey, startSpinningTime: startSpinningTime, continueSpinningTime: continueSpinningTime, stopSpinningTime: stopSpinningTime, startRotationDegrees: startRotationDegrees, finalRotationDegrees: finalRotationDegrees },
+        React.createElement(RotationContainer, { className: getRouletteClass(), classKey: classKey, startSpinningTime: startSpinningTime, continueSpinningTime: continueSpinningTime, stopSpinningTime: stopSpinningTime, startRotationDegrees: startRotationDegrees, finalRotationDegrees: finalRotationDegrees, backwardBeginning: backwardBeginning },
             React.createElement(WheelCanvas, { width: "900", height: "900", data: wheelData, outerBorderColor: outerBorderColor, outerBorderWidth: outerBorderWidth, innerRadius: innerRadius, innerBorderColor: innerBorderColor, innerBorderWidth: innerBorderWidth, radiusLineColor: radiusLineColor, radiusLineWidth: radiusLineWidth, fontFamily: fontFamily, fontSize: fontSize, perpendicularText: perpendicularText, prizeMap: prizeMap, rouletteUpdater: rouletteUpdater, textDistance: textDistance })),
         React.createElement(RoulettePointerImage, { style: pointerProps === null || pointerProps === void 0 ? void 0 : pointerProps.style, src: (pointerProps === null || pointerProps === void 0 ? void 0 : pointerProps.src) || roulettePointer.src, alt: "roulette-static" })));
 };

@@ -28,6 +28,7 @@ import {
   DEFAULT_TEXT_COLORS,
   DEFAULT_TEXT_DISTANCE,
   WEB_FONTS,
+  BACKWARD_BEGINNING,
 } from '../../strings';
 import { PointerProps, WheelData } from './types';
 import WheelCanvas from '../WheelCanvas';
@@ -53,6 +54,7 @@ interface Props {
   spinDuration?: number;
   startingOptionIndex?: number;
   pointerProps?: PointerProps;
+  backwardBeginning?: boolean;
 }
 
 const STARTED_SPINNING = 'started-spinning';
@@ -82,6 +84,7 @@ export const Wheel = ({
   spinDuration = DEFAULT_SPIN_DURATION,
   startingOptionIndex = -1,
   pointerProps = {},
+  backwardBeginning = BACKWARD_BEGINNING,
 }: Props): JSX.Element | null => {
   const [wheelData, setWheelData] = useState<WheelData[]>([...data]);
   const [prizeMap, setPrizeMap] = useState<number[][]>([[0]]);
@@ -266,6 +269,7 @@ export const Wheel = ({
         stopSpinningTime={stopSpinningTime}
         startRotationDegrees={startRotationDegrees}
         finalRotationDegrees={finalRotationDegrees}
+        backwardBeginning={backwardBeginning}
       >
         <WheelCanvas
           width="900"

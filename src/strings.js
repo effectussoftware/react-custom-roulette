@@ -11,6 +11,7 @@ export const DEFAULT_FONT_FAMILY = 'Nunito';
 export const DEFAULT_FONT_SIZE = 20;
 export const DEFAULT_TEXT_DISTANCE = 60;
 export const DEFAULT_SPIN_DURATION = 1.0;
+export const BACKWARD_BEGINNING = true;
 export const WEB_FONTS = [
   'arial',
   'verdana',
