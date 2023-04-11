@@ -15,6 +15,8 @@ interface Props {
     radiusLineWidth?: number;
     fontFamily?: string;
     fontSize?: number;
+    fontWeight?: number | string;
+    fontStyle?: string;
     perpendicularText?: boolean;
     textDistance?: number;
     spinDuration?: number;
@@ -22,5 +24,5 @@ interface Props {
     pointerProps?: PointerProps;
     disableInitialAnimation?: boolean;
 }
-export declare const Wheel: ({ mustStartSpinning, prizeNumber, data, onStopSpinning, backgroundColors, textColors, outerBorderColor, outerBorderWidth, innerRadius, innerBorderColor, innerBorderWidth, radiusLineColor, radiusLineWidth, fontFamily, fontSize, perpendicularText, textDistance, spinDuration, startingOptionIndex, pointerProps, disableInitialAnimation, }: Props) => JSX.Element | null;
+export declare const Wheel: ({ mustStartSpinning, prizeNumber, data, onStopSpinning, backgroundColors, textColors, outerBorderColor, outerBorderWidth, innerRadius, innerBorderColor, innerBorderWidth, radiusLineColor, radiusLineWidth, fontFamily, fontSize, fontWeight, fontStyle, perpendicularText, textDistance, spinDuration, startingOptionIndex, pointerProps, disableInitialAnimation, }: Props) => JSX.Element | null;
 export {};
