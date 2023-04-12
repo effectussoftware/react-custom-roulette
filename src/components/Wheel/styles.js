@@ -28,8 +28,12 @@ export const RotationContainer = styled.div`
 
   &.started-spinning {
     animation: spin-${({ classKey }) => classKey} ${({ startSpinningTime }) =>
-          startSpinningTime / 1000}s cubic-bezier(0.71, -0.29, 0.96, 0.9) 0s 1 normal
-        forwards running,
+          startSpinningTime / 1000}s cubic-bezier(
+          0.71,
+          ${props => (props.disableInitialAnimation ? 0 : -0.29)},
+          0.96,
+          0.9
+        ) 0s 1 normal forwards running,
       continueSpin-${({ classKey }) => classKey} ${({ continueSpinningTime }) =>
           continueSpinningTime / 1000}s linear ${({ startSpinningTime }) =>
           startSpinningTime / 1000}s 1 normal forwards running,
