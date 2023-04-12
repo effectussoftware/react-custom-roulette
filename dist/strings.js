@@ -13,7 +13,7 @@ export var DEFAULT_FONT_WEIGHT = 'bold';
 export var DEFAULT_FONT_STYLE = 'normal';
 export var DEFAULT_TEXT_DISTANCE = 60;
 export var DEFAULT_SPIN_DURATION = 1.0;
-export var DISABLE_INITIAL_ANIMATION = true;
+export var DISABLE_INITIAL_ANIMATION = false;
 export var WEB_FONTS = [
     'arial',
     'verdana',

@@ -29,7 +29,6 @@ const fontSize = 20;
 const fontStyle = 'normal';
 const textDistance = 60;
 const spinDuration = 1.0;
-const disableInitialAnimation = true;
 
 const App = () => {
   const [mustSpin, setMustSpin] = useState(false);
@@ -65,7 +64,6 @@ const App = () => {
           radiusLineWidth={radiusLineWidth}
           spinDuration={spinDuration}
           startingOptionIndex={2}
-          disableInitialAnimation={disableInitialAnimation}
           // perpendicularText
           textDistance={textDistance}
           onStopSpinning={() => {
