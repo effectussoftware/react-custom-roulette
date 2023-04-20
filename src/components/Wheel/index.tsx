@@ -17,6 +17,8 @@ import {
   DEFAULT_BACKGROUND_COLORS,
   DEFAULT_FONT_FAMILY,
   DEFAULT_FONT_SIZE,
+  DEFAULT_FONT_STYLE,
+  DEFAULT_FONT_WEIGHT,
   DEFAULT_INNER_BORDER_COLOR,
   DEFAULT_INNER_BORDER_WIDTH,
   DEFAULT_INNER_RADIUS,
@@ -28,6 +30,7 @@ import {
   DEFAULT_TEXT_COLORS,
   DEFAULT_TEXT_DISTANCE,
   WEB_FONTS,
+  DISABLE_INITIAL_ANIMATION,
 } from '../../strings';
 import { PointerProps, WheelData } from './types';
 import WheelCanvas from '../WheelCanvas';
@@ -48,11 +51,14 @@ interface Props {
   radiusLineWidth?: number;
   fontFamily?: string;
   fontSize?: number;
+  fontWeight?: number | string;
+  fontStyle?: string;
   perpendicularText?: boolean;
   textDistance?: number;
   spinDuration?: number;
   startingOptionIndex?: number;
   pointerProps?: PointerProps;
+  disableInitialAnimation?: boolean;
 }
 
 const STARTED_SPINNING = 'started-spinning';
@@ -77,11 +83,14 @@ export const Wheel = ({
   radiusLineWidth = DEFAULT_RADIUS_LINE_WIDTH,
   fontFamily = WEB_FONTS[0],
   fontSize = DEFAULT_FONT_SIZE,
+  fontWeight = DEFAULT_FONT_WEIGHT,
+  fontStyle = DEFAULT_FONT_STYLE,
   perpendicularText = false,
   textDistance = DEFAULT_TEXT_DISTANCE,
   spinDuration = DEFAULT_SPIN_DURATION,
   startingOptionIndex = -1,
   pointerProps = {},
+  disableInitialAnimation = DISABLE_INITIAL_ANIMATION,
 }: Props): JSX.Element | null => {
   const [wheelData, setWheelData] = useState<WheelData[]>([...data]);
   const [prizeMap, setPrizeMap] = useState<number[][]>([[0]]);
@@ -130,6 +139,10 @@ export const Wheel = ({
           fontFamily:
             data[i].style?.fontFamily || fontFamily || DEFAULT_FONT_FAMILY,
           fontSize: data[i].style?.fontSize || fontSize || DEFAULT_FONT_SIZE,
+          fontWeight:
+            data[i].style?.fontWeight || fontWeight || DEFAULT_FONT_WEIGHT,
+          fontStyle:
+            data[i].style?.fontStyle || fontStyle || DEFAULT_FONT_STYLE,
           textColor:
             data[i].style?.textColor ||
             textColors?.[i % textColors?.length] ||
@@ -266,6 +279,7 @@ export const Wheel = ({
         stopSpinningTime={stopSpinningTime}
         startRotationDegrees={startRotationDegrees}
         finalRotationDegrees={finalRotationDegrees}
+        disableInitialAnimation={disableInitialAnimation}
       >
         <WheelCanvas
           width="900"
@@ -279,6 +293,8 @@ export const Wheel = ({
           radiusLineColor={radiusLineColor}
           radiusLineWidth={radiusLineWidth}
           fontFamily={fontFamily}
+          fontWeight={fontWeight}
+          fontStyle={fontStyle}
           fontSize={fontSize}
           perpendicularText={perpendicularText}
           prizeMap={prizeMap}

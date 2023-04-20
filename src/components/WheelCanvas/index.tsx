@@ -19,7 +19,9 @@ interface DrawWheelProps {
   radiusLineColor: string;
   radiusLineWidth: number;
   fontFamily: string;
+  fontWeight: number | string;
   fontSize: number;
+  fontStyle: string;
   perpendicularText: boolean;
   prizeMap: number[][];
   rouletteUpdater: boolean;
@@ -62,7 +64,9 @@ const drawWheel = (
     radiusLineColor,
     radiusLineWidth,
     fontFamily,
+    fontWeight,
     fontSize,
+    fontStyle,
     perpendicularText,
     prizeMap,
     textDistance,
@@ -193,7 +197,9 @@ const drawWheel = (
         ctx.rotate(contentRotationAngle);
 
         const text = data[i].option;
-        ctx.font = `bold ${(style?.fontSize || fontSize) * 2}px ${
+        ctx.font = `${style?.fontStyle || fontStyle} ${
+          style?.fontWeight || fontWeight
+        } ${(style?.fontSize || fontSize) * 2}px ${
           style?.fontFamily || fontFamily
         }, Helvetica, Arial`;
         ctx.fillStyle = (style && style.textColor) as string;
@@ -223,7 +229,9 @@ const WheelCanvas = ({
   radiusLineColor,
   radiusLineWidth,
   fontFamily,
+  fontWeight,
   fontSize,
+  fontStyle,
   perpendicularText,
   prizeMap,
   rouletteUpdater,
@@ -239,7 +247,9 @@ const WheelCanvas = ({
     radiusLineColor,
     radiusLineWidth,
     fontFamily,
+    fontWeight,
     fontSize,
+    fontStyle,
     perpendicularText,
     prizeMap,
     rouletteUpdater,
