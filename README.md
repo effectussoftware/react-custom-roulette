@@ -67,24 +67,27 @@ export default () => (
 |---------------------------------|--------------------|---------------------------|--------------------------------------------------------------------|
 | mustStartSpinning _(required)_  | `boolean`          | -                         | Sets when the roulette must start the spinning animation                                              |
 | prizeNumber _(required)_        | `number`           | -                         | Sets the winning option. It's value must be between 0 and data.lenght-1                                               |
-| data _(required)_               | `Array<WheelData>` | -                         | Array of options. Can contain styling information for a specific option (see [WheelData](#wheeldata))                               |
+| data _(required)_               | `Array<WheelData>` | -                         | Array of options. Can contain styling information for a specific option (see [WheelData](#wheeldata))                          |
 | onStopSpinning                  | `function`         | () => null                | Callback function that is called when the roulette ends the spinning animation                                              |
 | backgroundColors                | `Array<string>`    | ['darkgrey', 'lightgrey'] | Array of colors that will fill the background of the roulette options, starting from option 0                                 |
-| textColors                      | `Array<string>`    | ['black']                 | Array of colors that will fill the text of the roulette options, starting from option 0                                          |
+| textColors                      | `Array<string>`    | ['black']                 | Array of colors that will fill the text of the roulette options, starting from option 0                                 |
 | outerBorderColor                | `string`           | 'black'                   | Color of the roulette's outer border line                                                   |
 | outerBorderWidth                | `number`           | 5                         | Width of the roulette's outer border line (0 represents no outer border line)                                                  |
 | innerRadius                     | `number [0..100]`  | 0                         | Distance of the inner radius from the center of the roulette                                               |
 | innerBorderColor                | `string`           | 'black'                   | Color of the roulette's inner border line                                                   |
 | innerBorderWidth                | `number`           | 0                         | Width of the roulette's inner border line (0 represents no inner border line)                                                  |
 | radiusLineColor                 | `string`           | 'black'                   | Color of the radial lines that separate each option                                                 |
-| radiusLineWidth                 | `number`           | 5                         | Width of the radial lines that separate each option (0 represents no radial lines)                                                 |
-| fontFamily                      | `string`           | 'Helvetica, sans-serif'   | Global font family of the option string. Non-Web safe fonts are fetched from https://fonts.google.com/. All available fonts can be found there.            |
+| radiusLineWidth                 | `number`           | 5                         | Width of the radial lines that separate each option (0 represents no radial lines)                                          |
+| fontFamily                      | `string`           | 'Helvetica, Arial'        | Global font family of the option string. Non-Web safe fonts are fetched from https://fonts.google.com/. All available fonts can be found there.            |
 | fontSize                        | `number`           | 20                        | Global font size of the option string                            |
-| perpendicularText               | `boolean`          | false                     | When 'true', sets the option texts perpendicular to the roulette's radial lines                                                  |
+| fontWeight                      | `number | string`  | 'bold'                    | Global font weight of the option string                          |
+| fontStyle                       | `string`           | 'normal'                  | Global font style of the option string                           |
+| perpendicularText               | `boolean`          | false                     | When 'true', sets the option texts perpendicular to the roulette's radial lines                                           |
 | textDistance                    | `number [0..100]`  | 60                        | Distance of the option texts from the center of the roulette     |
 | spinDuration                    | `number [0.01 ..]` | 1.0                       | Coefficient to adjust the default spin duration                  |
-| startingOptionIndex             | `number`           | -                         | Set which option (through its index in the `data` array) will be initially selected by the roulette (before spinning). If not specified the roulette will render without choosing a starting option |
+| startingOptionIndex             | `number`           | -                         | Set which option (through its index in the `data` array) will be initially selected by the roulette (before spinning). If not specified the roulette will render without choosing a starting option                    |
 | pointerProps                    | `PointerProps`     | { src: roulettePointer }  | Image source and CSS styling to apply to the pointer image.                                                 |
+| disableInitialAnimation         | `boolean`          | false                     | When 'true', disables the initial backwards wheel animation      |
 
 ## Types
 
@@ -114,15 +117,19 @@ interface StyleType {
   textColor?: string; // Optional
   fontFamily?: string; // Optional
   fontSize?: number; // Optional
+  fontWeight?: number | string; // Optional
+  fontStyle?: string; // Optional
 }
 ```
 
-| **Prop**        | **Type** | **Default**               | **Description**                                                    |
-|-----------------|----------|---------------------------|--------------------------------------------------------------------|
-| backgroundColor | `string` | 'darkgrey' or 'lightgrey' | Background color for option.                                       |
-| textColor       | `string` | 'black'                   | Text color                                                         |
-| fontFamily      | `string` | 'Helvetica, Arial'        | String containing text font and its fallbacks separated by commas. |
-| fontSize        | `number` | 20                        | Number for font size.                                              |
+| **Prop**        | **Type**          | **Default**               | **Description**                                                    |
+|-----------------|-------------------|---------------------------|--------------------------------------------------------------------|
+| backgroundColor | `string`          | 'darkgrey' or 'lightgrey' | Background color for option                                        |
+| textColor       | `string`          | 'black'                   | Text color                                                         |
+| fontFamily      | `string`          | 'Helvetica, Arial'        | String containing text font and its fallbacks separated by commas  |
+| fontSize        | `number`          | 20                        | Font size number                                                   |
+| fontWeight      | `number | string` | 'bold'                    | Font weight string or number                                       |
+| fontStyle       | `string`          | 'normal'                  | Font style string                                                  |
 
 #### ImageProps
 
@@ -212,6 +219,7 @@ This project exists thanks to all the people who contribute!
     <li><a href="https://github.com/TakeshiOnishi">TakeshiOnishi</a></li>
     <li><a href="https://github.com/Gaston-Gonzalez">Gastón González</a></li>
     <li><a href="https://github.com/jpmartinezeff">Juan Pablo Martinez</a></li>
+    <li><a href="https://github.com/Acarvajal904">Andres Carvajal</a></li>
 </ul>
 
 ## License
