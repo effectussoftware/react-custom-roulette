@@ -18,7 +18,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import WebFont from 'webfontloader';
 import { getQuantity, getRotationDegrees, isCustomFont, makeClassKey, } from '../../utils';
 import { roulettePointer } from '../common/images';
@@ -44,7 +44,7 @@ export var Wheel = function (_a) {
     var _7 = useState(0), totalImages = _7[0], setTotalImages = _7[1];
     var _8 = useState(false), isFontLoaded = _8[0], setIsFontLoaded = _8[1];
     var mustStopSpinning = useRef(false);
-    var classKey = makeClassKey(5);
+    var classKey = useMemo(function () { return makeClassKey(5); }, []);
     var normalizedSpinDuration = Math.max(0.01, spinDuration);
     var startSpinningTime = START_SPINNING_TIME * normalizedSpinDuration;
     var continueSpinningTime = CONTINUE_SPINNING_TIME * normalizedSpinDuration;
@@ -131,14 +131,14 @@ export var Wheel = function (_a) {
     }, [data, backgroundColors, textColors]);
     useEffect(function () {
         var _a;
-        if (mustStartSpinning && !isCurrentlySpinning) {
+        if (mustStartSpinning && !isCurrentlySpinning && isDataUpdated) {
             setIsCurrentlySpinning(true);
             startSpinning();
             var selectedPrize = prizeMap[prizeNumber][Math.floor(Math.random() * ((_a = prizeMap[prizeNumber]) === null || _a === void 0 ? void 0 : _a.length))];
             var finalRotationDegreesCalculated = getRotationDegrees(selectedPrize, getQuantity(prizeMap));
             setFinalRotationDegrees(finalRotationDegreesCalculated);
         }
-    }, [mustStartSpinning]);
+    }, [isDataUpdated, mustStartSpinning]);
     useEffect(function () {
         if (hasStoppedSpinning) {
             setIsCurrentlySpinning(false);

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import WebFont from 'webfontloader';
 
 import {
@@ -105,8 +105,7 @@ export const Wheel = ({
   const [totalImages, setTotalImages] = useState(0);
   const [isFontLoaded, setIsFontLoaded] = useState(false);
   const mustStopSpinning = useRef<boolean>(false);
-
-  const classKey = makeClassKey(5);
+  const classKey = useMemo(() => makeClassKey(5), []);
 
   const normalizedSpinDuration = Math.max(0.01, spinDuration);
 
@@ -123,7 +122,6 @@ export const Wheel = ({
     const dataLength = data?.length || 0;
     const wheelDataAux = [{ option: '', optionSize: 1 }] as WheelData[];
     const fontsToFetch = isCustomFont(fontFamily?.trim()) ? [fontFamily] : [];
-
     for (let i = 0; i < dataLength; i++) {
       let fontArray = data[i]?.style?.fontFamily?.split(',') || [];
       fontArray = fontArray.map(font => font.trim()).filter(isCustomFont);
@@ -204,7 +202,7 @@ export const Wheel = ({
   }, [data, backgroundColors, textColors]);
 
   useEffect(() => {
-    if (mustStartSpinning && !isCurrentlySpinning) {
+    if (mustStartSpinning && !isCurrentlySpinning && isDataUpdated) {
       setIsCurrentlySpinning(true);
       startSpinning();
       const selectedPrize =
@@ -217,7 +215,7 @@ export const Wheel = ({
       );
       setFinalRotationDegrees(finalRotationDegreesCalculated);
     }
-  }, [mustStartSpinning]);
+  }, [isDataUpdated, mustStartSpinning]);
 
   useEffect(() => {
     if (hasStoppedSpinning) {

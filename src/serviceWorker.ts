@@ -27,6 +27,11 @@ type Config = {
 };
 
 export function register(config?: Config) {
+  if ((typeof window === "undefined") || (typeof navigator === "undefined")) {
+    // Server-side code
+    return;
+  }
+
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(
@@ -138,6 +143,11 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
 }
 
 export function unregister() {
+  if (typeof navigator === "undefined") {
+    // Server-side code
+    return;
+  }
+
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready
       .then(registration => {
