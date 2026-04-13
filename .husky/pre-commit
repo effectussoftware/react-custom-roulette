@@ -1,1 +1,1 @@
-yarn format && yarn lint
+npm run format && npm run lint

@@ -54,7 +54,6 @@ const drawWheel = (
   data: WheelData[],
   drawWheelProps: DrawWheelProps
 ) => {
-  /* eslint-disable prefer-const */
   let {
     outerBorderColor,
     outerBorderWidth,

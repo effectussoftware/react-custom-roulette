@@ -3,7 +3,7 @@ interface Props {
     mustStartSpinning: boolean;
     prizeNumber: number;
     data: WheelData[];
-    onStopSpinning?: () => any;
+    onStopSpinning?: () => void;
     backgroundColors?: string[];
     textColors?: string[];
     outerBorderColor?: string;
