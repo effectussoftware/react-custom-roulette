@@ -33,7 +33,7 @@ beforeEach(() => {
 
 afterEach(() => {
   document.body.removeChild(container);
-  container = (null as unknown) as HTMLDivElement;
+  container = null as unknown as HTMLDivElement;
 });
 
 describe('Render Wheel', () => {

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2017",
     "declaration": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -9,10 +9,11 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react",
+    "rootDir": "./src/",
     "outDir": "./dist/",
     "noImplicitAny": true,
     "noUnusedLocals": true,

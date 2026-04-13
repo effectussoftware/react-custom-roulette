@@ -7,6 +7,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     library: 'Wheel',
     libraryTarget: 'umd',
+    clean: true,
   },
   module: {
     rules: [
@@ -18,14 +19,12 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|gif)$/i,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 8192,
-            },
+        type: 'asset/inline',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 8192,
           },
-        ],
+        },
       },
       {
         test: /\.css$/i,

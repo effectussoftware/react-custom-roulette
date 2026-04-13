@@ -1,15 +1,24 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+**/node_modules
 /.pnp
 .pnp.js
+
+# lock files (keep only one — package-lock.json is the default for this project)
+yarn.lock
+
+# build output
+/dist
 
 # testing
 /coverage
 
 # production
 /build
+
+# husky internals
+.husky/_
 
 # misc
 .DS_Store
