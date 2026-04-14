@@ -39,7 +39,7 @@ interface Props {
   mustStartSpinning: boolean;
   prizeNumber: number;
   data: WheelData[];
-  onStopSpinning?: () => any;
+  onStopSpinning?: () => void;
   backgroundColors?: string[];
   textColors?: string[];
   outerBorderColor?: string;
@@ -273,13 +273,13 @@ export const Wheel = ({
     >
       <RotationContainer
         className={getRouletteClass()}
-        classKey={classKey}
-        startSpinningTime={startSpinningTime}
-        continueSpinningTime={continueSpinningTime}
-        stopSpinningTime={stopSpinningTime}
-        startRotationDegrees={startRotationDegrees}
-        finalRotationDegrees={finalRotationDegrees}
-        disableInitialAnimation={disableInitialAnimation}
+        $classKey={classKey}
+        $startSpinningTime={startSpinningTime}
+        $continueSpinningTime={continueSpinningTime}
+        $stopSpinningTime={stopSpinningTime}
+        $startRotationDegrees={startRotationDegrees}
+        $finalRotationDegrees={finalRotationDegrees}
+        $disableInitialAnimation={disableInitialAnimation}
       >
         <WheelCanvas
           width="900"
